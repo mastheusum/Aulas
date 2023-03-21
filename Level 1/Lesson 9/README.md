@@ -26,3 +26,25 @@ O editor de eventos é o local ondo você poderá fazer o jogador interagir com 
 ##### Top Menus
 Nos menus superiores podemos fazer várias coisas, entre elas publicar nossos jogos.
 <br>[![006](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/006.png "006")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/006.png "006")
+### Behaviors
+A palavra *behaviour* significa comportamento, mas no caso do GDevelop ela significa muito mais que isso, os *behaviours* são pequenos "códigos" que já vem prontos e servem para agilizar o desenvolvimento de jogos, geralmente eles são feitos baseados em códigos que são muito usados. Por exemplo, muitas pessoas começam sua carreira desenvolvendo jogos de plataforma, por conta disso existem *behaviours* para as plataformas e para o personagem que anda e pula pelo cenário.<br>Existem dois tipos de *behaviors* os que foram desenvolvidos por programadores do própro GDevelop e que por isto já vem instalados e os que foram criados por usuários como você, alguns do segundo tipo estão disponíveis para download.
+<br>[![010](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/010.png "010")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/010.png "010")<br>
+Para que possamos aprender sobre *behaviors* vamos precisar de um projeto, então abra o projeto que foi colocado para download na unidade.<br>Após aberto o projeto vá até o Gerente de Projetos e escolha a cena de nome **Platformer**<br>
+Se rodarmos o jogo veremos que nada acontece.<br>
+Vamos dar um duplo clique no nosso Player e então uma nova janela irá abrir
+<br>[![011](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/011.png "011")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/011.png "011")<br>
+Vá em *behaviors*
+<br>[![012](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/012.png "012")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/012.png "012")<br>
+Clique em *Add Behavior*
+<br>[![009](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/009.png "009")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/009.png "009")<br>
+Então selecione *Platformer Character*
+<br>[![013](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/013.png "013")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/013.png "013")<br>
+Agora é só clicar em **Apply** e então rodar o jogo!<br>
+E Pum! O personagem atravessa o chão...
+
+
+
+
+
+
+
