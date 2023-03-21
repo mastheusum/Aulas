@@ -59,10 +59,8 @@ Outros *behaviors* úteis são:
 * *Top-Down Movement (4 or 8 Directions)*: Principal comportamento para jogos Top-Down
 * *Linear Movement*: útil quando se tem um objeto que se move em linha reta como um projétil/tiro
 * *Stay on Screen*: este é útil em quase todos os projetos pois ele força os objetos a permanecerem dentro da tela
-
-Além de se adicionar *behaviors* é possível configurar para que eles funcionem de outros formas. 
 <br>
-No caso do **Platform** nós podemos pular para cima dele, mas não podemos fazer isto tentando atravessar ele pois nosso Player vai bater com a cabeça, mas se formos no Behavior e configurarmos sua propriedade Type para *Jumptrhu Platform* então será possível pular através das plataformas.
+Além de se adicionar *behaviors* é possível configurar para que eles funcionem de outros formas. <br>No caso do **Platform** nós podemos pular para cima dele, mas não podemos fazer isto tentando atravessar ele pois nosso Player vai bater com a cabeça, mas se formos no Behavior e configurarmos sua propriedade Type para *Jumptrhu Platform* então será possível pular através das plataformas.
 <br>
 [![014](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/014.png "014")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/014.png "014")
 <br>
@@ -70,7 +68,26 @@ Para configurarmos a escada seguiremos a mesma ideia. Vamos adicionar a ela o *b
 <br>
 [![015](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/015.png "015")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/015.png "015")
 <br>
-
-
-
-
+### Utilizando Behaviors da Comunidade
+Para utilizar behaviours da comunidade vamos utilizar outra cena do projeto em que você vem trabalhando, para abrir esta outra cena clique no botão project manager e depois na cena *Racer*.
+<br>
+[![016](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/016.png "016")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/016.png "016")
+<br>
+Vamos adicionar o behavior **Linear Movement** ao Opponent. Abra o Opponent, vá em Behaviors e depois em *Search New Behaviors* e então pesquisamos por **Linear Movement** e então selecionamos ele.
+<br>
+[![017](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/017.png "017")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/017.png "017")
+<br>
+Agora clicamos em **Install in Project** e então ele irá aparecer na nossa lista de behaviors e então podemos escolher ele para o Opponent.
+<br>
+[![018](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/018.png "018")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/018.png "018")
+<br>
+Com ele selecionado vamos definir o **Speed on X axis** para 250 e então aplicar.<br>
+Para o nosso Player iremos adicionar o behavior *Top-Down Movement* e testar. 
+<br>
+[![019](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/019.png "019")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/019.png "019")
+<br>
+Só que nessa velocidade nós não podemos ganhar do inimigo...<br>
+Então vamos alterar a propriedade *Max Speed* para 1000, aplicar e testar novamente
+<br>
+[![020](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/020.png "020")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/020.png "020")
+<br>
