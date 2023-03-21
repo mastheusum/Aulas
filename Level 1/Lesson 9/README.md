@@ -66,9 +66,8 @@ Além de se adicionar *behaviors* é possível configurar para que eles funcione
 <br>
 Para configurarmos a escada seguiremos a mesma ideia. Vamos adicionar a ela o *behavior* **Platform** mas iremos modificar a sua propriedade **Type** para *Ladder*
 <br>
-[![015](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/015.png "015")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/015.png "015")
+[![015](/Screenshots/015.png "015")](/Screenshots/015.png "015")
 <br>
-
 
 
 
