@@ -1,7 +1,7 @@
 # Programação Orientada a Objetos com C#
 
 ### Pré-aula
-Obs: Antes de iniciar o assunto garante que a Unity está aberta em um projeto vazio e salvo em um local de conhecimento prévio para não perder tempo. Recomento os passos a seguir
+Antes de iniciar o assunto garante que a Unity está aberta em um projeto vazio e salvo em um local de conhecimento prévio para não perder tempo. Recomento os passos a seguir
 1. Abra a Unity HUB
 2. Crie um novo projeto utilizando a versão escolhida para ser utilizada durante o ano
 3. O projeto deve ser 2D
