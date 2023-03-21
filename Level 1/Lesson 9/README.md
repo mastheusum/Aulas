@@ -59,8 +59,10 @@ Outros *behaviors* úteis são:
 * *Top-Down Movement (4 or 8 Directions)*: Principal comportamento para jogos Top-Down
 * *Linear Movement*: útil quando se tem um objeto que se move em linha reta como um projétil/tiro
 * *Stay on Screen*: este é útil em quase todos os projetos pois ele força os objetos a permanecerem dentro da tela
+
+Além de se adicionar *behaviors* é possível configurar para que eles funcionem de outros formas. 
 <br>
-Além de se adicionar *behaviors* é possível configurar para que eles funcionem de outros formas. <br>No caso do **Platform** nós podemos pular para cima dele, mas não podemos fazer isto tentando atravessar ele pois nosso Player vai bater com a cabeça, mas se formos no Behavior e configurarmos sua propriedade Type para *Jumptrhu Platform* então será possível pular através das plataformas.
+No caso do **Platform** nós podemos pular para cima dele, mas não podemos fazer isto tentando atravessar ele pois nosso Player vai bater com a cabeça, mas se formos no Behavior e configurarmos sua propriedade Type para *Jumptrhu Platform* então será possível pular através das plataformas.
 <br>
 [![014](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/014.png "014")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/014.png "014")
 <br>
