@@ -91,3 +91,26 @@ Então vamos alterar a propriedade *Max Speed* para 1000, aplicar e testar novam
 <br>
 [![020](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/020.png "020")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/020.png "020")
 <br>
+### Começando a Programar com Eventos
+Agora você vai aprender como funciona a programação através de eventos dentro GDevelop, os eventos são compostos por condições que são **acontecimentos** que desencadeiam **ações**, pense nos acontecimentos da vida real como por exemplo a chuva, quando chove nós realizamos ações como, tirar a roupa do varal, pegar uma capa de chuva ou abrir um guarda chuva, outro exemplo é a fome, pois sentir fome é algo que eventualmente vai acontecer ou seja uma condição que quando acontece desencadeia a ação de pedir comida no IFood.<br>
+No caso do nosso jogo programaremos para que quando nosso Player tocar em alguma estrela nós ganhamos o jogo.<br>
+Para isso vá até a aba **Racer (Events)**
+<br>
+[![021](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/021.png "021")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/021.png "021")
+<br>
+Lá iremos clicar em *Add Event* e então duas novas opções irão aparecer
+1. *Add Condition*: esta opção é o que estamos esperando que aconteça
+2. *Add Action*: esta opção é o que queremos que seja feito quando nossa condição ocorrer
+<br>
+[![022](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/022.png "022")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/022.png "022")
+<br>
+Agora basta adicionar como condição a opção **Player > Collision > Star** como na imagem abaixo
+<br>
+[![023](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/023.png "023")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/023.png "023")
+<br>
+Agora precisamos adicionar a ação de pausar o jogo<br>
+Para isto adicione uma ação e escolha **Other Actons > Timers and Timer > Time Scale > 0** como na imagem abaixo
+<br>
+[![024](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/024.png "024")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/024.png "024")
+<br>
+Agora é sua vez, tente fazer com que quando o Opponent tocar a estrela o jogo seja pausado.
