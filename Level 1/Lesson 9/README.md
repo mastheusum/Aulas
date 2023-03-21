@@ -101,7 +101,7 @@ Para isso vá até a aba **Racer (Events)**
 Lá iremos clicar em *Add Event* e então duas novas opções irão aparecer
 1. *Add Condition*: esta opção é o que estamos esperando que aconteça
 2. *Add Action*: esta opção é o que queremos que seja feito quando nossa condição ocorrer
-<br>
+
 [![022](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/022.png "022")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/022.png "022")
 <br>
 Agora basta adicionar como condição a opção **Player > Collision > Star** como na imagem abaixo
