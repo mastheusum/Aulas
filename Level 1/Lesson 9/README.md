@@ -31,7 +31,7 @@ A palavra *behaviour* significa comportamento, mas no caso do GDevelop ela signi
 <br>[![010](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/010.png "010")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/010.png "010")<br>
 Para que possamos aprender sobre *behaviors* vamos precisar de um projeto, então abra o projeto que foi colocado para download na unidade.<br>Após aberto o projeto vá até o Gerente de Projetos e escolha a cena de nome **Platformer**<br>
 Se rodarmos o jogo veremos que nada acontece.<br>
-Vamos dar um duplo clique no nosso Player e então uma nova janela irá abrir
+Vamos abrir o nosso Player dando um duplo clique nele e então uma nova janela irá abrir
 <br>[![011](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/011.png "011")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/011.png "011")<br>
 Vá em *behaviors*
 <br>[![012](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/012.png "012")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/012.png "012")<br>
@@ -40,10 +40,20 @@ Clique em *Add Behavior*
 Então selecione *Platformer Character*
 <br>[![013](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/013.png "013")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/013.png "013")<br>
 Agora é só clicar em **Apply** e então rodar o jogo!<br>
-E Pum! O personagem atravessa o chão...
-
-
-
+E Pum! O personagem atravessa o chão...<br>
+Isso acontece pois nós adicionamos gravidade para o personagem cair, mas não adicionamos o comportamento *Platform* ao piso para que ele possa servir de plataforma.<br>
+Tente adicionar esse *behavior* por conta própria e então teste.
+Outros *behaviors* úteis são:
+* *Destroy when outside of the screen*: que destroy automaticamente o objeto quando ele sair da tela.
+* *Draggable Object*: que nos permite arrastar objetos. É muito útil para vários projetos, mas até mesmo em projetos simples como Damas e Xadrez ele é útil
+* *Top-Down Movement (4 or 8 Directions)*: Principal comportamento para jogos Top-Down
+* *Linear Movement*: útil quando se tem um objeto que se move em linha reta como um projétil/tiro
+* *Stay on Screen*: este é útil em quase todos os projetos pois ele força os objetos a permanecerem dentro da tela
+<br>
+Além de se adicionar *behaviors* é possível configurar para que eles funcionem de outros formas. <br>No caso do **Platform** nós podemos pular para cima dele, mas não podemos fazer isto tentando atravessar ele pois nosso Player vai bater com a cabeça, mas se formos no Behavior e configurarmos sua propriedade Type para *Jumptrhu Platform* então será possível pular através das plataformas.
+<br>[![014](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/014.png "014")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/014.png "014")<br>
+Para configurarmos a escada seguiremos a mesma ideia. Vamos adicionar a ela o *behavior* **Platform** mas iremos modificar a sua propriedade **Type** para *Ladder*
+<br>[![015](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/015.png "015")](https://github.com/mastheusum/Aulas/blob/main/Level%201/Lesson%209/Screenshots/015.png "015")<br>
 
 
 
