@@ -5,7 +5,7 @@ Para este projeto será preciso que os alunos estejam com o projeto corretamente
 
 ### Melhorando o User
 <br>Atualmente o arquivo está feito da seguinte forma:
-````javascript
+```javascript
 function UserForm() {
 	...
 }
@@ -15,7 +15,7 @@ function UserTable() {
 ```
 O primeiro a se fazer é melhor o nosso arquivo *User.js* para que ele possa ser utilizado através de apenas um componente. Isso será necessário pois através das rotas poderemos modificar apenas um dos componentes, não dois.
 <br>Faremos isso criando um componente UserBox que irá utilizar os dois componentes já existentes, assim poderemos importar apenas ele para onde precisarmos.
-````javascript
+```javascript
 function UserForm() {
 	...
 }
@@ -147,4 +147,4 @@ Depois vamos fazer alterações no código pois a tag **a** será substituída p
 ```
 
 ### Atividades
-Crie uma página inicial e adicione as Rotas
+Crie uma página inicial e adicione as Rotas 
