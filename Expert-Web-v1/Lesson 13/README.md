@@ -31,7 +31,7 @@ export default function UserBox() {
 		</div>
 	);
 }
-```
+``` 
 Podemos já modificar o nosso *App.js* para usar o *UserBox*. Primeiro modifique os arquivos importados para ficar da seguinte forma:
 ```javascript
 import UserBox from './User';
