@@ -6,17 +6,17 @@ Para este projeto será preciso que os alunos estejam com o projeto corretamente
 ### O react-router-dom
 Essa biblioteca possibilita que o roteamento das páginas seja feito pelo lado do cliente. Como vantagem temos uma aplicação de página única (*Single Page Application*) que realizou apenas a primeira requisição e sempre que o cliente precisa mudar da página a mudança é feita sem a criação de uma nova requisição.
 <br>Para que isso seja possível vamos precisar instalar o **react-router-dom** para isso usamos o comando: <br>
-```javascript
-npm install react-router-dom
-```
+
+
+    npm install react-router-dom
 <br>
 Após a instalação não teremos nenhuma outra nova biblioteca a ser instalada hoje, então vamos iniciar o servidor.
 
 ### Preparando as rotas
 A preparação das rotas é feita no arquivo *index.js* no ponto onde estamos renderizando o componente *<App />* , mas antes disso precisaremos importar algums elementos da *react-router-dom* como na linha abaixo: <br>
-```javascript
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-``` 
+
+
+    import { BrowserRouter, Routes, Route } from 'react-router-dom';
 Também precisaremos importar os componentes que serão renderizados na tela: <br>
 ```javascript
 import App from './App';
