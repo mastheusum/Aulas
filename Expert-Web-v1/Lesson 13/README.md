@@ -13,5 +13,5 @@ Após a instalação não teremos nenhuma outra nova biblioteca a ser instalada 
 A preparação das rotas é feita no arquivo *index.js* no ponto onde estamos renderizando o componente *<App />* , mas antes disso precisaremos importar algums elementos da *react-router-dom* como na linha abaixo: <br>
 `import { BrowserRouter, Routes, Route } from 'react-router-dom';` <br>
 Também precisaremos importar os componentes que serão renderizados na tela: <br>
-`import App from './App';`
+`import App from './App';`<br>
 `import UserBox from './User';`
