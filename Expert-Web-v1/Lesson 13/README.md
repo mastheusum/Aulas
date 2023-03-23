@@ -1,3 +1,7 @@
+pre {
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
 # Reacte Router e Navegação
 
 #### Pré-aula
