@@ -3,6 +3,57 @@
 #### Pré-aula
 Para este projeto será preciso que os alunos estejam com o projeto corretamente refatorado usando o *useState* e o *useEffect* para evitar erros que ocorreram nas aulas anteriores.
 
+### Melhorando o User
+<br>Atualmente o arquivo está feito da seguinte forma:
+````javascript
+function UserForm() {
+	...
+}
+function UserTable() {
+	...
+}
+```
+O primeiro a se fazer é melhor o nosso arquivo *User.js* para que ele possa ser utilizado através de apenas um componente. Isso será necessário pois através das rotas poderemos modificar apenas um dos componentes, não dois.
+<br>Faremos isso criando um componente UserBox que irá utilizar os dois componentes já existentes, assim poderemos importar apenas ele para onde precisarmos.
+````javascript
+function UserForm() {
+	...
+}
+function UserTable() {
+	...
+}
+export default function UserBox() {
+	return (
+		<div>
+			<UserForm />
+			<br />
+			<UserTable />
+		</div>
+	);
+}
+```
+Podemos já modificar o nosso *App.js* para usar o *UserBox*. Primeiro modifique os arquivos importados para ficar da seguinte forma:
+```javascript
+import UserBox from './User';
+```
+E então na linha onde temos:
+```javascript
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"> 
+	<br />
+	<UserForm />
+	<br />
+	<UserTable />
+</main>
+```
+Teremos apenas:
+```javascript
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"> 
+	<br />
+	<UserBox />
+</main>
+```
+A utilização de componentes que funcionem como "caixas" para outros componentes é muito comum no React.
+
 ### O react-router-dom
 Essa biblioteca possibilita que o roteamento das páginas seja feito pelo lado do cliente. Como vantagem temos uma aplicação de página única (*Single Page Application*) que realizou apenas a primeira requisição e sempre que o cliente precisa mudar da página a mudança é feita sem a criação de uma nova requisição.
 <br>Para que isso seja possível vamos precisar instalar o **react-router-dom** para isso usamos o comando: <br>
@@ -42,6 +93,7 @@ Explicando:
 * BrowserRouter: este componente este componente armazena o local atual na barra de endereços do navegador utilizando URLs limpos e navega usando a pilha de histórico integrada do navegador.
 * Routes: este componente irá armazenar as rotas. Elas podem ser aninhadas uma na outra fazendo com que as rotas senha renderizadas dentro das rotas pai
 * Route: define o caminho de uma rota e qual elemento será renderizado por ela. No nosso caso teremos a rota *App* que irá servir de Layout base para nossas outras rotas e dentro dela iremos renderizar os outros componentes como o *UserBox*.
+### Configurando os componentes
 Após definirmos como serão nossas rotas se formos no navegador teremos que apenas o nosso Layout funcionando como sempre, mas isso não quer dizer que estamos conseguindo mudar entre as rotas.<br>
 Para testar se está realmente funcionando vamos alterar a linha no arquivo App.js e remover o componente *UserBox*:
 ```javascript
@@ -68,7 +120,31 @@ Entretando ainda não está funcionando, mas desta vez o problema são os nossos
 <br>Como exemplo das mudanças vou apresentar apenas a mudaça com a tag que nos lega até **Cadastrar Usuário** que no momento está da seguinte forma:
 ```javascript
 <a className="nav-link" href="/user">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    Cadastrar Usuário <span className="sr-only">(current)</span>
-                  </a>
+	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-users">
+		<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+		<circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+		<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+	</svg>
+	Cadastrar Usuário
+	<span className="sr-only">(current)</span>
+</a>
 ```
+Primeiro importamos o componente *Link*
+```javascript
+import { Link, Outlet } from 'react-router-dom';
+```
+Depois vamos fazer alterações no código pois a tag **a** será substituída pelo componente **Link** e a pripriedade **href** pela propriedade **to** nos dando o seguinte resultado:
+```javascript
+<Link className="nav-link" to="/user">
+	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-users">
+		<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+		<circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+		<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+	</svg>
+	Cadastrar Usuário
+	<span className="sr-only">(current)</span>
+</Link>
+```
+
+### Atividades
+Crie uma página inicial e adicione as Rotas
