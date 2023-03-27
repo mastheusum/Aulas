@@ -34,7 +34,7 @@ Então siga os passos abaixo:
 1. Adicione um *KinematicBody2D* como filho do *World*
 2. Renomei-o para *Player*
 3. Adicione um *Sprite* como filho do *Player*
-4. Selecione o *Player* e marque a opção *Make object children are not Selectable* ![Quadrado com pontinhos](/Screenshots/000.png "Quadrado com pontinhos")
+4. Selecione o *Player* e marque a opção *Make object children are not Selectable* ![Quadrado com pontinhos](https://github.com/mastheusum/Aulas/blob/main/Demonstrativas/Level%202/Screenshoots/000.png "Quadrado com pontinhos")
 5. Posicione o *Player* sobre a plataforma (é só arrastar)
 6. elecione o *Player* e clique no pergaminho que existe acima da aba
 7. Crie o Script e vá para edição
