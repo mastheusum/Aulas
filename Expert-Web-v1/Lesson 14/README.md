@@ -161,7 +161,8 @@ useEffect(() => {
 });
 ```
 com isto podemos testar o Login tanto para sucesso quanto para erro.
-### Preparando o cadastro de Receitas
+
+### Preparando o Formulário de Cadastro de Receitas
 Começamos criando o arquivo *Gain.js* que irá gerenciar as receitas e nele teremos 3 componentes:
 ```javascript
 import React from 'react';
@@ -326,7 +327,7 @@ headers: {
    "client": client1
 }
 ```
-E então continuamos para a definição do *success*:
+E então continuamos para a definição do *success* onde vamos pegar os dados da resposta e adicionar a lista que usaremos na nossa tabela:
 ```javascript
 success: function(resposta) {
    console.log("sucesso");
@@ -351,6 +352,50 @@ success: function(resposta) {
    },10);
 }
 ```
+A função complete mais uma vez pegará os dados do cabeçalho da requisição e os deixará disponíveis.
+```javascript
+complete: function(resposta) {
+   console.log('complete!');
+   console.log(resposta);
+
+   var obj = guardaDados;
+   obj.token = resposta.getResponseHeader('access-token');
+   obj.client = resposta.getResponseHeader('client');
+   obj.uid = resposta.getResponseHeader('uid');
+   setGuardaDados(obj);
+
+   PubSub.publish('access-token', obj.token);
+   PubSub.publish('client', obj.client);
+   PubSub.publish('uid', obj.uid);
+},
+```
+Na função error duas verificações devem ser feitas: a primeira validará se o usuário está logado no sistema, e a segunda se as informações inseridas no formulário são válidas.
+```javascript
+error: function(resposta) {
+   console.log('ERRO!');
+   console.log(resposta);
+
+   if (resposta.status === 401){
+      new ManageErrors().publishErrorsValidation(resposta.responseJSON);
+   }
+   if (resposta.status === 422){
+      new ManageErrors().publishErrorsGE(resposta.responseJSON);
+   }
+}
+```
+Apesar de tudo isso ainda receberemos o código 401 quando enviarmos os dados da nova receita, mesmo que corretos. Isso indica que não temos autorização suficiente para esta ação. Iremos corrigir isto no componente *GainTable*<br>
+Lembre-se de adicionar o enviar form ao formulário!
+
+### Preparando Tabela de Receitas
+No caso da nossa tabela de receitas vamos precisar apenas de uma variável para a lista de receitas:
+```javascript
+const [lista, setLista] = useState([]);
+```
+Após a criação da variável vamos usar o *useEffect* para atualizar os dados da lista e também para manter atualizado os dados necessários para o cabeçalho usado no cadastro de novas receitas:
+```javascript
+
+```
+
 
 
 
