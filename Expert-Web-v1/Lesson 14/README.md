@@ -6,7 +6,7 @@ Neste ponto é esperado que no seu projeto já esteja feito o conteúdo que foi 
 ### Preparando o Login
 Relembrando que já temos os templates das páginas que estamos utilizando neste projeto o que devemos fazer é criar um novo Script chamado *Login.js* que irá conter o conteúdo da página de login.<br>
 Vamos começar com a estrutura básica do componente:
-```
+```javascript
 import React, { useState, useEffect } from 'react';
 
 function Login() {
@@ -34,7 +34,7 @@ function Login() {
 export default Login;
 ```
 Entretanto para podermos testar isto vamos adicionar a página de login às nossas rotas no arquivo *index.js*. O arquivo ficará assim:
-```
+```javascript
 <BrowserRouter>
    <Routes>
       <Route path="/" element={ <App /> } >
@@ -45,7 +45,7 @@ Entretanto para podermos testar isto vamos adicionar a página de login às noss
 </BrowserRouter>
 ```
 E para finalizar iremos colocar o link dele no nosso *App.js* para funcionar. Basta localizar onde está o hyperlink dele e então modificar para usar o componente **Link** do react-router-dom que foi mostrado na aula passada. Resutando no código abaixo:
-```
+```javascript
 <li className="nav-item">
    <Link className="nav-link" to="/sign_in">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-log-in"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
@@ -55,7 +55,7 @@ E para finalizar iremos colocar o link dele no nosso *App.js* para funcionar. Ba
 ```
 Agora testamos a rota para ver se está funcionando corretamente.<br>
 Visto o resultado vamos precisar fazer com que o Login funcione corretamente então vamos fazer novas mudanças nos arquivos. Primeiramente vamos adicionar novos imports:
-```
+```javascript
 import React, { useState, useEffect } from 'react';
 import PubSub from 'pubsub-js';
 import $ from 'jquery';
@@ -63,13 +63,13 @@ import CustomInput from './components/CustomInput';
 import ManageErrors from './ManageErrors';
 ```
 Adicionados os novos imports vamos adicionar os estados:
-```
+```javascript
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [guardaDados, setGuardaDados] = useState({});
 ```
 E então vamos criar uma nova função para enviar o nosso formulário com o AJAX:
-```
+```javascript
 function enviaForm(evento) {
    evento.preventDefault();
    console.log("dados sendo enviados...");
@@ -110,7 +110,7 @@ function enviaForm(evento) {
 ```
 Caso o login seja efetuado com *sucesso* vamos apenas eviar um alerta informando essa situação. E no caso de ocorrer um *erro*, vamos tratar este erro com um novo método do ManageErros que iremos preparar daqui a pouco.<br>
 No caso do *complete* vamos precisar armazenar alguns dados referentes a sessão para que possamos realizar as operações que um usuário cadastrado pode realizar, como cadastrar receitas e despesas. Então vamos fazer algumas mudanças neste código:
-```
+```javascript
 complete: function(resposta) {
    console.log("Complete!!");
    console.log(resposta.getAllResponseHeaders());
@@ -127,7 +127,7 @@ complete: function(resposta) {
 ```
 Note que estamos usando o PubSub nos cabeçalhos que armazenamos. A ideia é que as outras páginas também tenham esta informação armazenada.<br>
 Antes de irmos ao ManageErrors precisamos fazer algumas alterações no formulário para que ele use o nosso CustomInput e para que execute o enviaForm que acabamos de criar.
-```
+```javascript
 <form onSubmit={enviaForm} method="post">
    <div class="form-group">
       <CustomInput type="email" id="email" label="E-mail" 
@@ -143,7 +143,7 @@ Antes de irmos ao ManageErrors precisamos fazer algumas alterações no formulá
 </form>
 ```
 No *ManageErrors.js* vamos adicionar uma nova função para cuidar dos erros:
-```
+```javascript
 publishErrorsValidation(errors) {
    for (var i = 0; i < errors.errors.lenght; i++) {
       var erro = errors.errors[i];
@@ -153,7 +153,7 @@ publishErrorsValidation(errors) {
 }
 ```
 Agora precisamos tomar alguma ação na nossa página de login quando o erro de validação for enviado e para isso usaremos o *useEffect* que colocaremos antes da função *enviaForm*:
-```
+```javascript
 useEffect(() => {
    PubSub.subscribe('erro-validacao-login', function(topico, erro) {
       alert(erro);
@@ -163,7 +163,7 @@ useEffect(() => {
 com isto podemos testar o Login tanto para sucesso quanto para erro.
 ### Preparando o cadastro de Receitas
 Começamos criando o arquivo *Gain.js* que irá gerenciar as receitas e nele teremos 3 componentes:
-```
+```javascript
 import React from 'react';
 
 function GainForm() {}
@@ -176,7 +176,7 @@ export default GainBox;
 ```
 Agora vamos ver adicionar o HTML de cada um destes componetentes começando do primeiro e lembrando que esse código já existe no template que baixamos, assim nos casos anteriores.<br>
 GainForm:
-```
+```javascript
 function GainForm() {
    return (
       <div style={{marginTop: "20px;"}}>						
@@ -205,7 +205,7 @@ function GainForm() {
 }
 ```
 GainTable:
-```
+```javascript
 function GainTable() {
    return (
       <div class="table-responsive" style={{marginTop: "20px;"}}>
@@ -231,7 +231,7 @@ function GainTable() {
 }
 ```
 GainBox:
-```
+```javascript
 function GainBox() {
    return (
       <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -247,7 +247,7 @@ Ao final do código tome cuidado com a propriedade *style* pois no react ela dev
 Agora vamos adicionar a rota e criar o link assim como fizemos com a página de login.<br>
 Como esta parte já foi feita antes não irei apresentar o código, apenas fica como anotação que o link para a página e de receitas é **/gains**.<br>
 Agora vamos novamente adicionar os importas que estaremos usando:
-```
+```javascript
 import React, { useState, useEffect } from 'react';
 import PubSub from 'pubsub-js';
 import $ from 'jquery';
@@ -255,7 +255,7 @@ import CustomInput from './components/CustomInput';
 import ManageErrors from './ManageErrors';
 ```
 Após isto começaremos pelo formulário. Vamos criar seus estados:
-```
+```javascript
 const [lista, setLista] = useState([]);
 const [description, setDescription] = useState('');
 const [value, setValue] = useState('');
@@ -263,7 +263,7 @@ const [date, setDate] = useState('');
 const [guardaDados, setGuardaDados] = useState({});
 ```
 Agora vamos aplicar os nossos *CustomInputs*:
-```
+```javascript
 return (
    <div style={{marginTop: "20px"}}>
       <h1 className="h2">Cadastro de Receitas</h1>						
@@ -289,7 +289,7 @@ return (
 );
 ```
 Testamos os imputs para ver se estão funcionando corretamente e então vamos programar o método enviaForm para a requisição de cadastrar um novo usuário:
-```
+```javascript
 function enviaForm(evento) {
    evento.preventDefault();
    console.log('dados de receita sendo enviados...');
@@ -313,13 +313,13 @@ function enviaForm(evento) {
 }
 ```
 Neste ponto precisamos resolver o problema do cabeçalho da requisição, pois é nele que estamosi informando a quem pertence esta receita. Para começar vamos criar algumas variáveis fora do componente, logo após os imports:
-```
+```javascript
 var token1;
 var uid1;
 var client1;
 ```
 E então usamos estas variáveis na criação do nosso cabeçalho na nossa requisição:
-```
+```javascript
 headers: {
    "access-token": token1,
    "uid": uid1,
@@ -327,7 +327,7 @@ headers: {
 }
 ```
 E então continuamos para a definição do *success*:
-```
+```javascript
 success: function(resposta) {
    console.log("sucesso");
    console.log(resposta);
