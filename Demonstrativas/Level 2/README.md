@@ -26,6 +26,8 @@ Explique as abas da interface da Godot:
 * File System (cando inferior esquerdo): aqui é onde vemos as pastas e arquivos que compõem a nossa cena
 * Inspector (lado direito): aqui é onde vemos os detalhes do Node/Peça que estamos selecionando
 * A parte central é onde montamos a nossa cena
+Agora vamos mudar a imagem de fundo do Background<br>
+Para isso vamos até o *File System* na pasta *8Sprites/Backgrounds* e vamos escolher uma imagem que sirva de background. Escolhida a imagem basta arrastar ela até a nossa aba *Scene* e soltar no nosso Node/Peça *Background* e escolher a opção *Texture* e está feito!
 
 ### Montando o Personagem
 Para a montagem do personagem basta seguir os seguintes passos:<br>
@@ -173,79 +175,37 @@ Isto acontece por ele não ter colisão com a plataforma, então vamos adicionar
 7. Arraste os pontos laranjas para alterar o tamanho do quadrado e faça-o cobrir o player
 8. Não precisa cobrir ele completamente, apenas o suficiente para que ele bata onde achar que deve bater
 TESTE!<br>
-Agora que ele fica na plataforma vamos fazer o pulo.
-
-
-----------------
-
-Comece criando as variáveis que seu jogo irá precisar:
+Agora que ele fica na plataforma vamos fazer o pulo.<br>
+para o pulo iremos adicionar uma velocidade para cima sempre que for apertado o botão de espaço:
 ```
 var speed = 200
-var jump = -5
+var dir = Vector2()
 var gravity = 10
-var direction = Vector2()
-```
-Após a criação das variáveis vamos para a programação da movimentação
-```
+var jump = -5 # nova variável
+ 
 func _physics_process(delta):
-  if Input.is_action_pressed('ui_right'):
-    direction.x = 1
-  elif Input.is_action_pressed('ui_left'):
-    direction.x = -1
+  # será executado se é verdadeiro que apertamos a seta direita no teclado
+  if Input.is_key_pressed(KEY_RIGHT):
+    dir.x = 1
+  # será executado se é verdadeiro que apertamos a seta esquerda no teclado
+  elif Input.is_key_pressed(KEY_LEFT):
+    dir.x = -1
+  # será executado se nem IF nem ELIF tiver sido executado
   else:
-    direction.x = 0
+    dir.x = 0
+  
+  dir.y = dir.y + gravity * delta
 
-  move_and_slide(direction * speed)
+  # foi utilizado um comando diferente para que o personagem não suba como um foguete
+  if Input.is_action_just_presset('ui_up'):
+    dir.y = jump
+
+  move_and_slide( dir * speed )
 ```
 TESTE!<br>
-O código acima fará o personagem andar para os lados, agora precisamos fazer ele poder pular, mas para pular ele precisa poder cair ou ele irá apenas subir como um foguete.<br>
-Então vamos melhorar o código acima:
-```
-func _physics_process(delta):
-  direction.y = direction.y + gravity * delta
-
-  if Input.is_action_pressed('ui_right'):
-    direction.x = 1
-  elif Input.is_action_pressed('ui_left'):
-    direction.x = -1
-  else:
-    direction.x = 0
-
-  move_and_slide(direction * speed)
-```
-TESTE!<br>
-Agora vemos que ele cai direto. Isto acontece por ele não ter colisão com a plataforma, então vamos adicionar um novo Node/Peça ao *Player*:<br>
-1. Selecione o *Player* clique para adicionar um Node
-2. Pesquise por *ColSh*
-3. Escolha *Collision Shape 2D*
-4. Selecione o *Collision Shape 2D* e no *Inspector* procure pelo campo *Shape* e clique no valor do campo que vai estar *Empty*
-5. Escolha a opção *New Rectangle Shape2D*
-6. Um quadrado azul esverdeado cercado por pontos laranjas deve ter aparecido a frente do sprite do player, este é o colisor
-7. Arraste os pontos laranjas para alterar o tamanho do quadrado e faça-o cobrir o player
-8. Não precisa cobrir ele completamente, apenas o suficiente para que ele bata onde achar que deve bater
-TESTE!<br>
-Agora ele fica acima da plataforma então falta fazer ele pular. Vamos novamente alterar o código que temos
-```
-func _physics_process(delta):
-  direction.y = direction.y + gravity * delta
-
-  if Input.is_action_just_pressed('ui_up'):
-    direction.y = jump
-
-  if Input.is_action_pressed('ui_right'):
-    direction.x = 1
-  elif Input.is_action_pressed('ui_left'):
-    direction.x = -1
-  else:
-    direction.x = 0
-
-  move_and_slide(direction * speed)
-```
-TESTE!<br>
-Agora ela estará pulando corretamente.<br><br>
 *Não se preocupe com o pulo duplo*<br><br>
-Agora desenvolva o mapa garantindo que no local onde for o final da fase teremos uma bandeira de qualquer cor.<br>
-Vamos adicionar um colisor no nosso cenário que deverá ficar na mesma posição que a bandeira. A ideia é que quando o *Player* bater neste colisor isso nos leve até a cena de vitória. Siga os passos abaixo:
+Agora desenvolva o mapa garantindo que no local onde for o final da fase teremos uma bandeira de qualquer cor ou a placa de Exit (o instrutor decide).<br>
+Posicionado a Bandeira/Placa vamos adicionar um colisor no nosso cenário que deverá ficar na mesma posição que a bandeira. A ideia é que quando o *Player* bater neste colisor isso nos leve até a cena de vitória. Siga os passos abaixo:
 1. Adicione ao *World* um Node chamado *StaticBody2D*
 2. Mude o nome do *StaticBody2D* para **WinZone**
 3. Adicione ao *WinZone* um *Collision Shape 2D*
@@ -260,5 +220,58 @@ então ele possui um lista de coisas em que está batendo.
 Precisaremos verificar de uma por uma qual dessas coisas possui o nome WinZone e por isto é
 importante que o nome seja escrito exatamente igual tanto na aba Scenes quanto na programação
 ```
-Com isto feito precisamos verificar se o nosso *Player* tocou ou não na *WinZone*.
+Com isto feito precisamos verificar se o nosso *Player* tocou ou não na *WinZone*.<br>
+Acontece que o nosso Player não toca apenas o objeto no final da fase, ele toca tudo que está no caminho, então precisamos ir passar por cada um deles e verificar se tem o nome de *WinZone*, caso tenha iremos mudar a cena para a tela de vitória.
 
+```
+var speed = 200
+var dir = Vector2()
+var gravity = 10
+var jump = -5 # nova variável
+ 
+func _physics_process(delta):
+  # será executado se é verdadeiro que apertamos a seta direita no teclado
+  if Input.is_key_pressed(KEY_RIGHT):
+    dir.x = 1
+  # será executado se é verdadeiro que apertamos a seta esquerda no teclado
+  elif Input.is_key_pressed(KEY_LEFT):
+    dir.x = -1
+  # será executado se nem IF nem ELIF tiver sido executado
+  else:
+    dir.x = 0
+  
+  dir.y = dir.y + gravity * delta
+
+  # foi utilizado um comando diferente para que o personagem não suba como um foguete
+  if Input.is_action_just_presset('ui_up'):
+    dir.y = jump
+
+  move_and_slide( dir * speed )
+
+  for index in get_slide_count():
+    var other = get_slide_collision(index).collider
+    if 'WinZone' in other.name:
+      get_tree().change_scene('res://Scenes/Win.tscn')
+```
+TESTE!<br>
+Se tudo deu certo estaremos indo para a tela de vitória. Para termos a tela de derrota faremos algo parecido: iremos colocar um coliso que fica abaixo da tela do nosso game e que vá de uma ponta da tela até a outra (pode passar um pouco, na verdade é até bom que passe um pouco) e vamos nomear de **DeadZone** que fará com que o Player vá para a tela de derrota caso caia da fase e toque essa região:
+
+1. Adicione ao *World* um Node chamado *StaticBody2D*
+2. Mude o nome do *StaticBody2D* para **DeadZone**
+3. Adicione ao *DeadZone* um *Collision Shape 2D*
+4. Selecione o *Colision Shape 2D* e na propriedade *Shape* escolha a opção *New Rectangle Shape2D*
+5. Selecione o *DeadZone* e marque a opção *Make object children are not Selectable*
+6. Arraste o *DeadZone* para a parte abaixo do cenário
+7. Selecione o *Colission Shape 2D* do *DeadZone* e altere o tamanho dele para ele fobrir toda a parte abaixo da tela (não precisa ser alto, apenas comprido)
+
+Para a programação nós podemos apenas alterar a programação de vitória e teremos o código pronto:
+```
+  for index in get_slide_count():
+    var other = get_slide_collision(index).collider
+    if 'WinZone' in other.name:
+      get_tree().change_scene('res://Scenes/Win.tscn')
+    if 'DeadZone' in other.name:
+      get_tree().change_scene('res://Scenes/Lose.tscn')
+```
+
+Jogo pronto e vamos jogar!
