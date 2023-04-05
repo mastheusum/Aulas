@@ -58,14 +58,3 @@ Faça os alunos testarem<br>
 
 Será notável que a conexão acontece, mas a posição do Player não é atualizada em ambas as telas, apenas no tela local. Para resolver isto adicione ao Prefab Player o componente *Network Transform (unreliable)* e teste novamente (junto com os alunos).<br>
 Agora funciona pois este componente atualiza o transform do objeto em todas as telas.<br>
-Atividade:
-Faça um jogo Top-Down semelhante ao Geek Brawl:
-1. Prepare o Player com movimentação Top-Down
-2. Faça a Bullet que se movimenta em linha reta
-    1. A Bullet deve se auto-destruir após 3 segundos
-3. Faça um mapa fechado para impedir os jogadores de ir embora
-4. Programe para que o jogador perca vida caso seja tocado pela Bullet
-    1. Caso isto aconteça a Bullet se auto-destroy
-5. Caso o jogador perca todos os pontos de vida o seguinte deve acontecer:
-    1. O jogador derrotado é desconectado
-    2. O jogador vencedor recupera toda a vida.
