@@ -1,6 +1,7 @@
 # Level 2
 
 #### Pré-aula
+Lembre-se de mostrar o material ao final da aula para o aluno
 Equipamentos necessários:
 * Godot 3.5.x
 * Assets encontrados no [portal](https://portal.supergeeks.school/myclassroom/1312/2817/17830 "portal") (é preciso estar logado)
