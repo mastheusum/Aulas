@@ -169,7 +169,7 @@ private void OnTriggerEnter2D(Collider2D collision)
 }
 ```
 
-Com esse código adiciona ao Player nós já conseguimos coletar as moedas, mas elas não aparecem na HUD. As mudanças na HUD ficarão para a próxima aula.
+Com esse código adiciona ao Player nós já conseguimos coletar as moedas, mas elas não aparecem na HUD. As mudanças na HUD ficarão para a próxima aula.<br>
 ----------
 Se sobrar tempo de aula tente fazer os alunos modificarem algo no código para fazer do jeito que querem. Como mudar a cor do Player ou tentar adiantar o conteúdo da próxima aula.<br>
 
