@@ -75,8 +75,68 @@ Com a HUD pronta, vamos criar a moeda! Ela será bem simples: um sprite com coll
 
 [![004](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/004.png "004")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/004.png "004") <br>
 
-Essa moeda deverá ser spawnada pelo Server, então vamos também colocar o componente NetworkIdentity. Agora podemos salvar essa moeda como prefab e no objeto NetworkController da cena, vamos colocar esse prefab na lista de prefabs que serão spawnados. <br>
+Essa moeda deverá ser spawnada pelo Server, então vamos também colocar o componente *Network Identity*. Agora podemos salvar essa moeda como prefab e no objeto NetworkController da cena, vamos colocar esse prefab na lista de prefabs que serão spawnados. <br>
 
 Ótimo! Você pode apagar a moeda que ficou na cena, pois vamos criar cada uma delas através do server! Primeiro vamos criar alguns pontos de spawn na cena, fique a vontade para criar quantos quiser, pois quando fizermos o código, elas irão surgir de forma aleatória! <br>
 
 [![005](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/005.png "054")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/005.png "005") <br>
+
+Vamos abrir o nosso script *TeuNomeNetworkManager* e e programar para que a quantidade de moedas spawnadas não ultrapasse um limite de moedas e que as que forem spawnadas sejam posicionadas de forma aleatória na cena:
+```cs
+public List<Transform> coinSpawnPoints;
+public int maxCoinsInGame = 2;
+public static int spawnedCoins = 0;
+
+public void SpawnCoin()
+{
+    if(spawnedCoins < maxCoinsInGame)
+    {
+        Vector3 local = coinSpawnPoints[
+                Random.Range(0, coinSpawnPoints.Count)
+            ].position;
+        
+        GameObject new_coin = Instantiate(
+            spawnPrefabs.Find(prefab => prefab.name == "Coin"),
+            local, transform.rotation);
+                
+        NetworkServer.Spawn(new_coin);
+        spawnedCoins++;
+    }
+}
+```
+Tendo os atributos que irão definir as regras do jogo e o método que irá spawnar as moedas aleatóriamente na tela, só precisamos chamar esse método repetidas vezes após o jogador 2 entrar no jogo. Para isso vamos usar um comando chamado **InvokeRepeting** que nos permite chamar um método passando o nome do método em questão, o tempo de atraso para chamar o método e quanto tempo deve demorar para o método ser chamado novamente.<br>
+Com ele o spawn dos jogadores fica da seguinte forma:
+```cs
+public class TioNetworkManger : NetworkManager
+{
+    public Transform player1SpawnPoint;
+    public Transform player2SpawnPoint;
+        
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    {
+        Transform startPoint;
+                
+        if(numPlayers == 0)
+        {
+            startPoint = player1SpawnPoint;
+        }
+        else
+        {
+            startPoint = player2SpawnPoint;
+            /* 
+             * aqui estamos chamando SpawnCoin 2 segundos após o segundo jogador
+             * e fazemos com que a função se repita a cada 2 segundos
+             */
+            InvokeRepeating("SpawnCoin", 2, 2); 
+        }
+        
+        GameObject new_player = Instantiate(playerPrefab, startPoint.position, startPoint.rotation);
+
+        NetworkServer.AddPlayerForConnection(conn, new_player);
+    }
+}
+```
+Essa parte é feita após o Segundo Player conectar para que o Primeiro não tenha vantagem.<br>
+Vá até o NetworkController e preencha os campos do TeuNomeNetworkManger para que o script possa funcionar corretamente e então teste<br>
+Se tudo estiver funcionando corretamente você terá o seguinte<br>
+[![006](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/006.gif "054")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/006.gif "006") <br>
