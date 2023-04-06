@@ -91,13 +91,9 @@ public void SpawnCoin()
 {
     if(spawnedCoins < maxCoinsInGame)
     {
-        Vector3 local = coinSpawnPoints[
-                Random.Range(0, coinSpawnPoints.Count)
-            ].position;
+        Vector3 local = coinSpawnPoints[ Random.Range(0, coinSpawnPoints.Count) ].position;
         
-        GameObject new_coin = Instantiate(
-            spawnPrefabs.Find(prefab => prefab.name == "Coin"),
-            local, transform.rotation);
+        GameObject new_coin = Instantiate( spawnPrefabs.Find(prefab => prefab.name == "Coin"), local, transform.rotation);
                 
         NetworkServer.Spawn(new_coin);
         spawnedCoins++;
@@ -111,12 +107,15 @@ public class TioNetworkManger : NetworkManager
 {
     public Transform player1SpawnPoint;
     public Transform player2SpawnPoint;
-        
+    public List<Transform> coinSpawnPoints;
+    public int maxCoinsInGame = 2;
+    public static int spawnedCoins = 0;
+
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         Transform startPoint;
-                
-        if(numPlayers == 0)
+
+        if (numPlayers == 0)
         {
             startPoint = player1SpawnPoint;
         }
@@ -127,16 +126,51 @@ public class TioNetworkManger : NetworkManager
              * aqui estamos chamando SpawnCoin 2 segundos após o segundo jogador
              * e fazemos com que a função se repita a cada 2 segundos
              */
-            InvokeRepeating("SpawnCoin", 2, 2); 
+            InvokeRepeating("SpawnCoin", 2, 2);
         }
-        
-        GameObject new_player = Instantiate(playerPrefab, startPoint.position, startPoint.rotation);
 
+        GameObject new_player = Instantiate(playerPrefab, startPoint.position, startPoint.rotation);
         NetworkServer.AddPlayerForConnection(conn, new_player);
     }
+
+    public void SpawnCoin() { /* ... */ }
+    
+    public override void OnStartServer() { /* ... */ }
+
+    public override void OnStopServer() { /* ... */ }
+
+    public override void OnClientConnect() { /* ... */ }
+
+    public override void OnClientDisconnect() { /* ... */ }
 }
 ```
 Essa parte é feita após o Segundo Player conectar para que o Primeiro não tenha vantagem.<br>
 Vá até o NetworkController e preencha os campos do TeuNomeNetworkManger para que o script possa funcionar corretamente e então teste<br>
 Se tudo estiver funcionando corretamente você terá o seguinte<br>
 [![006](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/006.gif "054")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/006.gif "006") <br>
+
+Com isto vemos como o servidor por ir instanciando elementos no cenário. Agora vamos fazer o player coletar as moedas.<br>
+
+Para coletar as moedas o Player precisa de uma variável pra armazenar o total de moedas e do método OnTriggerEnter2D programado para detectar a colisão com a moeda para então fazer a contagem. <br>
+
+Então no script do Player adicione uma variável pública inteira para guardar as moedas e porgrame o método OnTriggerEnter2D:
+
+```cs
+public int coins;
+
+private void OnTriggerEnter2D(Collider2D collision)
+{
+    if(collision.CompareTag("Coin"))
+    {
+        coins++;
+        TeuNomeNetworkManager.spawnedCoins--;
+        Destroy(collision.gameObject);
+    }
+}
+```
+
+Com esse código adiciona ao Player nós já conseguimos coletar as moedas, mas elas não aparecem na HUD. As mudanças na HUD ficarão para a próxima aula.
+----------
+Se sobrar tempo de aula tente fazer os alunos modificarem algo no código para fazer do jeito que querem. Como mudar a cor do Player ou tentar adiantar o conteúdo da próxima aula.<br>
+
+## Seja criativo
