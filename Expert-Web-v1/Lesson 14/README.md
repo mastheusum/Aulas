@@ -393,9 +393,73 @@ const [lista, setLista] = useState([]);
 ```
 Após a criação da variável vamos usar o *useEffect* para atualizar os dados da lista e também para manter atualizado os dados necessários para o cabeçalho usado no cadastro de novas receitas:
 ```javascript
+useEffect(() => {
+   PubSub.subscribe('access-token', function(topico, token) {
+      token1 = token;
+   });
+   PubSub.subscribe('client', function(topico, client){
+      client1 = client;
+   });
+   PubSub.subscribe('uid', function(topico, uid){
+      uid1 = uid;
+   });
+   PubSub.subscribe('atualiza-lista-receitas', function(topico, novaLista){
+      setLista(novaLista);
+   });
+   PubSub.subscribe('erro-validacao-GE', function(topico, erro){
+      alert(erro);
+   });
+});
+```
+Com isso não apenas atualizamos a tabela de receitas cadastradas durante a sessão como também pegamos os dados necessário para realizar operações na API como *token*, *client* e *UID*. <br>
+Agora que temos isso feito vamos apenas alterar a tabela para que os dados presentes na nossa lista seja mapeados para ela:
 
+```javascript
+function GainTable() {
+   return (
+      <div class="table-responsive" style={{marginTop: "20px;"}}>
+         <h2>Receitas</h2>
+         <table class="table table-striped table-sm">
+               <thead>
+                  <tr>
+                     <th>Descrição</th>
+                     <th>Valor</th>
+                     <th>Data</th>
+                  </tr>
+               </thead>
+               <tbody>
+                    {
+                        lista.map(function(gain){
+                            return(
+                                <tr key={gain.id}>
+                                    <td>{gain.description}</td>
+                                    <td>{gain.value}</td>
+                                    <td>{gain.date}</td>
+                                </tr>	
+                            );
+                        })
+                    }						
+                </tbody>
+         </table>
+      </div>
+   );
+}
 ```
 
+Teste o cadastro de receitas e veja o resultado!<br>
+Para finalizar precisamos construir o método *publicshErrorsGE* que estamos usando no cadastro, mas que ainda não foi criado em *ManageErrors*.<br>
+No script *ManageErrors.js* vamos adicionar o seguinte método:
+
+```javascript
+publishErrorsGE(errors) {
+   for (var i = 0; i < errors.errors.lenght; i++) {
+      var erro = errors.errors[i];
+      console.log(erro);
+      PubSub.publish('erro-validacao-GE', erro);
+   }
+}
+```
+Com isso finalizamos o conteúdo de hoje e fica para casa fazer o cadastro de Despesas (Expenses.js).
 
 
 
