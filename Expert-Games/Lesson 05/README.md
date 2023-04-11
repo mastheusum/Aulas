@@ -6,7 +6,7 @@ Hoje veremos como ganhar pontos coletando essas moedas e como mostrar esses pont
 
 ### Atributo Syncvar
 Para armazenar a quantidade de moedas coletadas, fizemos uma variável chamada coin no script do Player. Porém se testarmos o jogo, veremos que, quando um Player coleta uma moeda, o valor de sua variável não atualiza no outro client.<br>
-[![001](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/001.gif "001")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/001.gif "001")<br>
+[![001](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/001.gif "001")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/001.gif "001")<br>
 Isso ocorre pois o server não notificou os outros clients que a variável foi atualizada, essa alteração foi feita localmente no player que coletou a moeda. Como resolver?<br>
 Podemos alterar a variável adicionando o atributo [SyncVar], ele fará com que o valor dessa variável seja sincronizado (atualizado) entre os clients quando o seu valor for alterado.
 
@@ -55,12 +55,12 @@ public override void OnServerAddPlayer(NetworkConnectionToClient conn)
 }
 ```
 Execute o jogo e veja o resultado!<br>
-[![002](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/002.png "002")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/002.png "002")<br>
+[![002](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/002.png "002")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/002.png "002")<br>
 
 ### Unity Events
 Agora que entendemos como funcionam as variáveis sincronizadas, vamos voltar à mecânica das moedas: precisamos mostrar na HUD os pontos de cada player. Para que a HUD seja atualizada, ela precisa ser notificada toda vez que um player coletar uma moeda. Esse aviso pode ser feito de várias formas, mas nós usaremos uma em especial: Unity Events!<br>
 Unity Events são eventos que podem ser disparados em algum momento do código e você pode definir (na própria Unity ou em código) quais funções serão chamadas. Acredite ou não, você já usou ela antes! Se você colocar um botão em um Canvas, nele há a opção OnClick:<br>
-[![003](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/003.gif "003")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/003.gif "003")<br>
+[![003](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/003.gif "003")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/003.gif "003")<br>
 Isso é um Unity Event! Repare que, no exemplo, eu habilitei um objeto da cena, mas poderíamos chamar qualquer função que pertence a algum componente desse objeto. Como dito acima, podemos também definir a função que será chamada através do próprio código. Vamos fazer um Unity Event que avisa a HUD quando ganharmos pontos!
 <br>
 Para criarmos um Unity Event podemos fazer como abaixo em qualquer script (só não esqueça de adicionar o namespace using UnityEngine.Events;):
@@ -89,7 +89,7 @@ public override void OnServerAddPlayer(NetworkConnectionToClient conn)
 ```
 
 Repare que na Unity, se você clicar no objeto NetworkController, verá que agora há uma opção parecida com a que vimos anteriormente no Botão: podemos definir qual função será chamada! (Que tal deixar os obstáculos da cena desabilitados e habilitá-los quando o Player se conectar?)<br>
-[![004](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/004.gif "004")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/004.gif "004")<br>
+[![004](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/004.gif "004")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/004.gif "004")<br>
 
 Faremos algo semelhante no script do Player, porém queremos que nosso Unity Event retorne um número que represente as moedas quando for chamado… Lembra da herança? Que tal criarmos nosso próprio Unity Event? Vamos fazer assim:
 
@@ -189,4 +189,4 @@ void Start()
 ```
 
 Não se esqueça de colocar o script da HUD na Unity e definir quais são os textos!<br>
-[![005](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/005.png "005")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2004/Screenshots/005.png "005")<br>
+[![005](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/005.png "005")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/005.png "005")<br>
