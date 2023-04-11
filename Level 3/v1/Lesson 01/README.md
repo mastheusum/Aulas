@@ -45,23 +45,40 @@ Jogos feitos na Unreal:
 * [Paladins](https://www.youtube.com/watch?v=g4WHiMVq1-8&t=15s)
 * [Injustice II](https://www.youtube.com/watch?v=i_HbXYTT0xU&t=20s)
 
+Estes são apenas alguns exemplos, mas existem muitos outros jogos famosos que foram feitos nessa ferramenta.
+
 ### Voltando à Unreal
-Agora que temos o nosso projeto Aberto na Unreal vamos conhecer a ferramenta. <br>
-[![010](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/010.png "010")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/010.png "010")<br>
-Comecemos com o **Level Editor** nesta tela nós podemos editar o nosso mapa da forma como preferirmos e também temos um menu superior com algumas opções referentes ao level nos permitindo configurar, programar e testar ele no momento que quisermos. Podemos fazer outras coisas necessários ao projeto como reconstrução das iluminação, mas isso fica para uma outra aula.<br>
-[![011](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/011.png "011")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/011.png "011")<br>
-Também conhecida como Modes, essa aba da Unreal contém os objetos mais básicos possíveis de serem adicionados no jogo.<br>
+Agora que temos o nosso projeto Aberto na Unreal vamos conhecer a ferramenta. 
+<br>
+[![010](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/010.png "010")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/010.png "010")
+<br>
+Comecemos com o **Level Editor** nesta tela nós podemos editar o nosso mapa da forma como preferirmos e também temos um menu superior com algumas opções referentes ao level nos permitindo configurar, programar e testar ele no momento que quisermos. Podemos fazer outras coisas necessários ao projeto como reconstrução das iluminação, mas isso fica para uma outra aula.
+<br>
+[![011](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/011.png "011")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/011.png "011")
+<br>
+Também conhecida como Modes, essa aba da Unreal contém os objetos mais básicos possíveis de serem adicionados no jogo.
+<br>
 Eles são divididos em categorias e mesmo que alguns tenham formas parecidas
-sua funcionalidade no projeto pode mudar<br>
-[![012](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/012.png "012")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/012.png "012")<br>
-Nessa aba teremos listados todos os objetos presentes na cena bem como sua hierarquia pois podemos ter objetos que são “filhos” de outros objetos.<br>
-Como exemplo mais claro disso temos que todos os atuais objetos na cena são filhos da cena que é representada pelo objeto Untitled do tipo World<br>
-[![013](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/013.png "013")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/013.png "013")<br>
-Nesta aba podemos ver os detalhes do objeto que estiver sendo selecionado no World Outliner<br>
-Podemos alterar desde a posição de um objeto, o material do qual ele é feito e até mesmo adicionar script ou transformar em um Blueprint (essas opções dependem das configurações do projeto)<br>
-[![014](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/014.png "014")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/014.png "014")<br>
-Nessa aba da Unreal podemos ver todos os arquivos que fazem parte do nosso jogo.<br>
-Como eu criei um projeto em branco (Blank) e não iniciei com conteúdo para iniciantes (Starter Content) o meu projeto não tem nada<br>
+sua funcionalidade no projeto pode mudar
+<br>
+[![012](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/012.png "012")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/012.png "012")
+<br>
+Nessa aba teremos listados todos os objetos presentes na cena bem como sua hierarquia pois podemos ter objetos que são “filhos” de outros objetos.
+<br>
+Como exemplo mais claro disso temos que todos os atuais objetos na cena são filhos da cena que é representada pelo objeto Untitled do tipo World
+<br>
+[![013](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/013.png "013")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/013.png "013")
+<br>
+Nesta aba podemos ver os detalhes do objeto que estiver sendo selecionado no World Outliner
+<br>
+Podemos alterar desde a posição de um objeto, o material do qual ele é feito e até mesmo adicionar script ou transformar em um Blueprint (essas opções dependem das configurações do projeto)
+<br>
+[![014](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/014.png "014")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/014.png "014")
+<br>
+Nessa aba da Unreal podemos ver todos os arquivos que fazem parte do nosso jogo.
+<br>
+Como eu criei um projeto em branco (Blank) e não iniciei com conteúdo para iniciantes (Starter Content) o meu projeto não tem nada
+<br>
 [![015](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/015.png "015")](https://github.com/mastheusum/Aulas/blob/main/Level%203/v1/Lesson%2001/Screenshots/015.png "015")
 ------------
 Para casa fica a instalação da Unreal.
