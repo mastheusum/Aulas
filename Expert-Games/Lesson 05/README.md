@@ -88,8 +88,7 @@ public override void OnServerAddPlayer(NetworkConnectionToClient conn)
 }
 ```
 
-Repare que na Unity, se você clicar no objeto NetworkController, verá que agora há uma opção parecida com a que vimos anteriormente no Botão: podemos definir qual função será chamada! (Que tal deixar os obstáculos da cena desabilitados e habilitá-los quando o Player se conectar?)<br>
-[![004](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/004.gif "004")](https://github.com/mastheusum/Aulas/blob/main/Expert-Games/Lesson%2005/Screenshots/004.gif "004")<br>
+Repare que na Unity, se você clicar no objeto NetworkController, verá que agora há uma opção parecida com a que vimos anteriormente no Botão: podemos definir qual função será chamada! <br>
 
 Faremos algo semelhante no script do Player, porém queremos que nosso Unity Event retorne um número que represente as moedas quando for chamado… Lembra da herança? Que tal criarmos nosso próprio Unity Event? Vamos fazer assim:
 
