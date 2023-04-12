@@ -21,3 +21,5 @@ O projeto foi dividido em três partes:<br>
 *Simplified*: o projeto está completo, mas foi simplificado para o aluno saber até onde é possível chegar apenas com o conteúdo de sala e para que seja mais simples o instrutor entender o projeto.
 *Build*: nesta pasta se encontram os executáveis do projeto, tanto pra Linux quanto para Windows. Então caso o instrutor tenha interesse em mostrar o projeto finalizado basta executr o projeto direto dessa pasta.
 
+### Downloads das Builds
+[Roguelike](https://matheusum.itch.io/simple-roguelike)
