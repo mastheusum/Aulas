@@ -14,7 +14,7 @@ const colors = [
 func _ready():
 	player = get_parent().get_node("Player")
 	life = 1 + randi() % 5
-	$ColorRect.color = colors[life - 1]
+	get_node("ColorRect").color = colors[life - 1]
 
 func _process(delta):
 	if player != null:

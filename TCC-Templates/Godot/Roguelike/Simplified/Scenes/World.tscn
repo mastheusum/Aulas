@@ -45,8 +45,20 @@ texture_over = ExtResource( 2 )
 texture_progress = ExtResource( 3 )
 nine_patch_stretch = true
 
-[node name="Spawner" type="Timer" parent="."]
-wait_time = 1.5
+[node name="TotalTime" type="Label" parent="Player/CanvasLayer"]
+margin_left = 744.0
+margin_top = 24.0
+margin_right = 789.0
+margin_bottom = 42.0
+rect_scale = Vector2( 3, 3 )
+text = "0"
+
+[node name="Timer" type="Timer" parent="Player/CanvasLayer/TotalTime"]
 autostart = true
 
+[node name="Spawner" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="Player/CanvasLayer/TotalTime/Timer" to="Player" method="_on_Timer_timeout"]
 [connection signal="timeout" from="Spawner" to="." method="_on_Spawner_timeout"]

@@ -16,8 +16,8 @@ Neste jogo o objetivo é sobreviver o máximo de tempo possível lutando contra 
 
 ### Detalhes
 O projeto foi dividido em três partes:<br>
-Template: o projeto possui apenas os arquivos necessários para o desenvolvimento do jogo e nada mais.<br>
-Complete: o projeto está completo e pode ser apresentado aos alunos para instigar o estudo independente. <br>
-Simplified: o projeto está completo, mas foi simplificado para o aluno saber até onde é possível chegar apenas com o conteúdo de sala e para que seja mais simples o instrutor entender o projeto.
-
+*Template*: o projeto possui apenas os arquivos necessários para o desenvolvimento do jogo e nada mais.<br>
+*Complete*: o projeto está completo e pode ser apresentado aos alunos para instigar o estudo independente. <br>
+*Simplified*: o projeto está completo, mas foi simplificado para o aluno saber até onde é possível chegar apenas com o conteúdo de sala e para que seja mais simples o instrutor entender o projeto.
+*Build*: nesta pasta se encontram os executáveis do projeto, tanto pra Linux quanto para Windows. Então caso o instrutor tenha interesse em mostrar o projeto finalizado basta executr o projeto direto dessa pasta.
 
