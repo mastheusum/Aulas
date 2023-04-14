@@ -197,5 +197,144 @@ No script do player será feito um ajuste dentro do método Process, onde primei
 
 ```lua
 func _process(delta):
-  move_and_collide( Vector2(1, 0) )
+  if Input.is_key_pressed(KEY_RIGHT):
+    move_and_collide( Vector2(1, 0) )
 ```
+
+Teste e verifique se o personagem anda para a direita.
+
+Agora que o código funciona fica o desafio: faça os controles para as outras direções, ele deve se mover para direita, esquerda, cima e baixo.
+
+Agora que terminou seu código deve estar semelhante ao código abaixo:
+
+```lua
+func _process(delta):
+  if Input.is_key_pressed(KEY_RIGHT):
+    move_and_collide( Vector2(1, 0) )
+
+  if Input.is_key_pressed(KEY_LEFT):
+    move_and_collide( Vector2(-1, 0) )
+
+  if Input.is_key_pressed(KEY_DOWN):
+    move_and_collide( Vector2(0, 1) )
+
+  if Input.is_key_pressed(KEY_UP):
+    move_and_collide( Vector2(0, -1) )
+```
+
+A boa notícia é que ele funciona a má é que ele não é muito eficiente, pois mesmo que tenhamos escolhido o movimento para a direita o nosso código ainda vai tentar andar para todas as outras...
+
+Vamos otimizar o código para que fique mais leve para o computador executar. Essa otimização pode ser feita através da construção de métodos, variáveis ou escrevendo de uma maneira mais "inteligente" o código.
+
+Por exemplo: imagine que você está em uma sala vazia, encostado na parede, e no outro canto da sala está um objeto que você precisa pegar. Qual seria a forma mais rápida de se fazer isso?
+
+1. Ir reto em direção ao objeto e pegá-lo. 
+2. Ficar andando em círculos e depois ir pegar o objeto. 
+
+Provavelmente você escolheu a primeira opção. Otimizar o código é a mesma coisa, buscando sempre ir direto ao objetivo, sem muitos rodeios, ajudando o programador a encontrar erros mais facilmente e rodar o código com mais eficiência. 
+
+Para melhorar o código podemos fazer algumas coisas:
+- utilizar apenas um vetor para direção e com os IF's mudar o seu valor
+- utilizar apenas um **move_and_collide**
+- Utilizar os comandos ELIF e ELSE
+- utilizar uma veriável para guardar a velocidade do personagem
+
+Vamos aplicar todas elas:
+
+Comecemos criando uma variável para a direção antes da função **_process**
+```lua
+var direction = Vector2()
+```
+
+Agora vamos modificar os IF's para que apenas alterem a direção e utilizaremos apenas um **move_and_collide**
+
+```lua
+var direction = Vector2()
+
+func _process(delta):
+  if Input.is_key_pressed(KEY_RIGHT):
+    direction.x = 1
+
+  if Input.is_key_pressed(KEY_LEFT):
+    direction.x = -1
+
+  if Input.is_key_pressed(KEY_DOWN):
+    direction.y = 1
+
+  if Input.is_key_pressed(KEY_UP):
+    direction.y = -1
+  
+  move_and_collide( direction )
+```
+
+Agora vamos utilizar o ELIF e o ELSE
+
+```lua
+var direction = Vector2()
+
+func _process(delta):
+  if Input.is_key_pressed(KEY_RIGHT):
+    direction.x = 1
+  elif Input.is_key_pressed(KEY_LEFT):
+    direction.x = -1
+  else:
+    direction.x = 0
+
+  if Input.is_key_pressed(KEY_DOWN):
+    direction.y = 1
+  elif Input.is_key_pressed(KEY_UP):
+    direction.y = -1
+  else:
+    direction.y = 0
+  
+  move_and_collide( direction )
+```
+
+Por fim vamos guardar nossa velocidade em uma variável:
+
+```lua
+var direction = Vector2()
+var speed = 5
+
+func _process(delta):
+  if Input.is_key_pressed(KEY_RIGHT):
+    direction.x = 1
+  elif Input.is_key_pressed(KEY_LEFT):
+    direction.x = -1
+  else:
+    direction.x = 0
+
+  if Input.is_key_pressed(KEY_DOWN):
+    direction.y = 1
+  elif Input.is_key_pressed(KEY_UP):
+    direction.y = -1
+  else:
+    direction.y = 0
+  
+  move_and_collide( direction * speed )
+```
+
+>Antes de terminar vamos adicionar um personagem para que vocês tenham uma dose do que verá em casa:
+>
+> Comece procurando no computador pelo persoangem que usaremos (deve estar em Documentos ou Downloads ou Imagens), é a imagem de um personagem parado. Basta arrastar esta imagem pra o **File System** da Godot e então o personagem estará importado.
+
+Façam as atividades para casa e escolham suas missões!
+
+---
+## Atividade de casa
+Para casa os alunos devem fazer a aula do portal. O conteúdo é bem parecido, mas lá será usado um personagem ao invés de uma mero quadrado branco.
+
+---
+## Missões
+As missões são por dificuldade e quem concluir as missões corretamente até a próxima aula irá receber bônus
+* [1] Qual a diferença entre **_process** e **_physics_process**
+* [1] Qual a diferença entre **move_and_collide** e **move_and_slide**
+* [1] O que é um **Sprite**
+* [1] O que é um **AnimatedSprite**
+* [2] O que é um **CollisionShape2D**
+* [2] Qual comando uso para pegar a posição do mouse na tela?
+* [2] O que é o **delta**?
+* [3] O que é **input_map**?
+* [4] como mudar o tamanho da tela?
+
+
