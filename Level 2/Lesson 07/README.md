@@ -335,6 +335,6 @@ As missões são por dificuldade e quem concluir as missões corretamente até a
 * [2] Qual comando uso para pegar a posição do mouse na tela?
 * [2] O que é o **delta**?
 * [3] O que é **input_map**?
-* [4] como mudar o tamanho da tela?
+* [4] Como mudar o tamanho/formato da tela do jogo?
 
 
