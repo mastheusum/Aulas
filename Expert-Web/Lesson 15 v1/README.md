@@ -188,22 +188,33 @@ const [guardaDados, setGuardaDados] = useState({});
 Depois criamos uma tabela para exibir os dados das receitas:
 ```javascript
 return (
-    <div>
-        <h2>Receitas</h2>
-        <table className="table table-striped table-sm">
-            <thead>
-                <tr>
-                    <td>ID</td>
-                    <td>Descrição</td>
-                    <td>Valor</td>
-                    <td>Data</td>
-                </tr>
-            </thead>
-            <tbody>
-                
-            </tbody>
-        </table>
-    </div>
+<div>
+  <h2>Receitas</h2>
+  <table className="table table-striped table-sm">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Descrição</td>
+        <td>Valor</td>
+        <td>Data</td>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        listaGain.map(function(gain) {
+          return (
+            <tr key={gain.id}>
+              <td>{gain.id}</td>
+              <td>{gain.attributes.description}</td>
+              <td>{gain.attributes.value}</td>
+              <td>{gain.attributes.date}</td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+</div>
 );
 ```
 
