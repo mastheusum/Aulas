@@ -12,8 +12,8 @@ Lembre de verificar o progresso dos alunos nas atividades de casa, tanto no port
 ### Progresso do Projeto
 - [X] Criando Objetos
 - [X] Movimentação do personagem
-- [ ] Importando arquivos
-- [ ] Trabalhando com Animações
+- [ ] **Importando arquivos**
+- [ ] **Trabalhando com Animações**
 - [ ] Instâncias
 - [ ] Gerando bolas de fogo
 - [ ] Gerando Inimigos
