@@ -44,7 +44,7 @@ O comando fica da seguinte forma:
 rails new ProfitManager_API -d postgresql --api
 ```
 
-Espere a criação do projeto e então configure o arquivo *config/database.yml* para que ele possa acessar o banco de dados corretamente
+Espere a criação do projeto e então configure o arquivo e então configure o arquivo *config/database.yml* para que ele possa secomunicar com seu banco de dados.
 ```yaml
 default: &default
   adapter: postgresql
@@ -53,51 +53,8 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: localhost
-  username: <seu usuário do PG>
-  password: <senha do seu usuário>
+  username: <seu usuario do PG>
+  password: <senha do usuario>
 ```
 
-Após isto configure o banco de dados com o comando **rails db:create db:migrate** e então rode e acesse o servidor.
 
-## Configurando as rotas
-Vamos começar pelo versionamento do código então vá até a pasta **controllers** e crie uma nova pasta chamada **api** detro desta pasta colocaremos 
-todos os controllers referentes a nossa API mas para que possamos acessar os controllers que serão colocar nesta pasta precisaremos de um 
-namespace no nosso arquivo de rotas para que o Rails entenda que existe uma pasta que deve ser acessada para encontrar os controllers.
-
-Caso não queria criar o namespace lembre-se de colocar para cada action do nosso arquivo de rotas o nome da pasta antes, mas como isto dá muito
-trabalho é mais fácil criar o namespace.
-
-Então vamos configurar as rotas para a padronização da nossa API segundo o padrão REST recomenda então abra o arquivo **config/routes.rb** 
-e configure-o como abaixo:
-
-```rb
-Rails.application.routes.draw do
-  namespace :api do
-  end
-end
-```
-
-Visto que a nossa aplicação se comunicará através de JSON podemos definir isso como padrão para este namespace da seguinte forma  
-
-```rb
-Rails.application.routes.draw do
-  namespace :api, defaults: { format: :json } do
-  end
-end
-```
-
-## Versionamento da API
-Para o versionamento da nossa API podemos seguir um passo semelhante ao que foi feito anteriormente.
-
-Entramos na pasta **controllers/api** e criamos a pasta **v1**.
-
-Após isto precisamos adicionar um novo namespace ao nosso **routes.rb** então o código final ficará assim:
-
-```rb
-Rails.application.routes.draw do
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-    end
-  end
-end
-```

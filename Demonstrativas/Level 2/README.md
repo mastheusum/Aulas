@@ -1,20 +1,20 @@
 # Level 2
 
-#### Pré-aula
+## Pré-aula
 Lembre-se de mostrar o material ao final da aula para o aluno
 Equipamentos necessários:
 * Godot 3.5.x
 * Assets encontrados no [portal](https://portal.supergeeks.school/myclassroom/1312/2817/17830 "portal") (é preciso estar logado)
 Para esta aula abra o projeto na Godot e deixe aberta a cena *Game*.
 
-### Apresentação
+## Apresentação
 Neste ponto da aula é importante se apresentar e conhecer o aluno, descobrir algumas coisas:
 * Onde ele estuda: amigos dele já podem ser alunos da escola
 * Jogos que ele gosta: saber suas influências ajuda a gerar proximidade com o aluno
 * Canais do YouTube que ele segue: mesmo motivo do anterior
 * Veja o interesse dele por programação ou desenvolvimento de jogos
 
-### Início da aula
+## Início da aula
 Comece apresentando a ele a Godot.<br>
 Explique como ela monta suas cenas. Exemplo:
 ```
