@@ -82,5 +82,20 @@ Então em cada inimigo duas variáveis devem ser criadas:
 
 For ser mais lento o primeiro inimigo deverá ter o comportamento **Sine** que será responsável por fazer ele se mover em zig-zag
 
+Vamos instalar ele ao projeto e depois adicionar ao Inimigo1.
+
+![010](Screenshots/010.png)
+
+Para dar spawn nos inimigos durante o jogo precisaremos de dois timers, o primeiro para o Inimigo1 e o segundo para o Inimigo2. Fazer dessa forma também facilitará o balanceamento do jogo para não deixarmos muito fácil ou muito difícil.
+
+Na programação criaremos um novo grupo com um evento de quando a cena começar e nele teremos duas ações para iniciar dois timers.
+
+![011](Screenshots/011.png)
+
+Agora só precisamos programar o Spawn dos inimigos no mesmo grupo. Quando a quantidade de tempo que desejamos passar nós criaremos um inimigo numa posição aleatória, adicionamos velocidade permanente e então reiniciamos o timer. Isso será válido para ambos os inimigos.
+
+![012](Screenshots/012.png)
+
+
 
 
