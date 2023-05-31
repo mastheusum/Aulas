@@ -1,4 +1,4 @@
-# Batalhando nas Núvens
+# Batalhando nas Nuvens
 
 ## Pré-aula
 Neste ponto vale lembrar aos alunos que eles devem começar a pensar no TCC para fazer em casa nas próximas aulsa. Veja o progresso deles no portal e informe aos pais. Mantenha-os atualizados sobre o que deve ser feito em casa.
@@ -95,6 +95,8 @@ Na programação criaremos um novo grupo com um evento de quando a cena começar
 Agora só precisamos programar o Spawn dos inimigos no mesmo grupo. Quando a quantidade de tempo que desejamos passar nós criaremos um inimigo numa posição aleatória, adicionamos velocidade permanente e então reiniciamos o timer. Isso será válido para ambos os inimigos.
 
 ![012](Screenshots/012.png)
+
+Repita a mesma lógica para o inimigo 2
 
 
 
