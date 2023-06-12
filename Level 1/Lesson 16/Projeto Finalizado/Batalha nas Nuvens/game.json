@@ -211,7 +211,7 @@
         "gridColor": 10401023,
         "gridAlpha": 0.8,
         "snap": false,
-        "zoomFactor": 0.546875,
+        "zoomFactor": 0.5653158055126306,
         "windowMask": false
       },
       "objectsGroups": [],
@@ -808,7 +808,6 @@
           "colorG": 176,
           "colorR": 74,
           "creationTime": 0,
-          "folded": true,
           "name": "Disparo",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
