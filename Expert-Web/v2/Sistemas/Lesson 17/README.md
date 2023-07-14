@@ -25,6 +25,3 @@ Após a instalação apresentar alguns comandos:
 - ls
 - cd
 - mkdir
-
-
-
