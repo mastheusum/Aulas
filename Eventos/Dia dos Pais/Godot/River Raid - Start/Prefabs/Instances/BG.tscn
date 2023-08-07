@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Prefabs/Scripts/BG.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/BG1.png" type="Texture" id=2]
+
+[node name="BG" type="ParallaxBackground"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [  ]
+}
+
+[node name="River" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2( 0, 480 )
+
+[node name="ColorRect" type="ColorRect" parent="River"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 640, 480 )
+color = Color( 0, 0.541176, 0.682353, 1 )
+
+[node name="Margin" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2( 0, 1200 )
+
+[node name="Sprite" type="Sprite" parent="Margin"]
+z_index = 1
+texture = ExtResource( 2 )
+centered = false
+offset = Vector2( 0, -720 )
