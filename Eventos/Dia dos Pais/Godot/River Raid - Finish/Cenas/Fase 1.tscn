@@ -54,10 +54,20 @@ position = Vector2( 415, 135 )
 texture = ExtResource( 2 )
 
 [node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 316, 357 )
 script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource( 8 )
+
+[node name="Timer" type="Timer" parent="Player"]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Player/Timer" to="Player" method="_on_Timer_timeout"]

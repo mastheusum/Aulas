@@ -64,6 +64,12 @@ Com ele configurado vamos posicionar o **Player** na tela, mas primeiro precisam
 
 ![013](Screenshots/013.png)
 
+Então arraste-o para o centro da tela e depois coloque-o um pouco para baixo
+
+![014](Screenshots/014.png)
+
+![015](Screenshots/015.png)
+
 Agora vamos selecionar o **Player** para adicionar um novo Script. Para isto clicamos com o botão direito nele e selecionamos a opção **Attach Script**
 
 ![011](Screenshots/011.png)
@@ -92,17 +98,153 @@ func _process(delta):
 
 ```
 
+Com isso temos o Player se movendo e podemos ir para o próximo passo.
+
 [back](#kanban-da-aula)
 
 ### Programando Combustivel
+
+Para que o combustível possa reduzir e nós morramos após gastarmos todo o combustível precisamos ter onde armazenar o combustível e de alguma forma contar o tempo para que o combustível vá descendo.
+
+Vamos começar indo até o Script do Player para criar uma variável que armazene o valor do combustível do Player, criaremos também uma forma de alterar o valor do combustível para que bossamos reabastecer ele no futuro.
+
+```lua
+var combustivel = 200
+
+func enche_o_tanque(quantidade):
+	if combustivel < 200:
+		combustivel = combustivel + quantidade
+```
+
+Para fazer o combustível baixar vamos adicionar um Timer ao Player, configurar e conectar ao script do Player.
+
+![016](Screenshots/016.png)
+
+![017](Screenshots/017.png)
+
+![018](Screenshots/018.png)
+
+Agora configuramos o Timer para ser acionado a cada 0.1 segundos e para que ele inicie automaticamente.
+
+![019](Screenshots/019.png)
+
+Tendo feito isso vamos alterar a programação do Player para que reduza o combustível.
+
+```lua
+func _on_Timer_timeout():
+	combustivel -= 0.75
+```
 
 [back](#kanban-da-aula)
 
 ### Criar e Programando tiro
 
+Agora devemos criar o nosso Tiro. Para isso crie uma nova aba na Godot
+
+![020](Screenshots/020.png)
+
+Escolha *Other Node* e adicione um *KinematicBody2D*, então adicione um *Sprite*, um *CollisionShape2D* e um *Timer*
+
+![021](Screenshots/021.png)
+
+Renomeie o KinematicBody2D para Disparo e então salve na pasta Instances - lembre-se que é preciso entrar na pasta para salvar
+
+![022](Screenshots/022.png)
+
+Adicione o Sprite do Disparo e então configure o CollisionShape2D como na figura abaixo
+
+![023](Screenshots/023.png)
+
+Então adicione um Script ao Disparo - salve em uma pasta que não seja a Instances
+
+Configure o timer para 2 segundos, para iniciar automaticamente e então conecte-o ao script do Disparo pois após 2 segundos o disparo deve ser destruído.
+
+```lua
+extends KinematicBody2D
+
+var speed = 10
+
+func _process(delta):
+	move_and_collide( Vector2.UP * speed )
+
+func _on_Timer_timeout():
+	queue_free()
+```
+
+Agora vamos modificar esse script para que ele consiga causar a destruição do Fuel e do Enemy.
+
+```lua
+extends KinematicBody2D
+
+var speed = 10
+
+func _process(delta):
+	var info = move_and_collide( Vector2.UP * speed )
+	if info:
+		var other = info.collider
+		if "Enemy" in other.name:
+			other.queue_free()
+			queue_free()
+		if "Fuel" in other.name:
+			other.queue_free()
+			queue_free()
+
+func _on_Timer_timeout():
+	queue_free()
+```
+
+Entretanto é interessante que o nosso Player ganhe pontos quando destruir estes objetos então vamos fazer com que o tiro saiba quem é o Player para que ele possar fazer o Player ganhar pontos.
+
+```lua
+extends KinematicBody2D
+
+var speed = 10
+var player
+
+func _process(delta):
+	var info = move_and_collide( Vector2.UP * speed )
+	if info:
+		var other = info.collider
+		if "Enemy" in other.name:
+			player.add_score(50)
+			other.queue_free()
+			queue_free()
+		if "Fuel" in other.name:
+			player.add_score(80)
+			other.queue_free()
+			queue_free()
+
+func _on_Timer_timeout():
+	queue_free()
+
+```
+
 [back](#kanban-da-aula)
 
 ### Atirando
+
+Para atirar vamos fazer alguns preparativos:
+1. Criar uma pontuação para o player
+2. Criar uma forma de modificar a pontuação do Player
+3. Criar uma variável para termos o tiro atual
+4. Criar uma variável que carregue o modelo de tiro que criamos anteriormente
+
+O código ficara como abaixo, apenas tome cuidado ao fazer o carregamento do arquivo do tiro corretamente pois ele e o seu script possuem o mesmo nome:
+
+```lua
+var combustivel = 200
+var score = 0
+
+var current_fire = null
+var fire = preload("res://Instances/Disparo.tscn")
+
+func enche_o_tanque(quantidade):
+	if combustivel < 200:
+		combustivel = combustivel + quantidade
+
+func add_score(pontos):
+	score += pontos
+```
 
 [back](#kanban-da-aula)
 
