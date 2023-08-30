@@ -126,3 +126,107 @@ ReactDOM.render(
 E por fim, para conseguirmos fazer a origem renderizar o componente que foi programado, precisamos passar o componente.
 
 E pronto, agora você pode ir lá conferir como está ficando a aplicação!
+
+## Diretório **public**
+
+Quando criamos o projeto, você viu que a pasta public serve como um diretório que deixa os arquivos com a permissão de acesso público a qualquer usuário.
+
+Vamos criar agora um novo arquivo de estilo chamado style.css e vamos utilizar a pasta public para deixar esse arquivo intencionalmente público
+
+Aproveitando que no componente colocamos uma imagem, você pode fazer download de qualquer imagem na internet ou através do link abaixo e salvar dentro da pasta public.
+
+[foto.png](https://i.ibb.co/bRcvNTB/foto.jpg)
+
+Depois de salvar você pode abrir o componente e fazer a alteração do source. Podemos substituir o link da internet por um endereço local.
+
+E para funcionar precisamos colocar o nome e a extensão da imagem, como mostrado abaixo:
+
+```js
+<img src="/foto.jpg" alt="foto pasta public"/>
+```
+
+Outros arquivos também podem ser incluídos para dentro da pasta public, como exemplos:
+
+- O robot.txt serve para mostrar quais rotas da aplicação podem ser acessadas pelos usuários e anexadas pelos mecanismos de busca como o Google, Yahoo, Bing e etc.
+- Arquivos como o favicon.ico para mostrar o ícone de favorito na guia do navegador. Entre outros diversos arquivos que os usuários podem fazer o uso.
+
+## Digitando CSS
+
+Chegamos no momento de mudar a aparência dos elementos da página que estamos programando. Antes vamos relembrar como a linguagem de estilização CSS funciona.
+
+Devemos começar colocando sempre o **seletor** para indicar qual elemento vai ganhar tal estilo. As declarações ou também chamado de estilo são formadas por **propriedades** e **valores**.
+
+As propriedades são como exemplo: cor do fundo, cor da fonte, comprimento, borda, altura, espaçamento, comportamento e entre outras.
+
+Todas as propriedades devem receber um valor, por exemplo: o tamanho da fonte tem **16pt**. Nesse caso colocamos o valor sendo dezesseis pontos de fonte. Alguns valores são categóricos como o exemplo do estilo de fonte que pode ser **normal** ou em **itálico**.
+
+```css
+seletor {
+  propriedade: "valor";
+  propriedade: valor;
+}
+```
+
+Depois de relembrar rapidamente como o CSS funciona, podemos voltar a programar. Indo no arquivo **style.css** que criamos anteriormente. Vamos mudar as propriedades de aparência do elemento body.
+
+Vamos colocar a cor de fundo de cinza-claro, cor da fonte de cinza-escuro, a fonte arial no tamanho 14pt e uma margem de 32 pixels.
+
+O código ficaria assim:
+
+```css
+body {
+  background: #eee;
+  color: #222;
+  font-family: "Arial", sans-serif;
+  font-size: 14pt;
+  margin: 32px;
+}
+```
+
+Depois de finalizarmos a programação do arquivo style.css devemos incluir os estilos feitos para a página index.html usando o elemento **< link/>**.
+
+No elemento **< link/>** configuramos o tipo de documento no atributo relationship (rel) e o endereço de onde está salvo o documento no atributo hypertext reference (href).
+
+```jsx
+<link rel="stylesheet" href="/style.css"/>
+```
+
+Prontinho, só abrir e correr para o "localhost" para ver as mudanças de estilos que foram feitas.
+
+## Componentes com Estilo
+Para mudarmos os estilos dos componentes, vamos fazer a instalação de um pacote chamado **"Styled Components"**. É bastante utilizado na programação de aplicação no React e serve para simplificar o uso estilo sem usar o CSS.
+
+Abra o Terminal no diretório do projeto, e em seguida digite o comando abaixo:
+
+```js
+npm install styled-components --save
+```
+
+Novamente estamos usando o comando **npm** para fazer a instalação de um pacote externo, o parâmetro passado é do **install** que indica a instalação de um pacote, logo na frente o parâmetro com o nome do pacote nesse caso **"styled-components"** e a sinalização para salvar o pacote.
+
+Bom, sempre que precisarmos instalar um pacote usaremos essa estrutura de comando no Terminal.
+
+Agora que temos o pacote instalado podemos voltar para o componente e fazer a importação do **Styled Components**. Como mostrado abaixo:
+
+```jsx
+import styled from "styled-components"
+```
+
+Temos um novo objetivo:
+
+- Alterar o estilo do elemento **< h1>** para ficar mais estiloso na página.
+
+Vamos começar trocando o estilo da fonte para a cor vermelha com o tamanho de 42 pixels e um espaço entre cada letra de 2 pixels.
+
+O modelo do Título ficaria assim no código:
+
+```jsx
+const Titulo = styled.h1`
+    color: #eb211e;
+    font-size: 42px;
+    letter-spacing: 2px;
+`
+```
+Temos um novo objetivo:
+
+## Resultado final

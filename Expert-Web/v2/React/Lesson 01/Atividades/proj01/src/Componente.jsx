@@ -5,7 +5,7 @@ export default function Componente() {
       <div>
           <h1> Pousando em React! </h1>
           <p> SuperGeeks </p>
-          <img src="http://picsum.photos/128/128" alt="foto aleatória"/>
+          <img src="foto.jpg" alt="foto da pasta public"/>
       </div> 
     );
 }
