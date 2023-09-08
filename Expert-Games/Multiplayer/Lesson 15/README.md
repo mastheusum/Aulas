@@ -5,9 +5,11 @@ Olá, aluno! Tudo chique? Hoje vamos dar sequência no nosso projeto, desenvolve
 - [x] [Barra de HP do Player](#barra-de-hp-do-player)
 - [x] [Barra de HP do Inimigo](#barra-de-hp-do-inimigo)
 - [x] [PVP](#pvp)
-- [ ] Equipes
+  - [ ] [Otimização do dano](#otimização-do-dano)
+- [ ] [Equipes](#equipes)
   - [ ] [Preparando a HUD](#preparando-a-hud)
   - [ ] [Convidando para a Party](#convidando-ao-grupo)
+  - [ ] [Atualizando HP](#atualizando-hp)
 
 ## Barra de HP do Player
 Vamos criar primeiro a barra de HP do Player: na HUD insira um Panel e coloque duas Images (uma será um Background e a outra será a barra de vida) como ilustrado abaixo:
@@ -372,3 +374,171 @@ Antes de testar, não se esqueça de colocar o esse script no Player e o script 
 
 ### Convidando ao Grupo
 
+Vamos fazer a mecânica do grupo: volte no script **PlayerGroup** e adicione:
+
+```cs
+private void Start()
+{
+    hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<GroupHUD>();
+    OnPlayerJoin.AddListener(JoinGroup); // linha nova
+}
+
+// métodos novos
+private void Update()
+{
+    if (isLocalPlayer)
+    {
+        if (Input.GetKeyDown(KeyCode.G) && hud.message.activeSelf)
+        {
+            InviteToGroup();
+        }
+    }
+}
+
+[Command]
+void InviteToGroup()
+{
+    SendGroupInvite(closePlayer.GetComponent<NetworkIdentity>().connectionToClient);
+}
+
+
+[TargetRpc]
+void SendGroupInvite(NetworkConnection target)
+{
+    hud.ReceiveInvite(this, closePlayer);
+}
+
+[Command(requiresAuthority = false)]
+public void JoinGroup(Player_Group invitingPlayer)
+{
+    UpdateGroup(invitingPlayer);
+}
+
+[ClientRpc]
+public void UpdateGroup(Player_Group invitingPlayer)
+{
+    friendPlayer = invitingPlayer;
+}
+```
+
+Temos bastante mudança! Vamos entender passo a passo o que está havendo:
+
+![012](Screenshots/012.png)
+
+No Update estamos verificando se somos o Player local e caso seja apertada a tecla G (e a mensagem estiver sendo mostrada na tela) ele chamará a função **InviteToGroup()**
+
+![013](Screenshots/013.png)
+
+A função **InviteToGroup** possui o atributo [Command] pois deve ser executada no Server para que ele notifique outro client que há um convite sendo feito. Essa notificação acontece na função **SendGroupInvite**, que possui o atributo [TargetRpc] (que é usado quando queremos que uma função seja executada em um client específico, definido pelo objeto NetworkConnection).
+
+Perceba que essa função apresenta um erro, pois ele está tentando chamar a função **ReceiveInvite()** da hud, mas ela ainda não foi criada. Vamos criá-la daqui a pouco!
+
+![014](Screenshots/014.png)
+
+A função **JoinGroup()** será chamada quando o outro Player aceitar o convite (faremos isso na HUD) e ela atualizará para todos os clients na função UpdateGroup o Player que fará parte do nosso grupo (diferente do [TargetRpc], o atributo [ClientRpc] é executado para todos os clients conectados). Perceba que tivemos que definir que o objeto não precisa de autoridade para executar essa função (requiresAuthority), pois dessa forma o server permitirá que um Player atualize informações do outro.
+
+A lógica está montada para o convite e para aceitar o grupo, falta apenas ajustarmos isso na HUD. Vamos voltar ao script GroupHUD e adicionar:
+
+```cs
+public void ReceiveInvite(Player_Group new_myPlayer, Player_Group new_friendPlayer)
+{
+    groupInvitingPanel.SetActive(true);
+    myPlayer = new_myPlayer;
+    friendPlayer = new_friendPlayer;
+}
+
+public void AcceptInvite()
+{
+    groupInvitingPanel.SetActive(false);
+    myPlayer.OnPlayerJoin.Invoke(friendPlayer);
+    friendPlayer.OnPlayerJoin.Invoke(myPlayer);
+}
+
+public void RefuseInvite()
+{
+    myPlayer = null;
+    friendPlayer = null;
+    groupInvitingPanel.SetActive(false);
+}
+```
+
+Aqui temos 3 funções principais: **ReceiveInvite()** é a função chamada quando apontamos o G, ela mostra o painel de convite no Canvas e define quem é o Player que está recebendo o convite e quem está convidando. **AcceptInvite()** será chamada quando apertarmos o Button “Sim” no painel, ele vai disparar os eventos **OnPlayerJoin** de cada Player, para que seja definido quem se juntará ao grupo. Por fim a função **RefuseInvite()** é quando apertarmos o Button “Não” no painel, fazendo com que ele feche e os objetos fiquem nulos.
+
+Voltando na Unity, clique no Button “Sim” do painel e defina que será chamada a função **AcceptInvite()** no evento **onClick**:
+
+![015](Screenshots/015.png)
+
+No Button “Não” será chamada a função **RefuseInvite()**
+
+![016](Screenshots/016.png)
+
+Teste o jogo e verifique que, quando um Player convida o outro e ele aceita, o objeto “friendPlayer” é atualizado para ambos
+
+![017](Screenshots/017.gif)
+
+### Atualizando HP
+
+Agora que cada Player sabe quem está no grupo, podemos fazer muita coisa! A primeira atualização será que os Players não poderão mais se atacar caso estejam no mesmo grupo.
+
+Vamos voltar ao script do Player e ajustar a função **OnCollisionEnter2D()**
+
+```cs
+private void OnCollisionEnter2D(Collision2D collision)
+{
+    Player player = collision.gameObject.GetComponent<Player>();
+    if (player && player != this && collision.collider == player.weaponCollider)
+    {
+        // o IF é novo
+        if(player.GetComponent<Player_Group>().friendPlayer == null)
+        {
+            TakeDamage(player.attack);
+            Vector2 direction =
+                (transform.position - player.transform.position).normalized;
+            rb.velocity = direction * 10;
+        }
+
+    }
+}
+```
+
+Neste caso só verificamos se o Player possui alguém no grupo! Simples não?
+
+![018](Screenshots/018.gif)
+
+Para finalizar, vamos montar na HUD mais um painel, com um ícone do Player e uma barra de HP (da mesma forma que fizemos antes, um Background e uma Image que será a barra de vida):
+
+![019](Screenshots/019.png)
+
+Esse painel ficará desabilitado! Vamos no script **GroupHUD** e atualizá-lo:
+
+```cs
+public Image groupPlayerHPBar;
+public GameObject groupPanel;
+
+public void UpdateHPBar(float value)
+{
+    groupPlayerHPBar.fillAmount = value;
+}
+```
+
+Agora no script **PlayerGroup**:
+
+```cs
+[ClientRpc]
+public void UpdateGroup(Player_Group invitingPlayer)
+{
+    friendPlayer = invitingPlayer;
+    // daqui pra baixo é novo
+    if (isLocalPlayer)
+    {
+        friendPlayer.GetComponent<Player>().OnHPChanged.AddListener(hud.UpdateHPBar);
+        hud.groupPanel.SetActive(true);
+    }
+}
+```
+
+Para que o hp atualize corretamente, verificamos se somos o Player local e usamos o evento OnHPChanged para atualizar a barra de vida.
+
+Não se esqueça de arrastar os objetos no script GroupHUD na Unity! Podemos testar!
+
+![020](Screenshots/020.gif)
