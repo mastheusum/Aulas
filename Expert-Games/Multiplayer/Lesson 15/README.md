@@ -9,8 +9,8 @@ Nesta unit fizemos algumas mecânicas adicionais no projeto, melhorando a experi
     - [Moedas](#moedas)
   - [Troca de Cenas](#troca-de-cenas)
     - [Preparando a nova cena](#preparando-a-nova-cena)
-    - [Build Settings](#build-settings)
     - [Mudança de Cenas no Multiplayer](#mudança-de-cenas-no-multiplayer)
+    - [Build Settings](#build-settings)
   - [Sons](#sons)
     - [Criando Play List de sons](#criando-play-list-de-sons)
 
@@ -164,15 +164,91 @@ Quando desenvolvemos um game no modo Single Player (apenas 1 jogador) a forma co
 
 Porém no modo multiplayer essa não é a forma mais adequada, pois quem deve administrar a troca de cenas é o Server! Vamos ver na prática como podemos fazer uma troca de cenas em que os clients possam continuar jogando juntos.
 
+### Preparando a nova cena
+
 Vamos criar uma cena com tudo o que precisamos: **HUD**, os **SpawnPoints** dos Players e o **CameraLimit** (salve o prefab de cada um desses objetos da cena que estávamos).
 
 ![006](Screenshots/006.png)
 
-### Preparando a nova cena
+> Importante: Coloque na MainCamera o componente CinemachineBrain, caso contrário a Cinemachine dos Players não estará funcionando corretamente.
 
-### Build Settings
+Se quiser, você pode fazer seu tilemap com um cenário bem legal para os Players. O meu, por exemplo, ficou assim:
+
+![007](Screenshots/007.png)
 
 ### Mudança de Cenas no Multiplayer
+
+Quando nossos Players forem transportados para essa nova cena, o objeto NetworkController será levado automaticamente para ela (ou seja, não precisamos colocá-lo nessa cena). Porém há um detalhe: o script MyNetworkManager pede os SpawnPoints dos Players e do Inimigo, mas como ele não estará na cena precisaremos passar esses objetos através de código.
+
+Coloque no **Player1SpawnPoint** e no **Player2SpawnPoint** uma tag (pode ser “P1_Spawn” e “P2_Spawn” respectivamente) e abra o script **MyNetworkManager** para adicionar:
+
+```cs
+public override void OnServerSceneChanged(string sceneName)
+{
+    player1SpawnPoint = GameObject.FindGameObjectWithTag("P1_Spawn").transform;
+    player2SpawnPoint = GameObject.FindGameObjectWithTag("P2_Spawn").transform;
+}
+```
+
+A função **OnServerSceneChanged()** é chamada na troca de cena, então nesse momento nós buscamos os SpawnPoints pela tag.
+
+Vamos modificar também a função **SpawnEnemy()** para que ele crie o inimigo somente se o **enemySpawnPoint** for válido:
+
+```cs
+void SpawnEnemy()
+{
+    if(enemySpawnPoint != null) // linha nova
+    {
+        GameObject new_enemy = Instantiate(
+            spawnPrefabs.Find(prefab => prefab.name == "EnemyFollower"),
+            enemySpawnPoint.position, enemySpawnPoint.rotation);
+
+        NetworkServer.Spawn(new_enemy);
+    }
+
+}
+```
+
+Agora podemos voltar na cena anterior e criar um objeto que servirá de “Portal”: ele terá um Collider2D com trigger ativo e o script abaixo:
+
+```cs
+using Mirror;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Portal : NetworkBehaviour
+{
+   MyNetworkManager manager;
+   public string sceneName;
+
+   private void Start()
+   {
+       manager = GameObject.Find("NetworkController").GetComponent<MyNetworkManager>();
+   }
+
+   private void OnTriggerEnter2D(Collider2D collision)
+   {
+       if (collision.CompareTag("Player"))
+       {
+           manager.ServerChangeScene(sceneName);
+       }
+   }
+}
+```
+
+Note que nós verificamos a colisão com o Player e chamamos a função **ServerChangeScene()**, fazendo com que todos os clients mudem de cena juntos sem perder a conexão.
+
+Coloque o script no Portal e nele digite o nome da cena que nós iremos.
+
+### Build Settings
+Antes de testar é necessário incluir também na opção Build Settings quais são as cenas que nós temos no jogo:
+
+![008](Screenshots/008.png)
+
+Feito? Bora testar!
+
+![009](Screenshots/009.png)
 
 ## Sons
 
