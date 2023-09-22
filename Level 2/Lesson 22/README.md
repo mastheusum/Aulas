@@ -46,7 +46,7 @@ Agora demos início ao projeto feito na Unity e neste projeto faremos um clone d
   - [x] Adicionar o Script ao Player na Unity
     - [x] Mostre como a Unity apresenta as variáveis no Inspector
     - [x] Preencha os campos
-- [x] Entendendo os Inputs
+- [x] [Entendendo os Inputs](#entendendo-os-inputs)
   - [x] As entradas podem ser mapeadas pela Unity
   - [x] Entendendo o plano cartesiano na Unity
   - [x] Lendo as entradas
