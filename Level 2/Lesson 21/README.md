@@ -77,7 +77,7 @@ A Programação Orientada a Objeto (POO) compreende-se em uma forma de estrutura
 ## POO na prática
 
 ```cs
-using UnityEditor;
+using UnityEngine;
 
 public class TopDownMove : MonoBehavior
 {
