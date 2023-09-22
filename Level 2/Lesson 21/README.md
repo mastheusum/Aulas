@@ -37,7 +37,7 @@ A Programação Orientada a Objeto (POO) compreende-se em uma forma de estrutura
   - [x] Apresentar métodos
   - [x] Criar atributos
     - [x] speed (float) (public)
-    - [x] direction (Vector2) (public)
+    - [x] direction (Vector2) (public) 
     - [x] body (Rigidbody2D) (public)
     - [x] inputX (float) (private)
     - [x] inputY (float) (private)

@@ -53,7 +53,7 @@ Agora demos início ao projeto feito na Unity e neste projeto faremos um clone d
   - [x] Alterando o vetor direção
   - [x] Movendo o personagem
     - [x] MovePosition **X** velocity
-- [x] Alterando a aparência do personagem
+- [x] Alterando a aparência do personagem 
   - [x] Importando os Assets
   - [x] Configurando os Sprites
   - [x] Usando no Sprite Renderer
