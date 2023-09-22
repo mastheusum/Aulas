@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const ModeloConteudo = styled.div` 
-  background: #eee;
+const ModeloConteudo = styled.div`
+  background: ${
+    props => props.estado !== "true" ? 'white' : '#eee'
+  };
   margin-bottom: 16px;
   padding: 16px;
   text-align: center;
-  text-decoration: none;
+  text-decoration: ${
+    props => props.estado === "false" ? 'line-through' : 'none'
+  };
 `
 
 export default function Conteudo(props) {

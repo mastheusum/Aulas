@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+
 import Titulo from "./components/Titulo";
 import Campo from "./components/Campo";
 import Conteudo from "./components/Conteudo";
+import Entrada from "./components/Entrada";
 
 export default function Inicio() {
+  const [ lista, definirLista ] = useState("");
+
+  function Adicionar(evento) {
+    const valor = evento.target.conteudo.value;
+    definirLista(valor);
+    evento.preventDefault();
+  }
+
   return(
     <>
       <Titulo nome="Velejando com o React" />
       <Campo id='1'>
-        Teste
+        <form onSubmit={ Adicionar }>
+          <Entrada />
+        </form>
       </Campo>
       <Campo id='2'>
-        <Conteudo texto="Tirar o lixo" />
-        <Conteudo texto="Fazer o café" />
+        <Conteudo texto={ lista } />
       </Campo>
     </>
   );

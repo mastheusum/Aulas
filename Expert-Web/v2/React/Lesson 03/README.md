@@ -374,15 +374,215 @@ A próxima etapa é mudar a aparência do componente conteúdo quando houver a a
 E assim, o conteúdo já vai estar funcionando.
 
 ## Alterando o estilo
+![005](Screenshots/005.gif)
+
+Chegou o momento de alterar o estilo!
+
+A parte lógica do componente conteúdo já foi programada e está funcionando, porém ainda não conseguimos ver nenhuma alteração de aparência. Agora siga os passos para fazer a aparência mudar!
+
+Quando o estado "Feito" do componente estiver True o fundo ficará branco e o texto tachado, agora quando o estado estiver False o fundo ficará cinza e o texto normal:
+
+```css
+/* Feito: true */
+background: #eee;
+text-decoration: none;
+
+
+/* Feito: false */
+background: #fff;
+text-decoration: line-through;
+```
+
+Antes de programar o estilo para o modelo, temos que entender como funciona a compressão de estruturas no JavaScript.
+
+Existem três formas da criarmos a estrutura de decisão IF no JavaScript:
+
+- A primeira é a **convencional**: que usamos a maior parte do tempo, o comando IF com a condição entre parentes e as chaves para indicar o início e fim da estrutura. E para o comando ELSE as chaves também são usadas.
+- A segunda maneira é com a **estrutura simplificada**: onde é usado os comandos do código na mesma linha da condição, porém esse método restringe para apenas um comando de uso.
+- E por fim, a terceira maneira onde temos a **estrutura compacta** (ou também chamada de **decisão ternária**): onde usamos a condição com o símbolo de interrogação e no segundo parâmetro passamos o retorno do valor verdadeiro, tem um símbolo de dois pontos dividindo e o terceiro parâmetro o retorno para o valor falso;
+
+E abaixo tem um exemplo de como ficaria:
+
+```jsx
+// Estrutura Convencional
+if (estado == true) {
+  return "white"
+}
+else {
+  return "#eee"
+}
+
+
+// Estrutura Simplificada
+if (estado) return "white"
+else return "#eee"
+
+
+// Estrutura Compacta
+estado ? "white" : "#eee"
+```
+
+Usaremos para mudar os estilos do modelo do conteúdo a estrutura de decisão compacta para alterar as cores do fundo e a decoração do texto.
+
+No código o resultado seria este abaixo:
+
+```jsx
+const ModeloConteudo = styled.div` 
+  background: ${
+    props => props.estado ? "white" : "#eee"
+  };
+  margin-bottom: 16px;
+  padding: 16px;
+  text-align: center;
+  text-decoration: ${
+    props => props.estado ? "line-through" : "none"
+  };
+`
+```
+
+O props nesse caso se refere a propriedade estado passado para o modelo conteúdo, como é um valor booleano podemos comparar se o valor é True ou se o valor é False.
+
+E agora você pode testar a aplicação funcionando!
 
 ## Entrada
 
+Bora partir para o último componente da aplicação!
+
+O componente restante é a "Entrada", onde iremos digitar a tarefa para se tornar um componente conteúdo. Este componente será um elemento <input/> que iremos estilizar com o modelo do Styled.
+
+São bastantes ajustes de estilos que teremos que fazer para a entrada de texto ficar bonita:
+
+- Fundo de cor branca;
+- Sem bordas;
+- Altura de 42 pixels;
+- Tamanho da fonte de 14 pontos;
+- Sem margem;
+- Sem espaçamento interno;
+- Alinha o texto ao centro;
+- E ocupar o comprimento todo;
+
+Ficaria assim o modelo de entrada:
+
+```jsx
+/* src/components/Entrada.jsx */
+const ModeloEntrada = styled.input` 
+  background: white;
+  border: none;
+  height: 42px;
+  font-size: 14pt;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+`
+```
+
+Agora programe a função do componente "Entrada" a partir do modelo criado.
+
+O atributo tipo (type) de entrada é de texto, no texto de indicação (placeholder) coloque a especificação da entrada e no nome (name) deve ser colocado "conteudo" para conseguirmos encontrar o valor digitado pelo usuário:
+
+```jsx
+/* src/components/Entrada.jsx */
+export default function Entrada() {
+  return <ModeloEntrada
+    type="text" 
+    placeholder="Digite um novo conteúdo" 
+    name="conteudo"
+  /> 
+}
+```
+
+Voltando à página de início, faça a importação do componente entrada e inclua para dentro do elemento Campo com o atributo ID de 1.
+
+Para conseguirmos obter o valor que foi digitado pelo usuário, coloque a entrada para dentro do elemento < form>, como mostrado abaixo:
+
+```jsx
+/* src/Inicio.jsx */
+<Campo id="1">
+  <form>
+    <Entrada/>
+  </form>
+</Campo>
+```
+
+Agora vamos voltar para a programação da página de início para desenvolver lógica final da aplicação!
+
 ## Configurando lista
 
+Precisamos armazenar as tarefas na página de início!
+
+Todos os dados que forem digitados no **componente entrada** pelo usuário deve ser armazenado de alguma forma. Por isso devemos usar o **UseState** para armazenar em um estado chamado **"Lista"**.
+
+Então comece importando o UseState de dentro do pacote React:
+
+```jsx
+/* src/Inicio.jsx */
+import React, { useState } from "react";
+```
+
+E o próximo passo é criar um **estado** e **definidor** para o UseState.
+
+Coloque o nome do estado de **"lista"** e o definidor de **"definirLista"**. Como não precisamos de um valor inicial coloque um texto vazio:
+
+```jsx
+/* src/Inicio.jsx */
+const [ lista, definirLista ] = useState("");
+```
+
+E prontinho, temos o estado configurado!
+
+Só que o componente conteúdo precisa receber o texto do estado lista que criamos. Se em algum momento o valor do estado for alterado, automaticamente o texto do componente também será:
+
+```jsx
+/* src/Inicio.jsx */
+<Campo id="2">
+  <Conteudo texto={ lista }/>
+</Campo>
+```
+
+E está feito o sistema para armazenar o texto do componente entrada!
+
 ## Mudando a tarefa
+![006](Screenshots/006.gif)
+
+Faremos o texto do conteúdo mudar através do texto digitado pelo componente entrada!
+
+Temos que programar de alguma maneira para o texto digitado pelo usuário no **componente entrada** ser armazenado dentro do estado **"Lista"** que criamos anteriormente.
+
+Você deve criar uma função chamada **Adicionar** dentro da página de início. Essa função vai ficar responsável por pegar o valor de dentro do Componente Entrada e passar para o estado **"Lista"** usando o definidor.
+
+Observe que programação magnífica:
+
+```jsx
+/* src/Inicio.jsx */
+const [ lista, definirLista ] = useState("");
+
+function Adicionar(evento) {
+  const valor = evento.target.conteudo.value;
+  console.log(evento.target)
+  definirLista(valor);
+  evento.preventDefault();
+}
+```
+
+A função não vai funcionar sozinha como um passe de mágica, devemos adicioná-la em algum trecho do código que estamos programando para ser executada.
+
+
+A execução da função deve ser feita quando o formulário for enviado, então usamos o evento **"onSubmit"** dentro do elemento **< form>**:
+
+```jsx
+/* src/Inicio.jsx */
+<Campo id="1">
+  <form onSubmit={ Adicionar }>
+    <Entrada/>
+  </form>
+</Campo>
+```
+
+Feito! Com poucas linhas de programações e algumas alterações conseguimos fazer o código funcionar.
 
 ## Adicionando tarefas
 
 ## Mapeando
 
-## Finalização
+## Finalização 
