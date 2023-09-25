@@ -6,11 +6,11 @@ import Conteudo from "./components/Conteudo";
 import Entrada from "./components/Entrada";
 
 export default function Inicio() {
-  const [ lista, definirLista ] = useState("");
+  const [ lista, definirLista ] = useState( [] );
 
   function Adicionar(evento) {
     const valor = evento.target.conteudo.value;
-    definirLista(valor);
+    definirLista( [...lista, valor] );
     evento.preventDefault();
   }
 
@@ -23,7 +23,11 @@ export default function Inicio() {
         </form>
       </Campo>
       <Campo id='2'>
-        <Conteudo texto={ lista } />
+        {
+          lista.map( (item) => {
+            return <Conteudo key={ item } texto={ item } />
+          })
+        }
       </Campo>
     </>
   );

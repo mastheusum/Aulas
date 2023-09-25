@@ -583,6 +583,112 @@ Feito! Com poucas linhas de programações e algumas alterações conseguimos fa
 
 ## Adicionando tarefas
 
+Até o momento conseguimos fazer o texto do elemento de conteúdo mudar, agora devemos programar para adicionar novos elementos de conteúdos para dentro do campo.
+
+Antes devemos trocar o tipo de dado do estado "Lista" de **String** (texto) para **Array**.
+
+Com o tipo de dados Array conseguimos inserir vários itens, como o exemplo abaixo onde temos as tarefas atribuídas para dentro de uma variável:
+
+```jsx
+/* Exemplo */
+var tarefas = [ "tirar o lixo", "lavar louça", ... ]
+```
+
+Então altere o valor inicial para um **Array vazio**.
+
+E agora o estado sendo do tipo Array podemos ao invés de modificar o valor, podemos **adicionar novos itens** para o valor do estado, assim listando todas as tarefas do usuário:
+
+```jsx
+/* ./Inicio.jsx */
+const [ lista, definirLista ] = useState([])
+```
+
+Fazer apenas essa mudança não vai fazer a aplicação do React funcionar!
+
+Temos que entender como funciona o processo de adicionar um novo item à lista. Você pode usar um comando bastante conhecido chamado Push para incluir um item na lista ou usar a forma compacta.
+
+Observe o exemplo abaixo. Temos uma lista chamada mercado com três produtos dentro e temos um produto avulso. Para incluímos precisamos criar uma nova lista que unifique os produtos do mercado com o produto avulso e por fim obtemos uma lista maior:
+
+```jsx
+/* Exemplo */
+const mercado = [ "Alface", "Abóbora", "Feijão" ]
+const produto = "Cenoura"
+
+console.log([...mercado, produto]) /* -> imprime a lista somada ao produto */
+```
+
+Agora com esse exemplo, fica claro como podemos solucionar o problema encontrado.
+
+Devemos fazer o valor da entrada ser incluído para dentro do estado **"Lista"**, e podemos fazer a unificação na função **"definirLista"**:
+
+```jsx
+/* ./Inicio.jsx */
+function Adicionar(evento) {
+  const valor = evento.target.conteudo.value;
+  definirLista( [...lista, valor] );
+  evento.preventDefault();
+}
+```
+Agora os valores digitados estão sendo adicionados para o estado **"Lista"**, porém temos que fazer o os componentes Conteúdo ser criado para cada nova tarefa da lista.
+
+É o que faremos a seguir!
+
 ## Mapeando
 
+Para finalizar a aplicação no React, temos que fazer os valores armazenados no estado "Lista" serem mostrados como o componente conteúdo.
+
+Quando temos um Array conseguimos usar a função **Map** para transformar os itens contidos em elementos JSX a partir de uma repetição.
+
+Aqui vai um exemplo de como funciona a função **Map**:
+
+```jsx
+/* Exemplo */
+const animais = [ "Galinhas", "Porcos", "Vacas" ]
+
+animais.map(function(animal) {
+  return <h1> Na minha fazenda tem {animal} </h1>
+})
+
+/* Resultado */
+<h1> Na minha fazenda tem Galinhas </h1>
+<h1> Na minha fazenda tem Porcos </h1>
+<h1> Na minha fazenda tem Vacas </h1>
+```
+
+Veja que temos uma lista de animais (**Array**), que contém 3 animais dentro. Na função Map é possível observar o **processo de mapeamento** que está acontecendo para cada animal da lista. O resultado é retornado em um elemento < h1> tendo um texto fixo e um texto variável do nome do animal.
+
+E pelo resultado do exemplo podemos ter uma noção de como a função **map** funciona!
+
+Faremos o mesmo com o estado **"Lista"** que será mapeada retornando o elemento Conteúdo para cada item:
+
+```jsx
+/* ,/Inicio.jsx */
+<Campo id="2">
+  {
+    lista.map( (item) => {      
+      return <Conteudo key={ item } texto={ item }/>
+    })
+  }
+</Campo>
+```
+
+Depois de programado, realize os testes na aplicação. Comece colocando uma nova tarefa e veja se o estado "Feito" de cada conteúdo está funcionando.
+
+Se acontecer algum problema ou erro, revise as últimas alterações feitas no código!
+
 ## Finalização 
+
+E finalizamos mais um projeto feito com o React. Então chegou o momento de revisarmos tudo o que aprendemos ao desenvolver esse conteúdo:
+
+- Começou fazendo o Layout do projeto e construindo os componentes;
+- Fez o sistema de conteúdos para a aplicação;
+- Incluiu uma Entrada para os usuários conseguirem digitar os textos;
+- Programou para o componente conteúdo ter estado;
+- Aprendeu como funciona o Hooks UseState do React;
+- Adicionou o mecanismo da Entrada mudar o texto do conteúdo;
+- Desenvolveu o sistema para armazenar conteúdos;
+
+Parabéns por ter chegado até aqui!
+
+E uma etapa importante foi feita nesse projeto, aprendemos que os componentes e páginas podem ter estados, usaremos o UseState daqui para frente para armazenar informações e dados. Então fique ligado nos próximos conteúdos!
+
