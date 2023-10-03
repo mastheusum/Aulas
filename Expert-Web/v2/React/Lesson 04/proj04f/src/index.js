@@ -1,10 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Inicio from './Inicio';
+import React from "react" 
+import { createRoot } from "react-dom/client" 
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Inicio />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import Inicio from "./Inicio" 
+
+const contentor = document.getElementById("root")
+const origem = createRoot(contentor) 
+
+origem.render(<Inicio/>)

@@ -127,9 +127,25 @@ servidor.get("*", function(requisicao, resposta) {
 
 ## A Aplicação
 
-Crie uma projeto em branco e instale o styled-components
+Crie uma projeto em branco e instale o **styled-components**
 
-No style.css teremos o código abaixo e lembre de importar no index.html como nas aulas anteriores
+Configure o arquivo index.js da seguinte forma:
+
+```js
+import React from "react" 
+import { createRoot } from "react-dom/client" 
+
+import Inicio from "./Inicio" 
+
+const contentor = document.getElementById("root")
+const origem = createRoot(contentor) 
+
+origem.render(<Inicio/>)
+```
+
+> Isso é necessário para que o useEffect e useState funcionem adequadamente
+
+No **style.css** teremos o código abaixo e lembre de importar no index.html como nas aulas anteriores
 
 ```css
 body {
