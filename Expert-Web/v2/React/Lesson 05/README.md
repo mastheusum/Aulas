@@ -99,11 +99,73 @@ Agora com o Cluster e o usuário configurado, vamos passar para as variáveis de
 
 ![002](Screenshots/002.png)
 
-Ao criar uma conexão com o Cluster é preciso adicionar o IP
+Ao criar uma conexão com o Cluster escola a opção **Node.js** e ela dará as instruções para a realização da conexão.
 
 ### Conectando com o MongoDB
 
+Agora devemos fazer a conexão entre o Servidor e o banco de dados do MongoDB. Olhando de uma visão geral, o Servidor vai ser o intermediador entre o banco de dados e os clientes e aplicações.
+
+Para conectar ao MongoDB vamos precisar de um novo Script o **conexao.js**
+
+```js
+/* scr/conexao.js */
+import mongoose from "mongoose" 
+
+// os dados abaixo são dados quando clicamos em connect no Cluster
+const endereco = "mongodb+srv://<USUÁRIO>:<SENHA>@<CLUSTER>.mongodb.net/" 
+//------------------
+const configuracao = { useNewUrlParser: true, useUnifiedTopology: true }
+
+mongoose.connect(endereco, configuracao, function() {
+    console.log("CONECTADO COM O BANCO DE DADOS!")
+})
+
+mongoose.Promise = global.Promise
+```
+
+Seguindo o código **conexao.js** que criamos, quando o mongoose conectar com o banco de dados vai ser impresso no Terminal a mensagem de sucesso passado pela função.
+
+E com o Mongoose Promise conseguimos fazer o uso do **mongoose** em qualquer parte do código, assim deixando Global. Foi bastante utilizado nas versões antigas como o Mongoose 4.
+
+E agora criaremos o esquema do banco de dados para **armazenar** os dados de **forma estruturada**. Com o Mongoose **Schema** podemos criar campos com tipos de dados específico:
+
+```js
+/* src/bancodedados.js */
+import mongoose from "mongoose"
+
+const EsquemaUsuario = new mongoose.Schema({
+  nome: String,
+  email: String,
+  senha: String,
+  nascimento: Date
+})
+
+const usuario = mongoose.model("usuario", EsquemaUsuario)
+
+export { usuario }
+```
+
+O Esquema Usuário criado no código é estruturado com o campo de nome, email e senha no formato de Texto e o campo de nascimento no formato de Data.
+
+E o esquema é transformado em um modelo para executar as funções como armazenar, consultar, alterar e deletar os dados do MongoDB.
+
+E em seguida iremos estudar as funções que podem ser executadas pelo Modelo do Mongoose conseguimos fazer as primeiras ações com o Banco de Dados através de comandos no Servidor Express que estamos programando.
+
+Conexão com banco de dados configurada!
+
 ### Mongoose ações
+Agora estudaremos as ações dos Modelos do pacote Mongoose.
+
+Todos os Bancos de Dados possuem maneiras de manipular os dados que chamamos no MongoDB de ações. As principais são:
+
+- Armazenar dados: onde podemos pegar dados e salvar de forma consistente no banco de dados;
+- Consultar os dados: a ação que permite obtermos os dados armazenados anteriormente no banco de dados pelos clientes;
+- Alterar os dados: essa ação permite alterarmos uma propriedade de algum dado que foi armazenado através da sua identificação;
+- Excluir dados: é a função mais perigosa, que exclui as informações que foram armazenadas de forma permanente.
+  
+Essas ações também são conhecidas em inglês pela sigla **CRUD** ou Create, Read, Update and Delete. E agora aprenderemos a aplicar essas ações na programação do Servidor.
+
+Vamos começar pelo comando Find que é equivalente a ação Consultar, mas é usado para consultar todas as informações armazenadas no banco de dados de uma única vez:
 
 ## Rota para obter dados
 
