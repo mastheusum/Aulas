@@ -154,7 +154,7 @@ E em seguida iremos estudar as funções que podem ser executadas pelo Modelo do
 Conexão com banco de dados configurada!
 
 ### Mongoose ações
-Agora estudaremos as ações dos Modelos do pacote Mongoose.
+Agora estudaremos as ações dos Modelos do pacote **Mongoose**.
 
 Todos os Bancos de Dados possuem maneiras de manipular os dados que chamamos no MongoDB de ações. As principais são:
 
@@ -165,13 +165,215 @@ Todos os Bancos de Dados possuem maneiras de manipular os dados que chamamos no 
   
 Essas ações também são conhecidas em inglês pela sigla **CRUD** ou Create, Read, Update and Delete. E agora aprenderemos a aplicar essas ações na programação do Servidor.
 
-Vamos começar pelo comando Find que é equivalente a ação Consultar, mas é usado para consultar todas as informações armazenadas no banco de dados de uma única vez:
+Vamos começar pelo comando **Find** que é equivalente a ação Consultar, mas é usado para consultar todas as informações armazenadas no banco de dados de uma única vez:
+
+```js
+/* exemplo */
+const resultados = await usuario.find()
+console.log(resultados)
+```
+
+Acima, tem o exemplo de uso do comando Find, veja que o comando junto com o **await** retorna todos os valores em uma constante que nomeamos como "Resultados".
+
+E para recebermos um único dado específico do banco de dados usamos o comando **FindOne**, e como parâmetros passamos um dado que indique o que deve ser procurado:
+
+```js
+/* exemplo */
+const resultado = await usuario.findOne({ 
+  email: "fulano@mail.com"
+})
+console.log(resultado)
+```
+
+O parâmetro do FindOne é exigido um campo e valor que identifique quais os dados devem ser encontrados, e o parâmetro deve ser no formato de Objeto do JavaScript como mostrado no código acima.
+
+Para inserir novos dados no MongoDB devemos criar um novo modelo contendo o objeto dos dados e em seguida usamos a função Save dentro do modelo criado. E assim as informações serão enviadas e armazenadas no MongoDB:
+
+```js
+/* exemplo */
+const novoUsuario = new usuario({
+    nome: "Fulano",
+    email: "fulano@mail.com",
+    senha: "super123",
+    nascimento: new Date("2000-01-01")
+})
+const resultado = await novoUsuario.save()
+console.log(resultado)
+```
+
+Quando armazenamos os dados no MongoDB é retornado um resultado que pode ser mostrado em um console.log.
+
+Através do comando DeleteOne podemos fazer a exclusão de um dado dentro do banco de dados MongoDB, mas precisamos indicar qual o dado deve ser excluído com o parâmetro:
+
+```js
+/* exemplo */
+const resultado = await usuario.deleteOne({
+  nome: "Fulano"
+})
+console.log(resultado)
+```
 
 ## Rota para obter dados
 
+Agora que sabemos como utilizar as ações do banco de dados MongoDB através do pacote externo que instalamos, o Mongoose, vamos criar a rota para obter todos os dados do Banco de Dados.
+
+Começando pelos códigos HTTP, acessando os sites abaixo podemos encontrar uma sessão completa com diversos códigos e imagens engraçadas de gatinhos e cachorros:
+
+- https://http.cat/
+- https://httpstatusdogs.com/
+
+Cada código representa uma mensagem que pode ser enviada pelo Servidor aos clientes como resposta. E cada centena dos códigos representa uma categoria de resposta como mostrado abaixo:
+
+> 100 -> Usados para Respostas de informação
+> 
+> 200 -> Usados para Respostas de sucesso
+> 
+> 300 -> Usados para Redirecionamentos
+> 
+> 400 -> Usados para Erros do cliente
+> 
+> 500 -> Usados para Erros do servidor
+
+Então sabendo dessas categorias, podemos classificar como tipos de respostas. Se o servidor precisar enviar uma informação básica para o cliente será utilizado o código de centena 100. Caso o servidor tenha conseguido efetuar alguma operação ou ação pedida pelo cliente com sucesso o código de resposta deverá ser da centena 200 e assim por diante.
+
+Abaixo está listado os códigos mais utilizados e conhecidos quando falamos de códigos de status HTTP:
+
+> 200 -> OK
+> 201 -> Created
+> 
+> 400 -> Bad Request 
+> 404 -> Not Found
+> 
+> 500 -> Internal Server Error
+
+O famoso 404 é um código de status que indica um erro de acesso do Cliente, ou seja sempre que for realizado uma requisição em uma rota que o servidor não tenha registrado será retornado a mensagem de "404 Not Found".
+
+Voltado agora para o código...
+
+No index.js vamos importar os dois arquivos criados anteriormente, o conexao.js para fazer a ligação entre o servidor e o MongoDB e as ações do Mongoose no arquivo bancodados.js:
+
+```js
+/* src/index.js */
+import "./conexao.js" 
+import { usuario } from "./bancodados.js"
+```
+
+Assim podemos fazer a conexão com o serviço Atlas do MongoDB assim que o servidor for acionado e usar as ações para manipular os dados do usuário.
+
+Na rota GET de endereço "/" vamos adicionar a ação para obter todos os dados armazenados com o Mongoose usando o comando Find e o resultado retornado da ação é enviado como resposta para o cliente no formato JSON com o código HTTP 200:
+
+```js
+/* src/index.js */
+servidor.get("/", async function(requisicao, resposta) {
+  const resultados = await usuario.find()
+  resposta.status(200).json(resultados)
+})
+```
+
+Com a Rota GET configurada podemos passar para a programação da Rota POST e elaborar para armazenar os dados de usuários a partir do corpo recebido na requisição.
+
+Rota para obter dados está finalizada!
+
 ### Ferramenta Nova!
+Antes de partirmos para a programação da Rota para adicionar dados ao banco de dados. Vamos aprender uma nova ferramenta!
+
+A requisição e resposta HTTP seguem um protocolo de envio e tem um padrão em sua estrutura. É construída com um cabeçalho onde possui todas as informações necessárias para o tráfego e abaixo o corpo contendo informações primordiais de funcionamento das aplicações.
+
+Abaixo tem o exemplo de uma resposta HTTP:
+
+```http
+GET / HTTP/1.1
+HOST: http://localhost:4000
+Content-Type: application/json; charset=UTF-8
+Content-Length: 100
+Transfer-Encoding: chunked
+Date: Wed, 05 May 2010 21:10:14 GMT
+
+[
+  {
+    "_id": ObjectId("909c523ccacd440b"),
+    "nome": "Fulano",
+    "email": "fulano@email.com",
+    "senha": "super123",
+    "nascimento": "2000-01-01",
+    "__v": 0
+  }
+  ...
+]
+```
+
+Veja a quantidade de informações que são passadas e enviadas pela internet enquanto o servidor está funcionando.
+
+Nesse caso tem um conjunto de informações estruturadas e para ajudar a compreensão foi colocado de forma colorida e organizada, mas o que temos na verdade é um texto sendo enviado e às vezes sem os espaçamentos corretos.
+
+- Para conseguirmos visualizar os dados de uma forma mais organizada iremos instalar uma nova ferramenta para facilitar as requisições do servidor. Usaremos o Postman, bastante conhecido no ambiente web e utilizado pelos programadores de backend.
+
+Acesse o site oficial e faça o download da ferramenta:
+
+- https://www.postman.com/downloads/
+
+A instalação é bem trivial e semelhante às demais ferramentas, leia os termos de uso da ferramenta e concorde, então prossiga avançando até concluir a instalação da ferramenta em sua máquina.
+
+No site terá disponíveis todas as versões e também para todos os sistemas operacionais. 
+
+Caso não queira fazer a instalação é possível fazer o uso da versão online sem a necessidade de fazer o download do software e de instalar alguma dependência na máquina. Basta acessar o site:
+
+- https://web.postman.co/
+
+Agora com a ferramenta aberta em sua máquina, selecione o Workspace e preencha com o endereço do Localhost do servidor com a porta correta. Em seguida faça a requisição da Rota GET.
+
+Essa ferramenta vai auxiliar a visualizar o corpo, tempo de resposta entre servidor-cliente, tamanho da resposta HTTP em bytes e entre outras informações que podem ser exploradas, como mostrado na imagem abaixo:
+
+![003](Screenshots/003.png)
+
+Temos agora uma grande arma em nossas mãos, estamos preparados até os dentes para enfrentar o próximo desafio de programar a rota para adicionar dados e podemos realizar testes minuciosos para ver o comportamento da rota.
+
+Ferramenta instalada com sucesso!
 
 ## Rota para adicionar dados
+
+Faremos a programação da Rota POST para adicionar novos usuários ao banco de dados do MongoDB!
+
+Para usar a ação do Mongoose para armazenar os dados, precisamos antes entender uma estrutura utilizada no JavaScript para verificar se um conjunto de comandos obteve êxito ou não na execução.
+
+Com a estrutura de comandos Try e Catch podemos realizar uma tentativa de execução em um conjunto de comandos. Funciona da seguinte forma:
+
+```js
+/* exemplo */
+try {
+  // Código para ser tentado executar
+}
+catch(erro) {
+  // Código para ser executado se a tentativa der errado
+}
+```
+
+O comando Try serve para receber dentro de si os comandos para a execução, para o caso prático que teremos usaremos os comandos de criação de usuário e o método Save para armazenar o usuário criado.
+
+Agora, caso os comandos contidos dentro do comando Try venham a falhar ou gerar algum erro o Catch é imediatamente acionado e o erro é retornado na estrutura.
+
+A rota ficaria assim com a aplicação da estrutura Try-Catch:
+
+```js
+/* src/index.js */
+servidor.post("/", async function(requisicao, resposta) {
+  try {
+    const novoUsuario = new usuario(requisicao.body) 
+    const resultado = await novoUsuario.save()
+    resposta.status(201).json(resultado)
+  }
+  catch(erro) {
+    console.log(erro.message) 
+    resposta.sendStatus(500) 
+  }
+})
+```
+
+Se tudo acontecer exatamente como esperado, o cliente vai receber como resposta o resultado e o código enviado pelo servidor será Created ou conhecido pelo código de status HTTP 201.
+
+Se não houver êxito na execução o cliente recebe o Internal Server Error, o temido código 500. E no console é printado a mensagem do erro para auxiliar nós programadores e encontrar o possível erro da aplicação do servidor.
+
+Dentro da ferramenta Postman podemos adicionar o corpo da requisição e montar uma estrutura JSON para ser enviada para o servidor. Ao configurar e realizar o envio da requisição vai ser retornada a resposta na lateral direita com a mensagem de êxito:
 
 # A aplicação
 

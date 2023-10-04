@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import './conexao.js'
 
 const myUser = "admin"
 const myPass = "o7AdBkRFlpTQm5sd"
