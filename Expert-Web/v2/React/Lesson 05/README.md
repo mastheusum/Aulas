@@ -115,10 +115,8 @@ import mongoose from "mongoose"
 const endereco = "mongodb+srv://<USUÁRIO>:<SENHA>@<CLUSTER>.mongodb.net/" 
 //------------------
 const configuracao = { useNewUrlParser: true, useUnifiedTopology: true }
-
-mongoose.connect(endereco, configuracao, function() {
-    console.log("CONECTADO COM O BANCO DE DADOS!")
-})
+// esse método não aceita mais uma função de callback
+mongoose.connect(endereco, configuracao)
 
 mongoose.Promise = global.Promise
 ```
@@ -373,18 +371,329 @@ Se tudo acontecer exatamente como esperado, o cliente vai receber como resposta 
 
 Se não houver êxito na execução o cliente recebe o Internal Server Error, o temido código 500. E no console é printado a mensagem do erro para auxiliar nós programadores e encontrar o possível erro da aplicação do servidor.
 
-Dentro da ferramenta Postman podemos adicionar o corpo da requisição e montar uma estrutura JSON para ser enviada para o servidor. Ao configurar e realizar o envio da requisição vai ser retornada a resposta na lateral direita com a mensagem de êxito:
+Dentro da ferramenta Postman podemos adicionar o corpo da requisição e montar uma estrutura JSON para ser enviada para o servidor. Ao configurar e realizar o envio da requisição vai ser retornada a resposta na lateral direita com a mensagem de êxito.
+
+E assim a aplicação mostrará que está funcionando corretamente. Caso apareça um erro ou alerta é necessário voltar para a programação do Servidor e encontrar o erro a partir da mensagem printada no Terminal.
+
+Servidor finalizado!
 
 # A aplicação
+Agora partiremos para a aplicação em React!
+
+Comece criando uma nova aplicação em React para conectar com o servidor que finalizamos. A aplicação vai funcionar para conseguirmos cadastrar novos usuários ao banco de dados MongoDB através do envio de informações do Servidor.
+
+Agora faça o download da imagem de fundo que iremos usar no projeto e salve dentro da pasta Public:
+
+- https://i.ibb.co/wrM4Y88/fundo.jpg
+
+Em seguida, edite o arquivo index.html para ter todas as configurações inicial, como o conjunto de caracteres para o UTF-8 e o ajuste na proporção da tela em dispositivos móveis usando o Viewport. Aproveite e faça a importação do arquivo de estilo CSS.
+
+O arquivo style.css vai ter o seguinte conteúdo:
+
+```css
+* {
+  font-family: "Arial", sans-serif;
+  font-size: 14pt;
+}
+body {
+  align-items: center;
+  background: url("fundo.jpg");
+  backdrop-filter: blur(3px);
+  color: #222;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin: 0;
+  width: 100vw;
+}
+```
 
 ## Configurando a aplicação
+No arquivo index.js faremos a configuração do componente início para ser renderizado através da origem. Portanto, importe o pacote do React e do React DOM, declare as constantes de contentor e a origem e faça a renderização do componente:
+
+```js
+import React from "react" 
+import { createRoot } from "react-dom/client" 
+
+import Inicio from "./Inicio" 
+
+const contentor = document.getElementById("root")
+const origem = createRoot(contentor) 
+
+origem.render(<Inicio/>)
+```
+
+Pronto, o arquivo index.js não mexeremos daqui em diante, e ficará como mostrado acima.
+
+Partindo para o arquivo início.jsx vamos criar o componente com a função sendo exportada. E retorne uma tag <form> para colocarmos futuramente as entradas de dados com os <input>:
+
+```js
+import React from "react" 
+
+export default function Inicio() {
+  return <form> 
+    // Código aqui
+  </form> 
+}
+```
+
+A ideia é ter uma aplicação simples e ao mesmo tempo elegante, então veremos o mínimo de estilização de componentes nesse conteúdo, apenas o necessário para deixar visualmente agradável.
+
+Configuração da aplicação concluída!
 
 ## Formulário
+Faça a importação do pacote styled components no inicio.jsx!
+
+O formulário vai receber um estilo para ficar centralizado na página, então você vai precisar fazer a importação do pacote no arquivo inicio.jsx e em seguida criar um modelo:
+
+```jsx
+import styled from 'styled-components'
+```
+
+O modelo vai se chamar "ModeloFormulario" e a tag que usaremos como referência será a <form> para mantermos as mesmas propriedades de envio.
+
+O modelo vai contar com um fundo de cor branca, uma sombra ao redor de 8px, bordas arredondadas suavemente, comportamento flexível com os itens alinhados como colunas em um espaço de distância de 16 pixels. O espaçamento interno é de 32 pixels e um comprimento total de 420 pixels.
+
+Resultado do modelo:
+
+```jsx
+const ModeloFormulario = styled.form`
+    background: white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    width: 420px;
+`
+```
+
+E agora com o modelo criado podemos substituir o elemento <form> que usamos anteriormente no retorno do componente pelo elemento do "ModeloFormulario".
+
+Aproveitando podemos colocar os elementos <inputs> necessários para o funcionamento da aplicação. São os inputs do Nome, Email, Senha e Data de Nascimento do usuário.
+
+No código corrido ficaria assim:
+
+```jsx
+return (
+  <ModeloFormulario>
+    <input
+      type="text" name="usuario"
+      placeholder="Nome" required />
+    <input
+      type="email" name="email"
+      placeholder="Email@mail.com" required />
+    <input
+      type="password" name="senha"
+      placeholder="******" required />
+    <input
+      type="date" name="nascimento"
+      required />
+    <input type="submit" value="Cadastrar" />
+  </ModeloFormulario>
+)
+```
+
+Para ver o resultado você pode iniciar a aplicação do React e visualizar através do link do Localhost. Até o momento, o resultado é um quadrado branco personalizado com os elementos de <inputs> alinhados cada uma abaixo do outro.
+
+Formulário feito!
 
 ### Estados e entradas
+Os dados digitados pelos clientes devem ser armazenados localmente pela aplicação antes de serem enviados para o servidor ao clicar no botão "Cadastrar".
+
+Para salvarmos os estados usaremos o Hook do React, UseState, que trabalhamos anteriormente em projetos para salvar os dados dos componentes. Nesse caso usaremos na página inicio.jsx.
+
+Comece importando o comando UseState de dentro do pacote do React:
+
+```jsx
+/* src/Inicio.jsx */
+import React, { useState } from "react"
+```
+
+Para funcionar corretamente o UseState e da maneira que esperamos: salvando os dados dos elementos de < inputs> digitado pelos usuários, devemos criar uma constante para ser a estrutura inicial de dados do estado.
+
+Em seguida, declaramos o estado e o definidor do UseState, como mostrado abaixo:
+
+```jsx
+/* src/Inicio.jsx */
+const dadosInicio = { usuario: "", email: "", senha: "", nascimento: "" }
+const [ dados, definirDados ] = useState(dadosInicio)
+```
+
+A constante "DadosInicio" deve conter em sua estrutura o campo Usuário para armazenar o nome, email, senha e data de nascimento do usuário. Todos os campos com os valores vazios.
+
+Para mudarmos os valores dos campos precisamos criar uma função chamada Mudar. A função vai ter o objetivo de alterar o valor em tempo real para cada < input> disponível na aplicação:
+
+```jsx
+/* src/Inicio.jsx */
+function Mudar(evento) {
+  const valor = evento.target.value 
+  const campo = evento.target.name 
+  definirDados({ ...dados, [campo]: valor })
+}
+```
+
+A função Mudar recebe o evento, que por sua vez pode ser dividido em valor e campo. Usando o definidor podemos alterar e salvar o novo estado do componente.
+
+Como temos a função programada nesse momento, faremos a inclusão do Value e o evento OnChange para cada elemento de < input> adicionado na aplicação. E o resultado seria este:
+
+```jsx
+/* src/Inicio.jsx */
+<ModeloFormulario>
+  <input
+    onChange={Mudar}
+    value={dados.nome}
+    type="text" name="usuario"
+    placeholder="Nome" required />
+  <input
+    onChange={Mudar}
+    value={dados.email}
+    type="email" name="email"
+    placeholder="Email@mail.com" required />
+  <input
+    onChange={Mudar}
+    value={dados.senha}
+    type="password" name="senha"
+    placeholder="******" required />
+  <input
+    onChange={Mudar}
+    value={dados.nascimento}
+    type="date" name="nascimento"
+    required />
+  <input type="submit" value="Cadastrar" />
+</ModeloFormulario>
+```
+
+No value é passado o estado e o campo correspondente ao elemento <input> e na ação do OnChange é passado a função que criamos para alterar os valores do estado em tempo real.
+
+Estado da página configurado!
 
 ## Publicando entradas
+Os dados que estão salvos no estados ainda não estão sendo enviados para a rota POST do servidor, para fazer a conexão você deve instalar um pacote externo.
 
-## Deixando Seguro
+Usaremos o pacote Axios para fazer a requisição ao servidor que programamos anteriormente. Por questão de segurança não usaremos o comando Fetch do JavaScript, já que o Axios consegue ser mais seguro, performático e padronizado!
 
-# Resultado FInal
+Comece fazendo a importação do Axios:
+```jsx
+/* src/Inicio.jsx */
+import axios from "axios"
+```
+
+Um conceito muito importante para a programação JavaScript é o assincronismo. Nem todos os comandos seguem uma sequência síncrona de execução, principalmente quando estamos lidando com respostas de servidores que podem demorar tempos entre milisegundos e segundos.
+
+Por isso usamos o comando Async e Await:
+
+```jsx
+async / await
+```
+
+O comando Async é atribuído a estruturas do JavaScript como Function, For, While e entre outros. Assim representando que a estrutura opera de forma assíncrona, ou seja, sem seguir os padrões de tempo.
+
+Já o comando Await é atribuído a execução de uma função ou até mesmo de comando. Mostrando que o resultado retornado pode levar um tempo assíncrono.
+
+Para ficar fixo na cabeça, se liga nesse exemplo abaixo:
+
+```jsx
+async function Sorveteria() {
+  const julia = await pedirSorvete()
+  const joao = await pedirSorvete()
+  const jessica = await pedirSorvete()
+}
+```
+
+Quando você vai à sorveteria pode existir um tempo para a preparação de cada pedido de sorvete e para cada pessoa o tempo é diferente. Nesse caso não segue uma sequência!
+
+Júlia pode ser atendida depois da Jéssica e do João, por exemplo. Assim demonstra que cada comando tem seu tempo de execução de forma paralela.
+
+Voltando para a programação do servidor, usaremos o comando async em uma nova função que iremos nomear de Adicionar. A função vai servir para realizar o envio das informações para o banco de dados através da requisição POST do Axios:
+
+```jsx
+/* src/Inicio.jsx */
+async function Adicionar(evento) {
+    evento.preventDefault()
+    await axios.post("http://localhost:4000/", dados)
+    definirDados(dadosInicio) 
+}
+```
+
+Veja no código acima que: A requisição do Axios precisa conter o comando await para a sua execução, pois caso contrário o comando não funcionaria da forma correta como esperamos.
+
+Para limpar os dados preenchidos pelo usuário é definido a estrutura de dados iniciais ao estado!
+
+Agora com a função Adicionar finalizada podemos voltar para o formulário e programos para a função ser executada no momento do envio do formulário. Usamos o evento OnSubmit no modelo formulário:
+
+```jsx
+/* src/Inicio.jsx */
+<ModeloFormulario onSubmit={ Adicionar }>
+```
+
+Assim que os campos do elemento < input> for preenchido pelos usuários e em seguida o botão Cadastrar for pressionado, teremos os dados sendo enviados para o Servidor.
+
+E por sua vez o servidor recebe os dados e armazena através da ação do Mongoose no Banco de Dados do MongoDB.
+
+Aplicação em React finalizada!
+
+## Deixando Seguro (ainda não testado)
+É possível deixar o projeto mais seguro!
+
+Quando o código fonte da aplicação é publicado na internet para o público ou fazemos o deploy (colocamos no ar para funcionar) é preciso escondermos as credenciais de acesso em variáveis de ambientes.
+
+Com as variáveis de ambientes as informações ficam mais seguras como a senha e o usuário para conectar no serviço Atlas do Banco de dados do MongoDB.
+
+Um pacote externo muito utilizado para lidar com as variáveis de ambientes é o DotEnv. Faça a instalação do pacote pelo Terminal na aplicação do Servidor:
+
+```bash
+npm install dotenv --save
+```
+
+Depois de instalado siga os procedimentos:
+
+Agora com o DotEnv instalado no projeto do Servidor, iremos criar um arquivo de nome ".env" na raiz da pasta onde está salvo o servidor. Nele você deverá preencher colocando o campo MONGO_URL seguido de um símbolo de igual e o valor, sendo o endereço do seu Cluster:
+
+```env
+/* .env */
+MONGO_URI="mongodb+srv://<USUARIO>:<SENHA>@<CLUSTER>.mongodb.net/"
+```
+
+Com o endereço do MongoDB salvo dentro do arquivo .env. Devemos fazer a importação da variável de ambiente.
+
+A importação pode ser feita em qualquer parte do código, em algumas documentações recomenda-se fazer a importação do pacote no arquivo inicial da aplicação.
+
+Em outros casos, como o nosso, que usaremos o DotEnv apenas na conexão, faremos a importação apenas no arquivo de conexao.js da aplicação do servidor:
+
+```js
+/* src/conn.js*/
+import "dotenv/config" 
+```
+
+E agora ao invés de mantermos o endereço salvo na constante, usamos o comando process.env.MONGO_URL para obter o valor que colocamos no arquivo da variável de ambiente:
+
+```js
+/* src/conn.js*/
+const endereco = process.env.MONGO_URI
+```
+
+Lembrando que o arquivo ".env" não deve ser enviado em nenhuma situação em repositórios ou projetos de backup na internet. É um arquivo sigiloso que deve ser guardado com cautela!
+
+Camada de segurança aos dados aplicados!
+
+# Resultado Final
+
+inalizamos um projeto contendo três aplicações com conexão entre si. Começamos produzindo o servidor onde logo em seguida criamos uma conta no serviço Atlas do Banco de Dados não relacional MongoDB e conectamos com o servidor através do pacote Mongoose.
+
+Criamos rotas para trabalhar com as ações do pacote Mongoose. Em seguida passamos para o desenvolvimento da aplicação em React onde foi feito o formulário para enviar informações para o servidor registrar no Banco de Dados.
+
+Foi uma baita aventura esse último projeto. Mas tenho certeza que você aprendeu muito, Olha só o que aprendemos:
+
+- Criamos uma conta no serviço Atlas do banco de dados MongoDB;
+- Aprendemos diferença entre banco de dados relacionais e não relacionais;
+- Abrimos um Cluster para servir de Database para os dados;
+- Geramos o endereço de conexão do MongoDB;
+- Conectamos o banco de dados com o Servidor;
+- Aprendemos as ações do pacote externo Mongoose;
+- Criamos uma rota para o recebimentos de dados;
+
+E assim podemos partir para o próximo grande desafio de desenvolver uma vitrine virtual chamada SuperVitrine. Parabéns por ter chegado até aqui!
+
+Continue treinando rotas para receber dados, você pode agora ampliar as quantidades de dados que são exigidos dos usuários e ter uma base de dados maior no projeto!
