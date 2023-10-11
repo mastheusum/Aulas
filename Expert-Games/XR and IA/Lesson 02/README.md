@@ -108,3 +108,33 @@ public class AR_PlaceObject : MonoBehaviour
 Vamos entender o que está acontecendo? O script possui duas funções principais: **GetPlanePosition()** e **UpdateSpawnPlacePosition()**
 
 **GetPlanePosition()** é usada para gerar um Raycast partindo do meio da tela para detectar se há alguma superfície plana. Em seguida, se algum plano foi encontrado, é atualizada a posição e rotação do objeto spawnPose que será usado depois como referência para nossa mira (SpawnPlace).
+
+![009](Screenshots/009.png)
+
+Já a função **UpdateSpawnPlacePosition()** verifica se estamos olhando para uma posição válida (plane) e ativamos a mira com sua posição e rotação atualizadas.
+
+![010](Screenshots/010.png)
+
+Não podemos nos esquecer de colocar esse script no objeto **Ar Session Origin** e arrastar o SpawnPlace para ele. **Este objeto ficará desabilitado**, pois a mira aparecerá somente quando o plane for detectado:
+
+![011](Screenshots/011.png)
+
+## Lesson 03 | Fazendo a Build
+
+Para fazer a build precisaremos primeiro configurar nosso smartphone para que ele permita a conexão USB e o envio do aplicativo diretamente. No seu smartphone, acesse **Configurar > Sobre o telefone** e toque 7 vezes na opção **Número da versão**
+
+![012](Screenshots/012.png)
+
+> 
+> > Obs.: Caso tenha um modelo de dispositivo com opções diferentes, aqui está uma referência oficial do Android para ativar o modo de desenvolvedor em vários dispositivos: **Configure on-device developer options | Android Studio**
+>
+
+Em seguida vamos na opção **Configurar > Sistema > Opções do Desenvolvedor** e vamos habilitar a opção **Depuração USB**.
+
+![013](Screenshots/013.png)
+
+Agora podemos conectar o smartphone no computador e, se tudo estiver OK, na tela de build da Unity ele aparecerá em Run Device (no seu smartphone ele mostrará um aviso perguntando se você permite a conexão USB neste dispositivo, basta aceitar).
+
+![014](Screenshots/014.png)
+
+Agora basta clicar em Build and Run e fazer o teste!
