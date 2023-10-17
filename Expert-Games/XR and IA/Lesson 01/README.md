@@ -1,5 +1,35 @@
 # Introdução à Realidade Aumentada
 
+- Explicando diferenças entre os tipos de Realidade Extendida (XR)
+  - Realidade Aumentada (AR)
+    - Pokemon GO
+    - Wizards Unite
+  - Realidade Virtural (VR)
+    - Skyrim VR
+    - Among Us VR
+  - Realidade Mista (MR)
+    - Mario Kart Live Home
+- Configurando a Unity
+  - Unity 2022.3 será utilizada nas aulas
+  - É preciso ter instalado os pacotes para Android
+- Podemos já iniciar com um projeto em AR
+  - É preciso marcar o projeto como sendo para Android na janela Build Settings
+  - Adicionar o(s) cenário(s)
+  - Em Project Settings >XR Plug-in, ativar o Google ARCore
+  - Em Project Settings > Player, para desativar a auto rotação, basta mudar a opção Resolution and Presentation 
+- Entendendo os objetos e componentes
+  - AR Session Origin: o objeto que permite o controle da cena em AR
+    - AR Plane Manager: componente responsável por detectar áreas planas
+    - AR Raycast Manager: componente que usa Raycast para calcular a distância entra câmera e os objetos
+  - AR Session: o objeto responsável por iniciar o modo AR do dispositivo
+    - AR Session: responsável por criar a sessão AR e configurar como será feita a renderização
+    - AR Input Manager: responsável por coletar os inputs do usuário, como os toques na tela
+  - AR Camera: é a câmera do nosso game
+    - Tracked Pose Driver: é responsável por detectar o movimento do dispositivo para ajustar a posição e rotação da câmera
+    - AR Camera Manager: cuida de como ela se comporta no AR e de que forma as luzes serão renderizadas
+    - AR Camera Background: cuida do fundo que será mostrado na câmera
+      - No pokemon GO é possível escolher um fundo fantasia ou escolher o fundo da própria câmera
+
 ## **Lesson 01 | Entendendo a Realidade Estendida**
 
 Olá, aluno! Tudo bem? Neste curso vamos nos aprofundar no incrível mundo da Realidade Estendida, onde vamos desenvolver games que usam diversas tecnologias que trazem imersão e novas formas de jogar.
