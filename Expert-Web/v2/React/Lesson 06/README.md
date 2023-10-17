@@ -399,3 +399,163 @@ const ProdutosExemplo = [ /.../ ]
 Depois de criado o arquivo, declare uma **constante** com o nome do arquivo, **“ProdutosExemplos”** e atribua uma **lista** que será preenchida com informações e dados dos produtos usando a estrutura de **objetos** do javascript.
 
 Em seguida crie o **primeiro produto** como mostrado abaixo:
+
+```js
+/* src/datas/ProdutosExemplo.js */
+const ProdutosExemplo = [
+  {
+    codigo: "1234",
+    marca: "Marca",
+    modelo: "Modelo1",
+    preco: 1000,
+    descricao: "O produto é muito bonito porque...",
+    imagens: [
+      "https://foto.com/produto-imagem-1.jpg",
+      "https://foto.com/produto-imagem-2.jpg",
+      "https://foto.com/produto-imagem-3.jpg",
+    ]
+  },
+  /.../
+]
+```
+
+>
+> Deixe um arquivo disponível para os alunos para não gastar tempo de aula preparando isto
+>
+
+Para fazer o objeto do produto dentro da lista de **array**, use a **propriedade** código passando um valor de **string**, assim como a marca, modelo e descrição. Para a propriedade preço passe o tipo de dado **numérico**, inclusive é passível de ser preenchido com valores decimais como estamos lidando com dinheiro é preciso ter o centavos de **Reais**.
+
+O caso em especial é da propriedades imagens, onde será passado uma lista com **3 strings** para armazenar as três imagens do produto. O **recomendado** é ter diferenciação para o usuário conseguir ter uma noção visual abrangente sobre o que está procurando.
+
+Assim depois de terminado a adição dos **produtos**, no final do código faça a exportação da **constante** declarada:
+
+```js
+/* src/datas/ProdutosExemplo.js */
+.../
+export default ProdutosExemplo
+```
+
+Por fim, você tem agora uma base de dados exemplo que servirá **temporariamente** como o fornecimento de dados para a aplicação enquanto não temos o servidor para transferir os dados do **MongoDB**, mas esta tarefa fica para um futuro breve!
+
+## Lesson 12 - Personalizando componente
+
+![006](Screenshots/006.gif)
+
+Antes de ajustar o funcionamento do **componente** para receber toda a lista que produzimos de produtos de exemplo, é necessário colocar um **estilo** para a **interação** do usuário.
+
+Como mostra a **imagem** acima, é possível colocar uma ação de estilo quando o **mouse** estiver por cima, assim o usuário consegue interagir e até mesmo **aumentar** o tamanho da imagem para ter uma percepção melhor sobre o produto.
+
+Voltando ao arquivo **“Principal.jsx”** dentro do diretório componentes, faça a adição do evento hover no modelo de estilo do Produto, como mostra abaixo:
+
+```jsx
+/* src/components/Principal.jsx */
+const Produto = styled.div`
+  background: #fff;
+  padding: 8px;
+  transition: 0.2s;
+  &:hover {
+    transform: rotateZ(2deg) scale(1.1);
+    transition: 0.2s;
+  }
+`
+```
+
+Para funcionar corretamente o **efeito de interação** use a propriedade de estilo **“transform”** alterando a **rotação Z** do elemento em 2 graus e a escala aumentada em 10 por cento para a melhor visualização.
+
+Se não tiver a propriedade transition o efeito será instantâneo passando uma ideia de uma aplicação **“quebrada”** para ter o efeito suave use o tempo de duração definido no **transition**.
+
+E está feito e aplicado a **interação visual** com o produto!
+
+## Lesson 13 - Ajustando componente
+Chegou o momento de fazer os **ajustes** de funcionamento no componente Principal!
+
+Para que o **componente Principal** mostre todos os produtos que são passados através do **parâmetro props**, precisamos programar um mapeamento do **array** produtos: E para cada produto contido na lista será criado uma **estrutura** de apresentação.
+
+O mapeamento deve ser feito através do método **map** do javascript, sendo que dentro conterá uma função passando como **parâmetro** os dados estruturados em objeto do produto e a contagem através do **índice**:
+
+```jsx
+/* src/components/Principal.jsx */
+.../
+export default function Principal(props) {
+  return (
+    <Modelo> 
+      {
+        props.produtos.map(function(produto, indice) {
+          ...
+        })
+      }
+    </Modelo>
+  )
+}
+```
+
+O método **map** deve ser incluído junto ao comando **props.produtos**, como está descrito no código acima!
+
+E para que seja mostrado o produto deve retornar os Modelos que foi produzido no topo do código como o **“Produto”**, **“ProdutoImagem”** e o **“ProdutoDados”**, todos recebendo as variáveis passada pelo parâmetro do produto:
+
+```jsx
+/* src/components/Principal.jsx */
+.../
+export default function Principal(props) {
+  return (
+    <Modelo> 
+      {
+        props.produtos.map(function(produto, indice) {
+          return (
+            <Produto key={ indice }>
+              <ProdutoImagem
+                src={ produto.imagens[0] }
+                alt="Foto do Produto"/>
+              <ProdutoDados>
+                  <div> { produto.modelo } </div>
+                  <div> R$ { produto.preco } </div>
+              </ProdutoDados>
+            </Produto> 
+          )
+        })
+      }
+    </Modelo>
+  )
+}
+```
+
+Um **detalhe** importante a ficar registrado: O elemento de **repetição** deve sempre conter uma chave de identificação, para esse caso usaremos o atributo **key** contendo o valor do índice!
+
+Para o recurso gráfico da imagem, passe a **primeira imagem** da lista como **destaque**, nos dados do produto coloque o **modelo** no topo e o **preço** com o símbolo de cifrão da moeda Real na frente.
+
+Está finalizada a etapa de ajuste!
+
+## Lesson 14 - Completando a Vitrine
+![007](Screenshots/007.gif)
+
+A última etapa é mostrar os produtos em um **sistema de lista** na página Vitrine, e chegou o momento de unificar os **produtos** de exemplo com o componente Principal!
+
+Comece importando o arquivo **“ProdutoExemplo.js”** para dentro da página **Vitrine**, não se esqueça de colocar corretamente o endereço, quando a pasta **indicada** está disposta em uma raiz comum é preciso usar o “../” para indicar o retorno à raiz:
+
+```jsx
+/* src/pages/Vitrine.jsx */
+.../
+import ProdutosExemplo from "../datas/ProdutosExemplo"
+/...
+```
+
+O esperado é que seja retornado a constante contida dentro do arquivo de produtos fornecidos. Portanto faça a inclusão do **“ProdutosExemplos”** ao componente **Principal**.
+
+Sendo mais específico passamos através do props então a forma correta é usando o **atributo** produtos como é mostrado no **código** de exemplo abaixo:
+
+```jsx
+/* src/pages/Vitrine.jsx */
+.../
+<Principal produtos={ ProdutosExemplo }/>
+/...
+```
+
+Agora que os comandos foram incluídos, faça a **inicialização** da aplicação caso seja necessário e veja a página **vitrine** cheia de produtos!
+
+## Lesson 15 - Finalização
+
+E você acaba de finalizar a **primeira etapa** do projeto SuperVitrine, até o momento foi iniciado um novo **projeto** contando com a fabricação da página vitrine onde foram colocados diversos produtos para as pessoas acessarem na **página inicial**.
+
+Falando agora mais tecnicamente, criamos o projeto do **React** e em seguida foi feito a configuração para o funcionamento correto. Foi **instalado** os pacotes iniciais para o roteamento com o **React Router DOM** e o desenvolvimento dos **principais** componentes.
+
+O desafio agora é colocar o máximo possível de produtos **diversificados** para a vitrine ter uma qualidade maior, caso precise **programar** novamente, retorne as lessons anteriores e dedique-se a criar novas **funcionalidades**!
