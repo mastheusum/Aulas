@@ -119,7 +119,7 @@ Não podemos nos esquecer de colocar esse script no objeto **Ar Session Origin**
 
 ![011](Screenshots/011.png)
 
-## Lesson 03 | Fazendo a Build
+## **Lesson 03 | Fazendo a Build**
 
 Para fazer a build precisaremos primeiro configurar nosso smartphone para que ele permita a conexão USB e o envio do aplicativo diretamente. No seu smartphone, acesse **Configurar > Sobre o telefone** e toque 7 vezes na opção **Número da versão**
 
@@ -138,3 +138,96 @@ Agora podemos conectar o smartphone no computador e, se tudo estiver OK, na tela
 ![014](Screenshots/014.png)
 
 Agora basta clicar em Build and Run e fazer o teste!
+
+>
+> Esta parte do **Build and Run** ainda não foi testado pois no momento de preparação desta aula (19/10/2023) meu aparelho não era compatível
+>
+> Tente com um aparelho mais recente
+>
+
+## **Lesson 04 | Spawnando Objetos**
+
+Podemos agora melhorar nosso script para spawnar algum objeto. Vamos primeiro criar um prefab vazio e dentro dele um mesh de sua preferência (por enquanto farei com um cubo). Assim como o SpawnPlace, a escala do objeto pai deve ser reduzida senão o objeto será spawnado muito grande, então colocaremos 0.1 no X, Y e Z.
+
+![015](Screenshots/015.png)
+
+No script vamos adicionar algumas mudanças para que o objeto seja spawnado: criaremos um objeto chamado **objectToSpawn**, uma função **SpawnObject()** para instanciar o objeto. Já no Update() vamos verificar se o usuário tocou na tela enquanto estamos olhando para o plane e spawnar o objeto.
+
+```js
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
+
+public class AR_PlaceObject : MonoBehaviour
+{
+  public GameObject spawnPlaceObject;
+  public GameObject objectToSpawn; // variável nova
+
+  ARRaycastManager arOrigin;
+  Pose spawnPose;
+  bool spawnPoseIsValid = false;
+
+
+  void Start()
+  {
+    arOrigin = FindObjectOfType<ARRaycastManager>();
+  }
+
+  void Update()
+  {
+    GetPlanePosition();
+    UpdateSpawnPlacePosition();
+
+    // IF novo
+    if (spawnPoseIsValid && Input.touchCount > 0 && 
+        Input.GetTouch(0).phase == TouchPhase.Began)
+    {
+      SpawnObject();
+    }
+  }
+
+  void GetPlanePosition()
+  {
+    Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+    List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    arOrigin.Raycast(screenCenter, hits, TrackableType.Planes);
+
+    if (hits.Count > 0) spawnPoseIsValid = true;
+
+    if (spawnPoseIsValid)
+    {
+      spawnPose = hits[0].pose;
+
+      var cameraForward = Camera.current.transform.forward;
+      var cameraBearing =
+      new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+
+      spawnPose.rotation = Quaternion.LookRotation(cameraBearing);
+    }
+  }
+
+  void UpdateSpawnPlacePosition()
+  {
+    if (spawnPoseIsValid)
+    {
+      spawnPlaceObject.SetActive(true);
+      spawnPlaceObject.transform.SetPositionAndRotation
+      (spawnPose.position, spawnPose.rotation);
+    }
+    else
+    {
+      spawnPlaceObject.SetActive(false);
+    }
+  }
+
+  void SpawnObject() // método novo
+  {
+    Instantiate(objectToSpawn, spawnPose.position, spawnPose.rotation);
+  }
+}
+```
+
+Para finalizar, na Unity vamos arrastar o prefab para o script:
+
+![016](Screenshots/016.png)
