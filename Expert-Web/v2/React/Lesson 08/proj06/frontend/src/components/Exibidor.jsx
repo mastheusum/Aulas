@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import SalvarCarrinho from "../functions/SalvarCarrinho.js" 
+
 const Modelo = styled.div`
   background: #fff;
   display: flex;
@@ -45,7 +47,9 @@ export default function Exibidor(props) {
         <div>
           { props.produto.descricao }
         </div>
-        <button> Adicionar ao Carrinho </button>
+        <button onClick={ () => SalvarCarrinho(props.produto.codigo) }>
+          Adicionar ao Carrinho
+        </button>
       </ModeloDados>
     </Modelo>
   :
