@@ -39,3 +39,22 @@ Tento um personagem que ataca se recupera a ideia agora é podermos escolher ent
   - Desabilitar o ChooseCharacterPanel
     - ![008](Screenshots/008.png)
 - Repita o processo anterior para todos os personagens
+- Vamos criar uma arena onde os personagens podem lutar
+  - Esta arena pode ser feita utilizando cubos e outros objetos da Unity ou você pode usar uma pronta
+  - Caso queira utilizar uma pronta o portal possui o link para um Asset na Unity
+    - [arena](https://assetstore.unity.com/packages/3d/environments/fantasy/low-poly-gladiators-arena-167116)
+    - Este asset já foi adicionado a conta padrão da SuperGeeks Maceió, basta olhar em **Package Manager > My Assets**
+  - Independente da escolha a Arena deve ser feita em um único Prefab pois precisará ser instanciada posteriormente
+  - Ajuste a escala da arena
+- Crie dentro da arena dois objetos vazios para marcar os pontos de spawn do Player e do Opponent
+  - ![011](Screenshots/011.png)
+  - Os BoxColliders foram colocados apenas para ajudar a visualizar os pontos de spawn, eles não devem permanecer ativos
+- Programe o AR_PlaceObjects para que ele possa saiba quem é a arena e quem são os adversários
+  - O resultado será como abaixo
+    - ![009](Screenshots/009.png)
+- Altere o Stats para que ele tenha informação de quem é o oponente do nosso personagem
+  - ![010](Screenshots/010.png)
+- De volta ao AR_PlaceObjects altere a função SpawnObjects() para criar os outros objetos
+  - ![012](Screenshots/012.png)
+- Preencha os novos campos
+- Faça a build e teste
