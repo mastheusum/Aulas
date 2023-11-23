@@ -21,9 +21,9 @@ rotas.get("/produtos", async function(requisicao, resposta) {
 rotas.get("/produto/:codigo", async function(requisicao, resposta) {
   const { codigo } = requisicao.params
   try {
-    const resultados = await produto.findOne({ codigo: codigo })
-    if ( resultados.length > 0 )
-      resposta.status(200).json(resultados)
+    const resultado = await produto.findOne({ "codigo": codigo })
+    if ( Object.keys(resultado).length > 0 )
+      resposta.status(200).json(resultado)
     else
       resposta.sendStatus(404)
   }
@@ -36,7 +36,7 @@ rotas.get("/produto/:codigo", async function(requisicao, resposta) {
 rotas.get("/promocao", async function(requisicao, resposta) {
   try {
     const resultados = await produto.find({ promocao: true })
-    if ( resultados.length > 0 )
+    if ( Object.keys(resultados).length > 0 )
       resposta.status(200).json(resultados)
     else
       resposta.sendStatus(404)
