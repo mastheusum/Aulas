@@ -37,30 +37,15 @@ Ao entrar na Godot será recebido pela seguinte interface:
 Vamos entender cada parte antes de sair fazendo as coisas.
 
 
-* **Scene**
-  
-
-  Nessa parte da tela estarão dispostos todos os objetos da cena, como inimigos, plataformas, player, entre outros. Cenas são as telas do jogo (Menu, Game, Lose, etc.). 
-
-
-  ![003](Screenshots/003.png)
-
-* **FileSystem**
-  
-
-  Nessa parte ficarão todos os arquivos importados para o projeto (Imagens, Sons, Vídeos, entre outros). 
-
-
-  ![004](Screenshots/004.png)
-
-* **Inspector**
-  
-  
-  Nele é possível configurar qualquer objeto que estiver selecionado na Viewport. Por exemplo: tamanho, posição na tela, cor, entre outros (veremos um pouco mais sobre isso a seguir). 
-
-
-  ![005](Screenshots/005.png)
-
+- **Scene**
+  - Nessa parte da tela estarão dispostos todos os objetos da cena, como inimigos, plataformas, player, entre outros. Cenas são as telas do jogo (Menu, Game, Lose, etc.). 
+    - ![003](Screenshots/003.png)
+- **FileSystem**
+  - Nessa parte ficarão todos os arquivos importados para o projeto (Imagens, Sons, Vídeos, entre outros). 
+    - ![004](Screenshots/004.png)
+- **Inspector**
+  - Nele é possível configurar qualquer objeto que estiver selecionado na Viewport. Por exemplo: tamanho, posição na tela, cor, entre outros (veremos um pouco mais sobre isso a seguir). 
+    - ![005](Screenshots/005.png)
 
 ## Criando um personagem
 Antes de termos um personagem precisamos criar uma *cena* para que o nosso personagem possa existir. Então vamos simplesmente na aba **Scene** e clicar em **2D Scene**
