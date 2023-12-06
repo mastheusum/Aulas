@@ -718,3 +718,61 @@ Com o comando Joi conseguimos montar uma estrutura de objeto para definir qual s
 **https://github.com/hapijs/joi**
 
 Declare uma constante chamada de esquema com o comando Joi.object e declare quais serão as estruturas para cada dado recebido no corpo da requisição:
+
+```js
+/* src/Rotas.js */
+
+//...
+const esquema = Joi.object({
+  capa: Joi.string().uri().required(),
+  trilha: Joi.string().uri().required(),
+  titulo: Joi.string().required(),
+  descricao: Joi.string(),
+  genero: Joi.string().required(),
+  ano: Joi.number().required(),
+  duracao: Joi.number().required(),
+  faixa: Joi.number().required()
+})
+//...
+```
+
+Com o esquema de objeto gerado pelo Joi, podemos fazer uma pequena verificação e certificar se os dados são íntegros o suficiente para serem salvos de uma forma segura no banco de dados. O JOI é um grande amigo no momento de verificar, pois é muito preciso e eficiente!
+
+Com a estrutura Try..Catch podemos fazer a execução do processo de certificação do Joi:
+
+```js
+/* src/Rotas.js */
+
+//...
+try {
+  /.../
+}
+catch(erro) {
+  resposta.status(400).json({ mensagem: erro.message })
+}
+//...
+```
+
+No comando Catch, use uma resposta do servidor com o código 500, e diferente dos erros que aparece naturalmente no Express, quando é um problema na validação uma mensagem específica do campo e propriedade faltante é mostrada!
+
+Para conseguir validar os dados, precisamos de um comando a partir do esquema que produzimos, use o método “ValidadeAsync” passando o corpo como parâmetro:
+
+```js
+/* src/Rotas.js */
+
+//...
+try {
+  const validado = await esquema.validateAsync(corpo)
+  /.../
+}
+catch(erro) {
+  resposta.status(400).json({ mensagem: erro.message })
+}
+//...
+```
+
+E se o resultado for aceito a constante nomeada de “validado” vai ser preenchida com os dados corretos e então podemos passar diretamente para o banco de dados de forma segura!
+
+E assim você colocou mais uma camada de segurança na aplicação do servidor, leve esse conselho em frente e aplique em cada servidor que for desenvolvido. Que a segurança contra hackers esteja contigo!
+
+

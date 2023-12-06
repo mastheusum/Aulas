@@ -5,6 +5,17 @@ import { conteudo } from "./database/Conteudo.js"
 
 const rotas = express.Router()
 
+const esquema = Joi.object({
+  capa: Joi.string().uri().required(),
+  trilha: Joi.string().uri().required(),
+  titulo: Joi.string().required(),
+  descricao: Joi.string(),
+  genero: Joi.string().required(),
+  ano: Joi.number().required(),
+  duracao: Joi.number().required(),
+  faixa: Joi.number().required()
+})
+
 rotas.get("/conteudos", function(request, response) {
   conteudo.find()
     .then(function(resultados) {
@@ -65,16 +76,22 @@ rotas.get("/conteudo/:codigo", function(request, response) {
   })
 })
 
-rotas.post("/conteudo", function(request, response) {
-  const corpo = request.body
-  const novoConteudo = new conteudo(corpo)
-  novoConteudo.save()
-    .then(function(resultado) {
-      resposta.status(201).json(resultado)
-    })
-    .catch(function(erro) {
-      resposta.status(500).json({ mensagem: erro.message })
-    })
+rotas.post("/conteudo", async function(request, response) {
+  try {
+    const validado = await esquema.validateAsync(corpo)
+    const corpo = request.body
+    const novoConteudo = new conteudo(corpo)
+      novoConteudo.save()
+      .then(function(resultado) {
+        resposta.status(201).json(resultado)
+      })
+      .catch(function(erro) {
+        resposta.status(500).json({ mensagem: erro.message })
+      })
+  }
+  catch(erro){
+    resposta.status(400).json( { mensagem: "occorreu com o Joi" } )
+  }
 })
 
 export default rotas 
