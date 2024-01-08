@@ -85,19 +85,21 @@ E lembre-se: *cortinas e tecidos ajudam a acabar com o eco!*
 > Este ponto sobre a qualidade do áudio pode ser apresentado aos alunos ao se gravar um vídeo simples na recepção para ver como fica o áudio a diferentes distâncias.
 
 ## A função do Áudio
-Nem sempre teremos vídeos serão com alguém falando, algumas vezes vamos querer gravar um vídeo de uma Gameplay ou apenas para mostrar algo legal e para dar uma melhorada podemos colocar um áudio extra.
+Nem sempre teremos vídeos com alguém falando, algumas vezes vamos querer gravar um vídeo de uma Gameplay ou apenas para mostrar algo legal e para dar uma melhorada podemos colocar um som de fundo.
 
-Não apenas é possível como já é praticável a muito tempo mas atenção pois apesar de podermos colocar o áudio que quisermos devemos lembrar qual a função dele neste caso: incrementar o vídeo.
+Não apenas é possível como já é praticado há muito tempo, mas atenção pois apesar de podermos colocar o áudio que quisermos devemos lembrar qual a função dele neste caso: incrementar o vídeo.
 
-Vamos fazer um execício: imagine um jogo qualquer, The Witcher, God of War, algo de fantasia e na cena em questão você está lutando freneticamente contra um monstro muito forte, como um dragão, uma hidra ou um semi-deus. 
+Vamos fazer um execício: 
 
-Qual destas música você escolheria?
+Veja esta Gameplay de [The Witcher 3](https://youtu.be/TVlAEO17-p4?t=98)
+
+Qual destas música você escolheria como música de fundo para incrementar o vídeo?
 
 - [In the end](https://youtu.be/eVTXPUF4Oz4?t=29)
 - [Misty Mountain Cold Lyrics](https://youtu.be/16QXu3E3NEU?list=RDQMEx-4_hjnXwI&t=40)
 - [Celtic battle music](https://youtu.be/3tzE98pQH08?list=RDQMEx-4_hjnXwI&t=49)
 - [Metamorphosis](https://youtu.be/lJvRohYSrZM?t=10)
 
-Nesse caso as escolhas que mais incrementariam o contexto da cena, sem cortes, seria *Misty Countain* ou *Celtic Battle*, pois elas combinam mais com o contexto, mas é claro que caso você prefira *In then end* você pode colocar, tudo sobre vídeo acaba sendo escolha artística.
+Nesse caso a escolha que mais incrementaria o contexto da cena, sem cortes, seria *Celtic Battle*, pois ela combina mais com o contexto, mas é claro que caso você prefira *In then end* você pode colocar, tudo sobre vídeo acaba sendo escolha artística.
 
 
