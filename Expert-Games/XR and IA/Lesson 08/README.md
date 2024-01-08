@@ -90,3 +90,54 @@ Hoje trabalhamos com os inimigos do nosso game, onde eles são spawnados em wave
       - Abra o prefab e aperte o botão de play para ver o resultado do Trail
   - Crie o script **BulletMovement**
     - ![007](Screenshots/007.png)
+- Lesson 04 | Disparando os Projéteis
+  - A lógica do disparo é bem simples: caso o Player esteja olhando para um inimigo, serão disparadas várias balas com um delay entre uma e outra. Faremos um script chamado Player_Shoot que vai cuidar disso:
+    - ![008](Screenshots/008.png)
+  - Adicione o script ao Player
+  - Crie um objeto no Player chamado shootPint
+    - ![009](Screenshots/009.png)
+  - Devemos arrastar todos os objetos para o script também:
+    - ![010](Screenshots/010.png)
+  - Agora precisamos atualizar o código do movimento da bullet no script BulletMovement
+    - ```cs
+        public class EnemyMovement : MonoBehaviour
+        {
+            Rigidbody rb;
+            public GameObject player; // nova vairável
+            public float speed = 3;
+
+            void Start()
+            {
+                rb = GetComponent<Rigidbody>();
+                player = GameObject.Find("Player"); // nova linha
+            }
+
+            void FixedUpdate()
+            {
+                rb.velocity = transform.forward * speed;
+            }
+
+            // novos métodos
+            public void OnPointerEnter()
+            {
+                player.GetComponent<PlayerShoot>().isAimingEnemy= true;
+            }
+
+            public void OnPointerExit()
+            {
+                player.GetComponent<PlayerShoot>().isAimingEnemy= false;
+            }
+
+            private void OnCollisionEnter(Collision collision)
+            {
+                if (collision.gameObject.GetComponent<BulletMovement>())
+                {
+                    OnPointerExit();
+                    Destroy(collision.gameObject);
+                    Destroy(gameObject); 
+                }
+            }
+        }
+      ```
+    - Perceba que já fizemos também a checagem de colisão com o OnCollisionEnter() e o inimigo será destruído com apenas um tiro (a bala também).
+    - Se fizermos o teste agora, veremos que o inimigo está sendo derrotado, mas há um erro aparecendo no console após ele ser destruído:
