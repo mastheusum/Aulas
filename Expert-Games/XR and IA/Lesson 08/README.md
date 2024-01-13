@@ -139,5 +139,51 @@ Hoje trabalhamos com os inimigos do nosso game, onde eles são spawnados em wave
             }
         }
       ```
-    - Perceba que já fizemos também a checagem de colisão com o OnCollisionEnter() e o inimigo será destruído com apenas um tiro (a bala também).
+    - Perceba que já fizemos também a checagem de colisão com o **OnCollisionEnter()** e o inimigo será destruído com apenas um tiro (a bala também).
     - Se fizermos o teste agora, veremos que o inimigo está sendo derrotado, mas há um erro aparecendo no console após ele ser destruído:
+      - ![011](Screenshots/011.png)
+      - Esse erro ocorre pois o script responsável pela retícula não faz uma verificação se o objeto que estávamos olhando foi destruído, então ele tenta chamar as funções OnPointerEnter() e OnPointerExit() de um objeto nulo, causando a mensagem.
+      - Para corrigir esse problema vamos abrir o script CardboardReticlePointer e alterar a função **Update()**:
+      - ```cs
+          private void Update()
+          {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, _RETICLE_MAX_DISTANCE))
+            {
+                if (_gazedAtObject != hit.transform.gameObject)
+                {
+                    // -- novo IF --
+                    if (_gazedAtObject)
+                    {
+                        _gazedAtObject?.SendMessage("OnPointerExit");
+                    }
+                    // -- end --
+                    _gazedAtObject = hit.transform.gameObject;
+                    _gazedAtObject.SendMessage("OnPointerEnter");
+                }
+
+                bool isInteractive = (1 << _gazedAtObject.layer & ReticleInteractionLayerMask) != 0;
+                SetParams(hit.distance, isInteractive);
+            }
+            else
+            {
+                // -- novo IF --
+                if (_gazedAtObject)
+                {
+                    _gazedAtObject?.SendMessage("OnPointerExit");
+                }
+                // -- end --
+                _gazedAtObject = null;
+                ResetParams();
+            }
+            
+            if (Google.XR.Cardboard.Api.IsTriggerPressed)
+            {
+                _gazedAtObject?.SendMessage("OnPointerClick");
+            }
+
+            UpdateDiameters();
+          }
+      ```
+    - Corrigido o erro o jogo estará funcionando corretamente
+    - ![012](Screenshots/012.gif)

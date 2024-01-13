@@ -1,0 +1,50 @@
+- Como se cria um game?
+  - Tenha a ideia do jogo
+    - Descreva a ideia em um documento (GDD)
+  - Escolha a ferramenta que vai fazer o jogo
+    - Construct 3, GDevelop, Godot, Unity, Unreal
+  - Escolha qual plataforma vai rodar o jogo
+    - Console
+      - PS4, XBox, Switch
+    - Computador
+      - Windows, Linux, Mac
+    - Mobile
+      - Android, IPhone
+    - Web
+      - Chrome, Firefox, Opera
+  - Fazer o jogo
+    - Programação
+    - Arte e Animação
+    - Sons e Músicas
+  - Lançar o Jogo
+- Game Design Document (GDD)
+  - Narrativa
+    - Adivinhe o nome do jogo a partir da narrativa
+      - "Encanador e seus amigos precisam salvar a princesa do super vilão" (Super Mário)
+      - "Personagem amarelo que precisa pegar bolas que valem pontos enquanto foge dos fantasmas" (Pacman)
+      - "Você é o tripulante em uma nave com outros desconhecidos e um a um os tripulantes vem aparecendo mortos e é preciso descobrir o culpado" (Among Us)
+  - Objetivos
+    - É preciso deixar claro como o jogador irá ganhar o jogo
+      - Ganhar dos líderes de ginásios e vencer a liga de todos os campeões - Pokemon
+      - Destruir as três torres do adversários ou destruir mais torres que ele - Class Royale
+      - Ser o último a sobreviver - Fortnite ou qualquer jogo battle royale
+  - Gênero/Estilo
+    - Tentar entender o que os alunos entendem como sendo gêneros/estilos de jogos
+      - Plataforma
+      - FPS
+      - RPG
+      - Esporte
+  - Mecânicas
+    - O que os personagens fazem, quais os poderes, como se movimenta
+      - Personagem pular, andar, atacar e soltar magia
+      - Inimigo soltar magia, ataca de perto e tem armadura
+      - Itens de cura, fúria e que aumenta o poder
+  - Level Design
+    - Onde as coisas estarão no jogo
+      - Primira fase possui plataformas, buracos e é preciso chegar até uma bandeira
+      - O mapa possui um centro que preciso destruir, torres que impedem o avanço das tropas e arbustos que fazem seu personagem ficar invisível
+  - Balanceamento
+    - Quando deixamos o jogo mais justo e jogável
+      - O inimigo tem muita vida e causa muito dano
+      - Personagem está muito lento, vamos deixar mais rápido
+      - Um dos lados do mapa chega mais rápido ao objetivo
