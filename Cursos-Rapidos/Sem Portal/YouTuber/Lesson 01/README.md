@@ -8,11 +8,11 @@ A primeira coisa a se entender sobre edição de vídeo é que não existe um bo
 
 ISSO NÃO EXISTE!
 
-Uma produção de qualidade é um conjunto de vários microprocessos e microdecisões que vão resultar em um produto final com grande excelência.
+Uma produção de qualidade é um conjunto de vários microprocessos e microdecisões que vão resultar em um produto final de qualidade.
 
 Portanto se você veio aqui procurando por esse botão, sinto lhe informar... **ele não existe**.
 
-Estes microprocessos e microdecisões começam desde a filmagem e se engana muito quem acha que como vai apenas editar o vídeo esses processos não importam. Edição de vídeo não faz milagres então previnir que erros simples ocorram durante a gravação vai ajudar muito durante a edição.
+Estes microprocessos e microdecisões começam desde a filmagem e se engana muito quem acha que como vai apenas editar o vídeo esses processos não importam. Edição de vídeo não faz milagres então previnir que erros simples quem ocorram durante a gravação vai ajudar muito durante a edição.
 
 Evite ao máximo a frase: *conserta na edição...*
 
@@ -84,7 +84,7 @@ E lembre-se: *cortinas e tecidos ajudam a acabar com o eco!*
 
 > Este ponto sobre a qualidade do áudio pode ser apresentado aos alunos ao se gravar um vídeo simples na recepção para ver como fica o áudio a diferentes distâncias.
 
-## A função do Áudio
+### A função do Áudio
 Nem sempre teremos vídeos com alguém falando, algumas vezes vamos querer gravar um vídeo de uma Gameplay ou apenas para mostrar algo legal e para dar uma melhorada podemos colocar um som de fundo.
 
 Não apenas é possível como já é praticado há muito tempo, mas atenção pois apesar de podermos colocar o áudio que quisermos devemos lembrar qual a função dele neste caso: incrementar o vídeo.
@@ -102,4 +102,12 @@ Qual destas música você escolheria como música de fundo para incrementar o v�
 
 Nesse caso a escolha que mais incrementaria o contexto da cena, sem cortes, seria *Celtic Battle*, pois ela combina mais com o contexto, mas é claro que caso você prefira *In then end* você pode colocar, tudo sobre vídeo acaba sendo escolha artística.
 
+## Roteiro
 
+No caso de você mesmo ser o responsável pela gravação e edição do seu vídeo é importante que saiba que não basta querer gravar, é precisar saber sobre o que quer gravar e o que vai acontecer durante a gravação.
+
+Este planejamento é o que chamamos de roteiro e todo YouTuber/TikToker faz isso para que o material e o tempo gasto na produção do material não seja perdido.
+
+Então estude o conteúdo que quer gravar, seja carismático durante a gravação para que as pessoas queiram ver o que você está fazendo.
+
+Na próxima aula estaremos gravando o material que iremos editar então é importante que cada um estude em casa sobre o jogo que mais gosta pois o tema será **qual o seu jogo favorito**.
