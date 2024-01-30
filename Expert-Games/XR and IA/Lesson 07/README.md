@@ -19,6 +19,8 @@ Mas como isso é feito no script? Na verdade é muito fácil e são necessárias
 
 A função **OnPointerEnter()** é executada toda vez que um objeto é olhado diretamente na câmera e o **OnPointerExit()** é quando desviamos o olhar, basta o objeto possuir um collider. Muito simples! Com isso podemos montar diversas mecânicas, como a próxima que faremos agora: teleportes para o Player mudar de posição!
 
+> Para isto funcionar lembre-se de que o objeto com o colisor deve estar na mesma Layer que a propriedade Cardboard Reticle Pointer do player (fica no objeto Player > Camera > CardboardReticlePointer)
+
 Vamos replicar aqui a mesma mecânica do objeto que muda de cor na cena HelloCardboard e, após encarar esse objeto por um tempo, mudaremos de posição. Coloque na cena alguns cubos que serão os pontos de teleporte e vamos criar um script para eles:
 
 ![003](Screenshots/003.png)
