@@ -54,16 +54,15 @@ No index.js começamos importando os pacotes React e do React DOM para fazer o u
 O contentor indica o elemento que vai ser utilizado para colocar os componentes do React e a origem faz a renderização dos componentes na página.
 
 ```jsx
+/* index.jsx */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import Inicio from './Inicio';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Inicio />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const contentor = document.getElementById('root');
+const origem = createRoot(contentor);
+
+origem.render( <Inicio />);
 ```
 
 Nesse projeto vamos precisar criar um componente chamado Inicio.jsx para ser a página principal da aplicação. Diferente do projeto que fizemos anteriormente, esse não vai precisar do React Router DOM, porque vamos usar apenas uma página.
