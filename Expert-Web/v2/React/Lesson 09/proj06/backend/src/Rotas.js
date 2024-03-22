@@ -3,7 +3,6 @@ import { produto } from "./database/Produto.js"
 
 const rotas = express.Router()
 
-
 rotas.get("/produtos", async function(requisicao, resposta) {
   try {
     const resultados = await produto.find()

@@ -3,8 +3,6 @@
 ### Pré-aula
 * Este material foi preparado em 13 de abril de 2023, então a versão utilizada foi a 3.5.2 LTS pois a Franquia ainda não atualizou o conteúdo do portal pra a versão 4.0.2 Lastest.
 
-* Esta primeira aula está sendo preparada tendo em vista que o conteúdo do portal será passado para casa como atividade de casa então não serão utilizados Sprites, entretanto eles ainda serão adicionados ao final da aula como ponto de partida para os alunos verem o que tem no portal.
-
 ## Criando o Projeto
 > **OBS**:\
 > O Godot é composto por duas telas:
@@ -14,47 +12,34 @@
 > Ambas as janelas precisam estar funcionando para a Godot se manter funcionando. Caso uma delas feche ambas as telas irão fechar.\
 > Caso a janela do *Prompt* não abra não há problema, o problema acontece de ela ser fechada depois de aberta pois isto irá fechar a Godot junto.
 
-
-Para criar um projeto clique no botão **New Project** no lado direito da tela e uma nova janela irá aparecer
-
-
-![001](Screenshots/001.png "001")
-
-
-Cuidado onde irá salvar o projeto para não esquecer, então recomendo que salve em **Documents/Godot/Projects**, caso este caminho não exista então basta criar.
-
-
-Quanto ao nome do projeto dê preferência siga um padrão para a aula: **[Dia da Semana] [Hora da aula] [Nome do aluno Aluno]** como no exemplo: **Sexta 14h Davi**
-
-
 ### Entendendo a interface
 Ao entrar na Godot será recebido pela seguinte interface:
 
-
-![001](Screenshots/002.png)
-
+![002](Screenshots/002.png)
 
 Vamos entender cada parte antes de sair fazendo as coisas.
 
-
+- **Região Central**
+  - Nessa parte você vai ver como seu cenário está ficando e ajustar os elementos que fazem parte dele. O retângulo azul representa o tamanho da câmera no jogo.
+  - ![001](Screenshots/001.png)
 - **Scene**
-  - Nessa parte da tela estarão dispostos todos os objetos da cena, como inimigos, plataformas, player, entre outros. Cenas são as telas do jogo (Menu, Game, Lose, etc.). 
+  - Nessa parte da tela estarão dispostos todos os elementos que fazem parte do cenário porém aqui eles são mostrados no formato de uma lista. É aqui também onde vamos para adicionar novos elementos no cenário.
     - ![003](Screenshots/003.png)
 - **FileSystem**
   - Nessa parte ficarão todos os arquivos importados para o projeto (Imagens, Sons, Vídeos, entre outros). 
     - ![004](Screenshots/004.png)
 - **Inspector**
-  - Nele é possível configurar qualquer objeto que estiver selecionado na Viewport. Por exemplo: tamanho, posição na tela, cor, entre outros (veremos um pouco mais sobre isso a seguir). 
+  - Nele é possível configurar qualquer objeto que estiver selecionado a aba **Scene**. Podemos mudar posição, rotação, cor e qualquer outra configuração que o elemento tenha. 
     - ![005](Screenshots/005.png)
 
 ## Criando um personagem
-Antes de termos um personagem precisamos criar uma *cena* para que o nosso personagem possa existir. Então vamos simplesmente na aba **Scene** e clicar em **2D Scene**
+Antes de termos um personagem precisamos criar um *cenário* para que o nosso personagem possa Se mover por ele. Então vamos simplesmente na aba **Scene** e clicar em **2D Scene**
 
 ![006](Screenshots/006.gif)
 
-Para criar um personagem é preciso entender primeiro que cada objeto na Godot tem um função específica e que para termos elementos mais complexos temos que ir incrementando o nosso objeto com mais objetos que fazem outras coisas. Dessa forma eles vão se complementando.
+Para criar um personagem é preciso entender primeiro que cada elemento na Godot tem um função específica e que para termos elementos que fazem muitas coisas nós precisamos ir juntando os elementos um no outro.
 
-Para o nosso personagem precisamos de um objeto que possa se movimentar na tela e ele se chama **KinematicBody2D**, então vamos clicar com o botão direito no objeto **Node2D** que está na aba **Scene** e escolher a opção **Add Child Node**
+Para o nosso personagem precisamos de um elemento que possa se movimentar na tela e ele se chama **KinematicBody2D**, então vamos clicar com o botão direito no objeto **Node2D** que está na aba **Scene** e escolher a opção **Add Child Node**
 
 ![007](Screenshots/007.png)
 
@@ -66,16 +51,19 @@ Use a caixa de pesquisa na parte superor para pesquisar por **KinematicBody2D**,
 
 ![009](Screenshots/009.png)
 
-É importante dar nomes aos nossos objetos pois por padrão a Godot dá aos objetos o mesmo nome de seu tipo e isso nem sempre ajuda quando estamos desenvolvendo algo... vamos renomear o **KinematicBody2D** para **Player**
+É importante dar nomes aos nossos elementos pois por padrão a Godot dá aos objetos o mesmo nome de seu tipo e isso nem sempre ajuda quando estamos desenvolvendo algo... vamos renomear o **KinematicBody2D** para **Player**.
 
-Entretanto como foi dito anteriormente cada objeto faz algo específico na Godot, poranto o objeto que colocamos agora apenas pode se movimentar, precisamos de um objeto que mostre algo na tela.
+> Lembre-se que o nome é dado de acordo com o papel que o elemento vai desempenhar no jogo então se o seu Player vai se chamar "Jorginho" então o nome dele ainda será Player pois o Jorginho é um Player e Jorginho é apenas uma característica desse Player, não o papel dele.
 
-Para isso vamos usar o objeto **ColorRect** ele é apenas um quadrado colorido na tela, mas servirá para vermos onde está o personagem.
+Entretanto como foi dito anteriormente cada elemento faz algo específico na Godot, poranto o elemento que colocamos agora apenas pode se movimentar, precisamos de um elemento que mostre algo na tela.
 
-> Antes que surjam reclamações o nosso projeto não será sobre as aventuras de um quadrado branco lutando contra outros polígonos
-> Isto está sendo feito apenas nesta aula por motivos didáticos
+Para isso vamos usar o elemento **Sprite** ele é capaz de mostrar imagens na tela
 
-Então clique com o botão direito no **Player** e escolha novamente **Add Child Node**, mas desta vez pesquise pelo **ColorRect**.
+Então clique com o botão direito no **Player** e escolha novamente **Add Child Node**, mas desta vez pesquise pelo **Sprite**.
+
+Agora precisamos adicionar o sprite ao nosso elemento **Sprite** e para isto vamos até os nossos arquivos abrir a pasta ***Sprites*** e lá encontraremos o arquivo **Character_Idle1.png** como na imagem abaixo (para abrir pastas basta dar um click duplo na pasta):
+
+
 
 O resultado será algo parecido como o da imagem abaixo:
 
