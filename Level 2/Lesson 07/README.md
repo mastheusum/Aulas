@@ -33,7 +33,7 @@ Vamos entender cada parte antes de sair fazendo as coisas.
     - ![005](Screenshots/005.png)
 
 ## Criando um personagem
-Antes de termos um personagem precisamos criar um *cenário* para que o nosso personagem possa Se mover por ele. Então vamos simplesmente na aba **Scene** e clicar em **2D Scene**
+Antes de termos um personagem precisamos criar um *cenário* para que o nosso personagem possa Se mover por ele. Então vamos simplesmente na aba **Scene** e clicar em **2D Scene**. Teremos então um **Node2D**
 
 ![006](Screenshots/006.gif)
 
@@ -61,17 +61,54 @@ Para isso vamos usar o elemento **Sprite** ele é capaz de mostrar imagens na te
 
 Então clique com o botão direito no **Player** e escolha novamente **Add Child Node**, mas desta vez pesquise pelo **Sprite**.
 
-Agora precisamos adicionar o sprite ao nosso elemento **Sprite** e para isto vamos até os nossos arquivos abrir a pasta ***Sprites*** e lá encontraremos o arquivo **Character_Idle1.png** como na imagem abaixo (para abrir pastas basta dar um click duplo na pasta):
-
-
-
 O resultado será algo parecido como o da imagem abaixo:
 
 ![010](Screenshots/010.png)
 
+Agora precisamos adicionar uma imagem/sprite ao nosso elemento **Sprite** e para isto vamos até os nossos arquivos abrir a pasta ***Sprites*** e lá encontraremos o arquivo **Character_Idle1.png** como na imagem abaixo (para abrir pastas basta dar um click duplo na pasta):
+
+![010-2](Screenshots/010-2.png)
+
+Quando encontrar a imagem selecione o elemento **Sprite** na nossa lista de elementos (aba Scene) e no Inspecto você verá o seguinte:
+
+![010-3](Screenshots/010-3.png)
+
+O campo **Texture** está vazio e por isto não temos uma imagem aparecendo na tela. Então arras a imagem que encontramos nos nossos arquivos e então arraste até o campo Texture. Tome cuidado para não soltar a imagem no meio do cenário ou teremos que lidar com 2 Sprites e vai ser trabalhoso corrigir isso depois.
+
+Se você fez certo o resultado é o seguinte (sim a imagem é pequena, mas podemos corrigir isto logo logo):
+
+![010-4](Screenshots/010-4.png)
+
+Para aumentar o tamanho da imagem precisamos multiplicar o tamanho dela e isto é feito na propriedade **Transform Scale**.
+
+1. Selecione o Sprite
+2. Localize a propriedade Transform e abra-a para ver o que tem dentro dela
+3. Localize a propriedade Scale
+4. Aumento os valores X e Y para números maiores que 1 
+   1. Caso não tenham o mesmo valor a imagem ficará distorcida, então escolha com cuidado
+Antes:
+
+![010-7](Screenshots/010-7.png)
+
+Depois
+
+![010-8](Screenshots/010-8.png)
+
+Vamos colocar o personagem no meio da cena. Para isso precisamos fazer com que os elementos que estão presos no Player não possam ser selecionados através do cenário. Isto é feito ao selecionar o Player na nossa lista marcar uma opção chamada **Group Selected Nodes**
+
+![010-5](Screenshots/010-5.png)
+
+E o resultado é:
+
+![010-6](Screenshots/010-6.png)
+
+Agora é só arrastar o Player para o meio do cenário:
+
+![010-9](Screenshots/010-9.gif)
+
 ## Rodando o jogo
 
-Para que o nosso jogo rode temos várias opções, mas indepente de qual vamos escolher precisamos primeiro salvar a cena, então utilize o atalho **Ctrl + S** para salvar e dê o nome de **World** para a cena.
+Para que o nosso jogo rode temos várias opções, mas indepente de qual vamos escolher precisamos primeiro salvar a cena, então utilize o atalho **Ctrl + S** para salvar e dê o nome de **World** ou **Mundo** para o arquivo e salve na pasta **Scenes**
 
 Após salvar a cena as nossas opções são:
 
@@ -80,20 +117,24 @@ Após salvar a cena as nossas opções são:
   
 Escolha qualquer uma delas e então veja o estado atual.
 
-
-Não é muita coisa, temos um quadrado branco que faz... nada...
+Não é muita coisa, temos um personagem pequeno que faz... nada...
 
 É meio decepcionante, mas faz sentido afinal não programamos nada no jogo ainda. Estranho seria ele fazer coisas sem programação!
 
 ## Programando nosso Personagem
-Para programarmos o personagem vamos selecionar o **Player**, clicar com o botão direito e escolher a opção **Attach Script**
+Para programarmos o Player vamos precisar adicionar um script ao Player. Já temos um pronto na pasta Scripts chamado **PlayerCode.gd** então apenas arraste ele até o Player na nossa lista.
 
-![011](Screenshots/011.png)
+![011](Screenshots/011.gif)
 
-> Para os preguiçosos podemos apenas clicar no pergaminho no topo da aba **Scene**:\
+> Para criar um novo Script podemos selecionar o Player e clicar no pergaminha na aba **Scene**:\
 > ![012](Screenshots/012.gif)
+> Aparecerá uma telinha para fazer as configurações do script: onde ele será salvo, que tipo terá, entre outras configurações. Clique em Create para criar o Script.
 
-Aparecerá uma telinha para fazer as configurações do script: onde ele será salvo, que tipo terá, entre outras configurações. Clique em Create para criar o Script.
+Após isto vamos até a área de programação da Godot clicando neste botão para vermos o código do nosso Script
+
+![011-00](Screenshots/011-00.png)
+
+Veremos a seguinte tela
 
 ![013](Screenshots/013.png)
 
@@ -111,29 +152,33 @@ A movimentação do personagem será feita dentro da função Process, pois, com
 
 > **Informações importantes sobre GDScript**
 > 
-> Assim como no *Python*, a linguagem *GDScript* é baseada na indentação, ou seja, para que uma linha de código esteja dentro de um método, por exemplo, é necessário que a mesma esteja indentada ao método, como no exemplo a seguir: 
+> Assim como no *Python*, a linguagem *GDScript* usa indentação, ou seja, para que uma linha de código esteja dentro de uma função, por exemplo, é necessário que a mesma esteja indentada na função, como no exemplo a seguir: 
+> ![011-01](Screenshots/011-01.png)
 
-Para movimentar o personagem precisaremos utilizar um função chamada **move_and_collide** dentro da **_process**. Ela precisa de um parâmetro para funcionar que é o vetor velocidade, mas para simplificar o código vamos dividir este vetor em vetor direção e velocidade.
+Para movimentar o personagem iremos utlizar o comando **move_and_slide**, porém este comando deve ser utilizado dentro de uma certa função ou então ele não irá funcionar e essa função é a **_physics_process(delta)**.
+
+Comecemos apagando todo o código que estiver abaixo da linha 2 e vamos começar
+
+![015](Screenshots/015.png)
+
+Então colocamos a função **_physics_process(delta)** e dentro dela o **move_and_slide** que para funcionar necessita de um vetor para indicar sua velocidade:
+
+![016](Screenshots/016.png)
 
 > *O que é vetor?*
-> Vetor é uma forma matemática de indicar a direção do movimento. Como estamos fazendo um jogo 2D utilizaremos um Vetor com duas dimensões X e Y\
-> X vai indicar a direção do nosso movimento no eixo X que é o Horizontal:
+> Vetor é uma forma matemática de indicar a direção do movimento. Como estamos fazendo um jogo 2D utilizaremos um Vetor com duas dimensões X e Y
+> X indica a direção do nosso movimento Horizontal:
 > > X = 0 ficamos parados nesse eixo\
 > > X = 1 vamos para o lado poitivo do eixo (direita)\
 > > X = -1 vamos para o lado negativo do eixo (esquerda)\
 > 
-> A mesma ideia se aplica ao Y porém ele diz respeito ao eixo Vertical
+> Y indica a direção do nosso movimento Vertical
 > > Y = 0 ficamos parados nesse eixo\
 > > Y = 1 vamos para o lado poitivo do eixo (baixo)\
 > > Y = -1 vamos para o lado negativo do eixo (cima)
 > 
 
-Sabendo o que é um vetor vamos fazer a movimentação do personagem para a direita:
-
-```lua
-func _process(delta):
-  move_and_collide( Vector2(1, 0) )
-```
+**LEMBRE DE USAR O AUTO COMPLETAR!**
 
 > **Autocomplete**\
 > Você deve ter percebido que, na hora que começou a digitar, aparecem sugestões para completar o que você está digitando. \
@@ -144,15 +189,21 @@ func _process(delta):
 Teste o jogo agora e veja o resultado!
 
 **Desafio: tente fazer o personagem andar:**
-1. Para esquerda
-2. Para baixo
-3. Para cima
-4. na diagonal (qualquer uma)
-5. mais rápido para a direita
+1. mais rápido para a direita
+2. Para esquerda
+3. Para baixo
+4. Para cima
+5. na diagonal (qualquer uma)
+
+Como deixar o personagem mais rápido:
+
+![017](Screenshots/017.png)
 
 ## Controlando o personagem
 
-Atualmente, se você prestou bem atenção, o player se move sozinho, mas esse não é o intuito de um jogo, pois é mais legal o jogador controlar o personagem. Para fazer isso, você irá aprender agora o conceito de input.
+Atualmente, se você prestou bem atenção, o player se move sozinho, mas esse não é o objetivo do jogo, o jogador deve controlar o personagem. Para fazer isso vamos utilizar o comando **Input**, mas primeiro vamos melhorar o nosso script adicionando variáveis
+
+![018](Screenshots/018.png)
 
 Inputs são as entradas de dados no seu computador. Quando você aperta uma tecla do teclado, ou o clique do mouse, ou o botão do seu joystick, por exemplo, você está enviando um input para o seu computador, para que ele verifique qual tecla foi apertada.
 
@@ -166,13 +217,9 @@ Para verificar uma condição no computador, ou, no seu caso, verificar uma tecl
 - Se a tecla espaço for pressionada: 
   - O personagem pula. 
 
-No script do player será feito um ajuste dentro do método Process, onde primeiro será verificado se uma tecla foi pressionada (no caso, a seta para a direita) para que o personagem possa se movimentar. O comando para verificar se uma tecla está sendo pressionada está contido dentro do grupo Input. 
+No script do player será feito um ajuste dentro do método Process, onde primeiro será verificado se uma tecla foi pressionada (no caso, a seta para a direita) para que o personagem possa se movimentar. O código para verificar se uma tecla está sendo pressionada está contido dentro do  Input. 
 
-```lua
-func _process(delta):
-  if Input.is_key_pressed(KEY_RIGHT):
-    move_and_collide( Vector2(1, 0) )
-```
+![019](Screenshots/019.png)
 
 Teste e verifique se o personagem anda para a direita.
 
@@ -180,134 +227,8 @@ Agora que o código funciona fica o desafio: faça os controles para as outras d
 
 Agora que terminou seu código deve estar semelhante ao código abaixo:
 
-```lua
-func _process(delta):
-  if Input.is_key_pressed(KEY_RIGHT):
-    move_and_collide( Vector2(1, 0) )
+![020](Screenshots/020.png)
 
-  if Input.is_key_pressed(KEY_LEFT):
-    move_and_collide( Vector2(-1, 0) )
+A boa notícia é que ele funciona a má é que ele não funciona bem, mas se utilizar o ELIF e o ELSE teremos um resultado muito melhor
 
-  if Input.is_key_pressed(KEY_DOWN):
-    move_and_collide( Vector2(0, 1) )
-
-  if Input.is_key_pressed(KEY_UP):
-    move_and_collide( Vector2(0, -1) )
-```
-
-A boa notícia é que ele funciona a má é que ele não é muito eficiente, pois mesmo que tenhamos escolhido o movimento para a direita o nosso código ainda vai tentar andar para todas as outras...
-
-Vamos otimizar o código para que fique mais leve para o computador executar. Essa otimização pode ser feita através da construção de métodos, variáveis ou escrevendo de uma maneira mais "inteligente" o código.
-
-Por exemplo: imagine que você está em uma sala vazia, encostado na parede, e no outro canto da sala está um objeto que você precisa pegar. Qual seria a forma mais rápida de se fazer isso?
-
-1. Ir reto em direção ao objeto e pegá-lo. 
-2. Ficar andando em círculos e depois ir pegar o objeto. 
-
-Provavelmente você escolheu a primeira opção. Otimizar o código é a mesma coisa, buscando sempre ir direto ao objetivo, sem muitos rodeios, ajudando o programador a encontrar erros mais facilmente e rodar o código com mais eficiência. 
-
-Para melhorar o código podemos fazer algumas coisas:
-- utilizar apenas um vetor para direção e com os IF's mudar o seu valor
-- utilizar apenas um **move_and_collide**
-- Utilizar os comandos ELIF e ELSE
-- utilizar uma veriável para guardar a velocidade do personagem
-
-Vamos aplicar todas elas:
-
-Comecemos criando uma variável para a direção antes da função **_process**
-```lua
-var direction = Vector2()
-```
-
-Agora vamos modificar os IF's para que apenas alterem a direção e utilizaremos apenas um **move_and_collide**
-
-```lua
-var direction = Vector2()
-
-func _process(delta):
-  if Input.is_key_pressed(KEY_RIGHT):
-    direction.x = 1
-
-  if Input.is_key_pressed(KEY_LEFT):
-    direction.x = -1
-
-  if Input.is_key_pressed(KEY_DOWN):
-    direction.y = 1
-
-  if Input.is_key_pressed(KEY_UP):
-    direction.y = -1
-  
-  move_and_collide( direction )
-```
-
-Agora vamos utilizar o ELIF e o ELSE
-
-```lua
-var direction = Vector2()
-
-func _process(delta):
-  if Input.is_key_pressed(KEY_RIGHT):
-    direction.x = 1
-  elif Input.is_key_pressed(KEY_LEFT):
-    direction.x = -1
-  else:
-    direction.x = 0
-
-  if Input.is_key_pressed(KEY_DOWN):
-    direction.y = 1
-  elif Input.is_key_pressed(KEY_UP):
-    direction.y = -1
-  else:
-    direction.y = 0
-  
-  move_and_collide( direction )
-```
-
-Por fim vamos guardar nossa velocidade em uma variável:
-
-```lua
-var direction = Vector2()
-var speed = 5
-
-func _process(delta):
-  if Input.is_key_pressed(KEY_RIGHT):
-    direction.x = 1
-  elif Input.is_key_pressed(KEY_LEFT):
-    direction.x = -1
-  else:
-    direction.x = 0
-
-  if Input.is_key_pressed(KEY_DOWN):
-    direction.y = 1
-  elif Input.is_key_pressed(KEY_UP):
-    direction.y = -1
-  else:
-    direction.y = 0
-  
-  move_and_collide( direction * speed )
-```
-
->Antes de terminar vamos adicionar um personagem para que vocês tenham uma dose do que verá em casa:
->
-> Comece procurando no computador pelo persoangem que usaremos (deve estar em Documentos ou Downloads ou Imagens), é a imagem de um personagem parado. Basta arrastar esta imagem pra o **File System** da Godot e então o personagem estará importado.
-
-Façam as atividades para casa e escolham suas missões!
-
----
-## Atividade de casa
-Para casa os alunos devem fazer a aula do portal. O conteúdo é bem parecido, mas lá será usado um personagem ao invés de uma mero quadrado branco.
-
----
-## Missões
-As missões são por dificuldade e quem concluir as missões corretamente até a próxima aula irá receber bônus
-* [1] Qual a diferença entre **_process** e **_physics_process**
-* [1] Qual a diferença entre **move_and_collide** e **move_and_slide**
-* [1] O que é um **Sprite**
-* [1] O que é um **AnimatedSprite**
-* [2] O que é um **CollisionShape2D**
-* [2] Qual comando uso para pegar a posição do mouse na tela?
-* [2] O que é o **delta**?
-* [3] O que é **input_map**?
-* [4] Como mudar o tamanho/formato da tela do jogo?
-
-
+![021](Screenshots/021.png)

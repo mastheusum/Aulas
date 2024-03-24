@@ -1,16 +1,21 @@
 extends KinematicBody2D
 
+var dir = Vector2()
+var speed = 200
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+func _physics_process(delta):
+	if Input.is_key_pressed(KEY_RIGHT):
+		dir.x = 1
+	elif Input.is_key_pressed(KEY_LEFT):
+		dir.x = -1
+	else:
+		dir.x = 0
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	if Input.is_key_pressed(KEY_DOWN):
+		dir.y = 1
+	elif Input.is_key_pressed(KEY_UP):
+		dir.y = -1
+	else:
+		dir.y = 0
+		
+	move_and_slide( dir * speed )
