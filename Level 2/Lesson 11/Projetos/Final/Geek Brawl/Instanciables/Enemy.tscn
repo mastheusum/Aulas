@@ -1,0 +1,50 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Scripts/EnemyCode.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Enemy/Move/Enemy_Move4.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Enemy/Move/Enemy_Move5.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Enemy/Move/Enemy_Move6.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Enemy/Move/Enemy_Move2.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Enemy/Move/Enemy_Move1.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Enemy/Move/Enemy_Move3.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Enemy/Death/Enemy_Death2.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Enemy/Death/Enemy_Death4.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Enemy/Death/Enemy_Death1.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Enemy/Death/Enemy_Death5.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Enemy/Death/Enemy_Death3.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/Enemy/Death/Enemy_Death6.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/Enemy/Death/Enemy_Death7.png" type="Texture" id=14]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 8 ), ExtResource( 12 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": false,
+"name": "death",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "move",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 32.0
+
+[node name="Enemy" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 4, 4 )
+frames = SubResource( 1 )
+animation = "move"
+frame = 2
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 32 )
+shape = SubResource( 2 )
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
