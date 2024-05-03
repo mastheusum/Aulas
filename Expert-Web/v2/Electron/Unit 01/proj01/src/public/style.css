@@ -1,0 +1,22 @@
+* {
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  color: #222;
+  margin: 32px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 32pt;
+  font-weight: bold;
+}
+
+button {
+  background: #e93a3a;
+  border: none;
+  color: #fff;
+  margin: 16px 0;
+  padding: 12px 42px;
+}

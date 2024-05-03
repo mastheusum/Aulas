@@ -9,7 +9,7 @@ extends KinematicBody2D
 
 var dir = Vector2()
 var speed = 150
-var player
+var player : KinematicBody2D
 
 func _physics_process(delta):
 	dir = self.global_position.direction_to(player.global_position)
